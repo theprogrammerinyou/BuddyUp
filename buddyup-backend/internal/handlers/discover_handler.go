@@ -17,13 +17,14 @@ func NewDiscoverHandler(userRepo *repository.UserRepo) *DiscoverHandler {
 	return &DiscoverHandler{userRepo: userRepo}
 }
 
-// GET /api/v1/discover?latitude=xx&longitude=xx&radius_km=xx
+// GET /api/v1/discover?latitude=xx&longitude=xx&radius_km=xx&activity_type=xx
 func (h *DiscoverHandler) Discover(c *gin.Context) {
 	userID := c.GetString("user_id")
 
 	lat, _ := strconv.ParseFloat(c.Query("latitude"), 64)
 	lng, _ := strconv.ParseFloat(c.Query("longitude"), 64)
 	radius, _ := strconv.ParseFloat(c.Query("radius_km"), 64)
+	activityType := c.Query("activity_type")
 	if radius == 0 {
 		radius = 50
 	}
@@ -40,7 +41,7 @@ func (h *DiscoverHandler) Discover(c *gin.Context) {
 		}
 	}
 
-	users, err := h.userRepo.Discover(c.Request.Context(), userID, lat, lng, radius)
+	users, err := h.userRepo.Discover(c.Request.Context(), userID, lat, lng, radius, activityType)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

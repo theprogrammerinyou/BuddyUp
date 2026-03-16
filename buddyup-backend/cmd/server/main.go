@@ -42,6 +42,10 @@ func main() {
 	likeRepo := repository.NewLikeRepo(pool)
 	chatRepo := repository.NewChatRepo(pool)
 	passRepo := repository.NewPassRepo(pool)
+	groupRepo := repository.NewGroupRepo(pool)
+	postRepo := repository.NewPostRepo(pool)
+	eventRepo := repository.NewEventRepo(pool)
+	socialRepo := repository.NewSocialRepo(pool)
 
 	// Push notifications client (shared by hub and like handler)
 	pushClient := expo.NewPushClient(nil)
@@ -57,6 +61,10 @@ func main() {
 	charH := handlers.NewCharacterHandler(charRepo)
 	passH := handlers.NewPassHandler(passRepo)
 	userH := handlers.NewUserHandler(userRepo)
+	groupH := handlers.NewGroupHandler(groupRepo)
+	postH := handlers.NewPostHandler(postRepo)
+	eventH := handlers.NewEventHandler(eventRepo)
+	socialH := handlers.NewSocialHandler(socialRepo, userRepo)
 
 	r := gin.New()
 	r.Use(gin.Logger())
@@ -112,6 +120,47 @@ func main() {
 			protected.GET("/users/:id", userH.GetProfile)
 
 			protected.GET("/chats/:matchId", chatH.GetHistory)
+
+			// Groups
+			protected.POST("/groups", groupH.CreateGroup)
+			protected.GET("/groups", groupH.ListGroups)
+			protected.GET("/groups/:id", groupH.GetGroup)
+			protected.PUT("/groups/:id", groupH.UpdateGroup)
+			protected.DELETE("/groups/:id", groupH.DeleteGroup)
+			protected.POST("/groups/:id/join", groupH.JoinGroup)
+			protected.POST("/groups/:id/leave", groupH.LeaveGroup)
+			protected.GET("/groups/:id/members", groupH.GetGroupMembers)
+			protected.GET("/me/groups", groupH.GetMyGroups)
+
+			// Posts (Bulletin Board)
+			protected.POST("/posts", postH.CreatePost)
+			protected.GET("/posts", postH.ListPosts)
+			protected.GET("/posts/:id", postH.GetPost)
+			protected.DELETE("/posts/:id", postH.DeletePost)
+			protected.POST("/posts/:id/respond", postH.RespondToPost)
+			protected.GET("/posts/:id/responses", postH.GetPostResponses)
+			protected.GET("/me/posts", postH.GetMyPosts)
+
+			// Events
+			protected.POST("/events", eventH.CreateEvent)
+			protected.GET("/events", eventH.ListEvents)
+			protected.GET("/events/:id", eventH.GetEvent)
+			protected.DELETE("/events/:id", eventH.DeleteEvent)
+			protected.POST("/events/:id/rsvp", eventH.RSVPEvent)
+			protected.GET("/events/:id/rsvps", eventH.GetRSVPs)
+			protected.GET("/me/events", eventH.GetMyEvents)
+
+			// Social
+			protected.POST("/users/:id/block", socialH.BlockUser)
+			protected.DELETE("/users/:id/block", socialH.UnblockUser)
+			protected.GET("/me/blocked", socialH.GetBlockedUsers)
+			protected.POST("/users/:id/report", socialH.ReportUser)
+			protected.POST("/super-connects", socialH.SendSuperConnect)
+			protected.GET("/me/super-connects", socialH.GetSuperConnectsReceived)
+			protected.PUT("/me/ghost-mode", socialH.SetGhostMode)
+			protected.PUT("/me/vibe-tags", socialH.SetVibeTags)
+			protected.PUT("/me/travel-mode", socialH.SetTravelMode)
+			protected.DELETE("/me/travel-mode", socialH.ClearTravelMode)
 		}
 	}
 

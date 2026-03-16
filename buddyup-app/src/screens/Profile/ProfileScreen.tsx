@@ -7,17 +7,21 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert,
 } from "react-native";
 import { LinearGradient } from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { Ionicons } from "@expo/vector-icons";
 import { authStore } from "@/stores/authStore";
+import { socialStore } from "@/stores/SocialStore";
 import { colors, spacing, radii, fontSizes, INTEREST_COLORS } from "@/theme";
 
 export default observer(function ProfileScreen({ navigation }: any) {
   const user = authStore.user;
   if (!user) return null;
+
+  const handleSettings = () => {
+    navigation.navigate("Settings");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,15 +30,17 @@ export default observer(function ProfileScreen({ navigation }: any) {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Profile</Text>
-          <TouchableOpacity
-            onPress={() => Alert.alert("Log out?", "", [
-              { text: "Cancel", style: "cancel" },
-              { text: "Log out", style: "destructive", onPress: () => authStore.logout() },
-            ])}
-          >
-            <Ionicons name="log-out-outline" size={24} color={colors.error} />
+          <TouchableOpacity onPress={handleSettings}>
+            <Ionicons name="settings-outline" size={24} color={colors.textMuted} />
           </TouchableOpacity>
         </View>
+
+        {/* Travel Mode Banner */}
+        {socialStore.isTravelModeActive && (
+          <View style={styles.travelBanner}>
+            <Text style={styles.travelBannerText}>🌍 Travel Mode Active</Text>
+          </View>
+        )}
 
         {/* Avatar */}
         <View style={styles.avatarSection}>
@@ -62,6 +68,14 @@ export default observer(function ProfileScreen({ navigation }: any) {
           )}
         </View>
 
+        {/* Stats Row */}
+        <View style={styles.statsRow}>
+          <View style={styles.stat}>
+            <Text style={styles.statValue}>{5 - socialStore.dailySuperConnectsSent}</Text>
+            <Text style={styles.statLabel}>⚡ Today</Text>
+          </View>
+        </View>
+
         {/* Bio */}
         {user.bio ? (
           <View style={styles.card}>
@@ -84,6 +98,20 @@ export default observer(function ProfileScreen({ navigation }: any) {
             ))}
           </View>
         </View>
+
+        {/* Vibe Tags */}
+        {(user as any).vibe_tags?.length > 0 && (
+          <View style={styles.card}>
+            <Text style={styles.sectionTitle}>Vibe Tags</Text>
+            <View style={styles.chips}>
+              {((user as any).vibe_tags as string[]).map((tag) => (
+                <View key={tag} style={styles.vibeChip}>
+                  <Text style={styles.vibeChipText}>{tag}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
 
         {/* Location filter shortcut */}
         <TouchableOpacity
@@ -108,6 +136,8 @@ const styles = StyleSheet.create({
   inner: { padding: spacing.lg, paddingBottom: 40, gap: 20 },
   header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   title: { fontSize: fontSizes.xl, fontWeight: "900", color: colors.text },
+  travelBanner: { backgroundColor: colors.accent + "33", borderRadius: radii.lg, padding: spacing.md, alignItems: "center", borderWidth: 1, borderColor: colors.accent + "66" },
+  travelBannerText: { color: colors.accent, fontWeight: "700", fontSize: fontSizes.sm },
   avatarSection: { alignItems: "center", gap: 12 },
   avatarWrap: { position: "relative", width: 120, height: 120 },
   avatarRing: {
@@ -123,12 +153,18 @@ const styles = StyleSheet.create({
   name: { fontSize: fontSizes.xl, fontWeight: "900", color: colors.text },
   charBadge: { flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: colors.bgCard, paddingHorizontal: 14, paddingVertical: 6, borderRadius: radii.full },
   charText: { fontSize: 13, color: colors.warning, fontWeight: "700" },
+  statsRow: { flexDirection: "row", justifyContent: "center", gap: 32 },
+  stat: { alignItems: "center", gap: 2 },
+  statValue: { fontSize: fontSizes.lg, fontWeight: "900", color: colors.text },
+  statLabel: { fontSize: 11, color: colors.textMuted },
   card: { backgroundColor: colors.bgCard, borderRadius: radii.lg, padding: spacing.md, borderWidth: 1, borderColor: colors.border, gap: 12 },
   sectionTitle: { fontSize: fontSizes.sm, fontWeight: "700", color: colors.textSub, textTransform: "uppercase", letterSpacing: 1 },
   bio: { fontSize: fontSizes.md, color: colors.text, lineHeight: 24 },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   chip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: radii.full },
   chipText: { color: "#fff", fontWeight: "700", fontSize: fontSizes.sm },
+  vibeChip: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: radii.full, backgroundColor: colors.primary + "33", borderWidth: 1, borderColor: colors.primary + "66" },
+  vibeChipText: { color: colors.primary, fontSize: fontSizes.sm, fontWeight: "700" },
   locationCard: {
     flexDirection: "row",
     alignItems: "center",

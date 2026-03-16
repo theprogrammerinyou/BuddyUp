@@ -78,4 +78,66 @@ export const apiService = {
   updateLocation: (payload: UpdateLocationPayload) => api.put("/location", payload),
   getCharacters: () => api.get("/characters"),
   getUserProfile: (userId: string) => api.get(`/users/${userId}`),
+
+  // Groups
+  createGroup: (data: object) => api.post("/groups", data),
+  listGroups: (params?: { activity_type?: string; limit?: number; offset?: number }) =>
+    api.get("/groups", { params }),
+  getGroup: (id: string) => api.get(`/groups/${id}`),
+  updateGroup: (id: string, data: object) => api.put(`/groups/${id}`, data),
+  deleteGroup: (id: string) => api.delete(`/groups/${id}`),
+  joinGroup: (id: string) => api.post(`/groups/${id}/join`),
+  leaveGroup: (id: string) => api.post(`/groups/${id}/leave`),
+  getGroupMembers: (id: string) => api.get(`/groups/${id}/members`),
+  getMyGroups: () => api.get("/me/groups"),
+
+  // Posts (Bulletin Board)
+  createPost: (data: object) => api.post("/posts", data),
+  listPosts: (params?: {
+    activity_type?: string;
+    latitude?: number;
+    longitude?: number;
+    radius_km?: number;
+    limit?: number;
+    offset?: number;
+  }) => api.get("/posts", { params }),
+  getPost: (id: string) => api.get(`/posts/${id}`),
+  deletePost: (id: string) => api.delete(`/posts/${id}`),
+  respondToPost: (id: string, message: string) =>
+    api.post(`/posts/${id}/respond`, { message }),
+  getPostResponses: (id: string) => api.get(`/posts/${id}/responses`),
+  getMyPosts: () => api.get("/me/posts"),
+
+  // Events
+  createEvent: (data: object) => api.post("/events", data),
+  listEvents: (params?: {
+    activity_type?: string;
+    latitude?: number;
+    longitude?: number;
+    radius_km?: number;
+    from_time?: string;
+    limit?: number;
+    offset?: number;
+  }) => api.get("/events", { params }),
+  getEvent: (id: string) => api.get(`/events/${id}`),
+  deleteEvent: (id: string) => api.delete(`/events/${id}`),
+  rsvpEvent: (id: string, status: string) => api.post(`/events/${id}/rsvp`, { status }),
+  getEventRSVPs: (id: string) => api.get(`/events/${id}/rsvps`),
+  getMyEvents: () => api.get("/me/events"),
+
+  // Social
+  blockUser: (id: string) => api.post(`/users/${id}/block`),
+  unblockUser: (id: string) => api.delete(`/users/${id}/block`),
+  getBlockedUsers: () => api.get("/me/blocked"),
+  reportUser: (id: string, reason: string, details?: string) =>
+    api.post(`/users/${id}/report`, { reason, details }),
+  sendSuperConnect: (receiverId: string, message?: string) =>
+    api.post("/super-connects", { receiver_id: receiverId, message }),
+  getSuperConnectsReceived: () => api.get("/me/super-connects"),
+  setGhostMode: (isDiscoverable: boolean) =>
+    api.put("/me/ghost-mode", { is_discoverable: isDiscoverable }),
+  setVibeTags: (tags: string[]) => api.put("/me/vibe-tags", { tags }),
+  setTravelMode: (latitude: number, longitude: number, expires_hours?: number) =>
+    api.put("/me/travel-mode", { latitude, longitude, expires_hours }),
+  clearTravelMode: () => api.delete("/me/travel-mode"),
 };

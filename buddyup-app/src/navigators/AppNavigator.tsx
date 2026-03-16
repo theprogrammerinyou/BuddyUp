@@ -22,6 +22,19 @@ import ChatScreen from "@/screens/Chat/ChatScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
 import LocationFilterScreen from "@/screens/Map/LocationFilterScreen";
 
+// Phase 2 screens
+import GroupsListScreen from "@/screens/Groups/GroupsListScreen";
+import GroupDetailScreen from "@/screens/Groups/GroupDetailScreen";
+import CreateGroupScreen from "@/screens/Groups/CreateGroupScreen";
+import BulletinBoardScreen from "@/screens/Bulletin/BulletinBoardScreen";
+import CreatePostScreen from "@/screens/Bulletin/CreatePostScreen";
+import EventsScreen from "@/screens/Events/EventsScreen";
+import EventDetailScreen from "@/screens/Events/EventDetailScreen";
+import CreateEventScreen from "@/screens/Events/CreateEventScreen";
+import SuperConnectsScreen from "@/screens/SuperConnect/SuperConnectsScreen";
+import SettingsScreen from "@/screens/Settings/SettingsScreen";
+import BlockedUsersScreen from "@/screens/Settings/BlockedUsersScreen";
+
 const _storage = new MMKV();
 const ONBOARDING_KEY = "onboarding_complete";
 
@@ -41,6 +54,9 @@ function isOnboardingComplete(): boolean {
 const AuthStack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
 const ChatStack = createNativeStackNavigator();
+const GroupStack = createNativeStackNavigator();
+const BulletinStack = createNativeStackNavigator();
+const EventStack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator();
 
 function AuthNavigator() {
@@ -72,6 +88,41 @@ function ChatNavigator() {
   );
 }
 
+function GroupsNavigator() {
+  return (
+    <GroupStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: colors.bgCard },
+        headerTintColor: colors.text,
+        headerShown: false,
+      }}
+    >
+      <GroupStack.Screen name="GroupsList" component={GroupsListScreen} />
+      <GroupStack.Screen name="GroupDetail" component={GroupDetailScreen} />
+      <GroupStack.Screen name="CreateGroup" component={CreateGroupScreen} />
+    </GroupStack.Navigator>
+  );
+}
+
+function BulletinNavigator() {
+  return (
+    <BulletinStack.Navigator screenOptions={{ headerShown: false }}>
+      <BulletinStack.Screen name="BulletinBoard" component={BulletinBoardScreen} />
+      <BulletinStack.Screen name="CreatePost" component={CreatePostScreen} />
+    </BulletinStack.Navigator>
+  );
+}
+
+function EventsNavigator() {
+  return (
+    <EventStack.Navigator screenOptions={{ headerShown: false }}>
+      <EventStack.Screen name="EventsList" component={EventsScreen} />
+      <EventStack.Screen name="EventDetail" component={EventDetailScreen} />
+      <EventStack.Screen name="CreateEvent" component={CreateEventScreen} />
+    </EventStack.Navigator>
+  );
+}
+
 function TabNavigator() {
   return (
     <MainTab.Navigator
@@ -84,22 +135,28 @@ function TabNavigator() {
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textMuted,
-        tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
+        tabBarLabelStyle: { fontSize: 10, fontWeight: "600" },
         headerShown: false,
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ focused, color }) => {
           const icons: Record<string, keyof typeof Ionicons.glyphMap> = {
             Discover: focused ? "flame" : "flame-outline",
             Likes: focused ? "heart" : "heart-outline",
             Messages: focused ? "chatbubbles" : "chatbubbles-outline",
+            Groups: focused ? "people" : "people-outline",
+            Bulletin: focused ? "clipboard" : "clipboard-outline",
+            Events: focused ? "calendar" : "calendar-outline",
             Profile: focused ? "person" : "person-outline",
           };
-          return <Ionicons name={icons[route.name] ?? "ellipse"} size={24} color={color} />;
+          return <Ionicons name={icons[route.name] ?? "ellipse"} size={22} color={color} />;
         },
       })}
     >
       <MainTab.Screen name="Discover" component={DiscoverScreen} />
       <MainTab.Screen name="Likes" component={LikesScreen} />
       <MainTab.Screen name="Messages" component={ChatNavigator} />
+      <MainTab.Screen name="Groups" component={GroupsNavigator} />
+      <MainTab.Screen name="Bulletin" component={BulletinNavigator} />
+      <MainTab.Screen name="Events" component={EventsNavigator} />
       <MainTab.Screen name="Profile" component={ProfileScreen} />
     </MainTab.Navigator>
   );
@@ -122,6 +179,20 @@ export const AppNavigator = observer(() => {
               name="LocationFilter"
               component={LocationFilterScreen}
               options={{ presentation: "modal" }}
+            />
+            <RootStack.Screen
+              name="SuperConnects"
+              component={SuperConnectsScreen}
+              options={{ presentation: "modal" }}
+            />
+            <RootStack.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{ presentation: "modal" }}
+            />
+            <RootStack.Screen
+              name="BlockedUsers"
+              component={BlockedUsersScreen}
             />
           </>
         )}
