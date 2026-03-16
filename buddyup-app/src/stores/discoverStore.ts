@@ -20,12 +20,15 @@ class DiscoverStore {
     makeAutoObservable(this);
   }
 
-  async fetchDiscover() {
+  async fetchDiscover(activityType?: string) {
     this.isLoading = true;
     try {
-      const params: Record<string, number> = {
+      const params: Record<string, number | string> = {
         radius_km: this.filterRadius,
       };
+      if (activityType) {
+        params.activity_type = activityType;
+      }
       if (this.filterLat != null && this.filterLng != null) {
         params.latitude = this.filterLat;
         params.longitude = this.filterLng;

@@ -13,18 +13,20 @@ type Character struct {
 }
 
 type User struct {
-	ID                UUID      `json:"id" db:"id"`
-	Email             string    `json:"email" db:"email"`
-	PasswordHash      string    `json:"-" db:"password_hash"`
-	DisplayName       string    `json:"display_name" db:"display_name"`
-	Bio               string    `json:"bio" db:"bio"`
-	AvatarCharacterID *int      `json:"avatar_character_id" db:"avatar_character_id"`
+	ID                UUID       `json:"id" db:"id"`
+	Email             string     `json:"email" db:"email"`
+	PasswordHash      string     `json:"-" db:"password_hash"`
+	DisplayName       string     `json:"display_name" db:"display_name"`
+	Bio               string     `json:"bio" db:"bio"`
+	AvatarCharacterID *int       `json:"avatar_character_id" db:"avatar_character_id"`
 	Avatar            *Character `json:"avatar,omitempty"`
-	Interests         []string  `json:"interests" db:"interests"`
-	Latitude          *float64  `json:"latitude,omitempty"`
-	Longitude         *float64  `json:"longitude,omitempty"`
-	PushToken         *string   `json:"push_token,omitempty" db:"push_token"`
-	CreatedAt         time.Time `json:"created_at" db:"created_at"`
+	Interests         []string   `json:"interests" db:"interests"`
+	Latitude          *float64   `json:"latitude,omitempty"`
+	Longitude         *float64   `json:"longitude,omitempty"`
+	PushToken         *string    `json:"push_token,omitempty" db:"push_token"`
+	IsDiscoverable    bool       `json:"is_discoverable" db:"is_discoverable"`
+	VibeTags          []string   `json:"vibe_tags,omitempty" db:"vibe_tags"`
+	CreatedAt         time.Time  `json:"created_at" db:"created_at"`
 }
 
 type UUID = string
@@ -102,6 +104,155 @@ type DiscoverQuery struct {
 
 type DiscoverUser struct {
 	User
-	Distance       float64 `json:"distance_km"`
-	CommonInterests int    `json:"common_interests"`
+	Distance        float64  `json:"distance_km"`
+	CommonInterests int      `json:"common_interests"`
+	VibeTags        []string `json:"vibe_tags,omitempty"`
+}
+
+type Group struct {
+	ID            string    `json:"id"`
+	Name          string    `json:"name"`
+	Description   string    `json:"description"`
+	ActivityType  string    `json:"activity_type"`
+	CreatorID     string    `json:"creator_id"`
+	CoverImageURL string    `json:"cover_image_url,omitempty"`
+	MaxMembers    int       `json:"max_members"`
+	IsPublic      bool      `json:"is_public"`
+	MemberCount   int       `json:"member_count,omitempty"`
+	IsMember      bool      `json:"is_member,omitempty"`
+	CreatedAt     time.Time `json:"created_at"`
+}
+
+type CreateGroupRequest struct {
+	Name          string `json:"name" binding:"required"`
+	Description   string `json:"description"`
+	ActivityType  string `json:"activity_type" binding:"required"`
+	CoverImageURL string `json:"cover_image_url"`
+	MaxMembers    int    `json:"max_members"`
+	IsPublic      bool   `json:"is_public"`
+}
+
+type UpdateGroupRequest struct {
+	Name          *string `json:"name"`
+	Description   *string `json:"description"`
+	CoverImageURL *string `json:"cover_image_url"`
+	MaxMembers    *int    `json:"max_members"`
+	IsPublic      *bool   `json:"is_public"`
+}
+
+type Post struct {
+	ID            string     `json:"id"`
+	AuthorID      string     `json:"author_id"`
+	Author        *User      `json:"author,omitempty"`
+	Content       string     `json:"content"`
+	ActivityType  string     `json:"activity_type,omitempty"`
+	Latitude      *float64   `json:"latitude,omitempty"`
+	Longitude     *float64   `json:"longitude,omitempty"`
+	EventTime     *time.Time `json:"event_time,omitempty"`
+	IsActive      bool       `json:"is_active"`
+	ExpiresAt     *time.Time `json:"expires_at,omitempty"`
+	ResponseCount int        `json:"response_count,omitempty"`
+	CreatedAt     time.Time  `json:"created_at"`
+}
+
+type PostResponse struct {
+	ID          string    `json:"id"`
+	PostID      string    `json:"post_id"`
+	ResponderID string    `json:"responder_id"`
+	Responder   *User     `json:"responder,omitempty"`
+	Message     string    `json:"message"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+type CreatePostRequest struct {
+	Content      string     `json:"content" binding:"required"`
+	ActivityType string     `json:"activity_type"`
+	Latitude     *float64   `json:"latitude"`
+	Longitude    *float64   `json:"longitude"`
+	EventTime    *time.Time `json:"event_time"`
+	ExpiresHours int        `json:"expires_hours"`
+}
+
+type RespondToPostRequest struct {
+	Message string `json:"message" binding:"required"`
+}
+
+type Event struct {
+	ID            string     `json:"id"`
+	OrganizerID   string     `json:"organizer_id"`
+	Organizer     *User      `json:"organizer,omitempty"`
+	Title         string     `json:"title"`
+	Description   string     `json:"description,omitempty"`
+	ActivityType  string     `json:"activity_type"`
+	LocationName  string     `json:"location_name,omitempty"`
+	Latitude      *float64   `json:"latitude,omitempty"`
+	Longitude     *float64   `json:"longitude,omitempty"`
+	StartsAt      time.Time  `json:"starts_at"`
+	EndsAt        *time.Time `json:"ends_at,omitempty"`
+	MaxAttendees  *int       `json:"max_attendees,omitempty"`
+	CoverImageURL string     `json:"cover_image_url,omitempty"`
+	IsPublic      bool       `json:"is_public"`
+	RSVPCount     int        `json:"rsvp_count,omitempty"`
+	UserRSVP      string     `json:"user_rsvp,omitempty"`
+	CreatedAt     time.Time  `json:"created_at"`
+}
+
+type EventRSVP struct {
+	EventID  string    `json:"event_id"`
+	UserID   string    `json:"user_id"`
+	User     *User     `json:"user,omitempty"`
+	Status   string    `json:"status"`
+	RSVPedAt time.Time `json:"rsvped_at"`
+}
+
+type CreateEventRequest struct {
+	Title         string     `json:"title" binding:"required"`
+	Description   string     `json:"description"`
+	ActivityType  string     `json:"activity_type" binding:"required"`
+	LocationName  string     `json:"location_name"`
+	Latitude      *float64   `json:"latitude"`
+	Longitude     *float64   `json:"longitude"`
+	StartsAt      time.Time  `json:"starts_at" binding:"required"`
+	EndsAt        *time.Time `json:"ends_at"`
+	MaxAttendees  *int       `json:"max_attendees"`
+	CoverImageURL string     `json:"cover_image_url"`
+	IsPublic      bool       `json:"is_public"`
+}
+
+type RSVPRequest struct {
+	Status string `json:"status" binding:"required"`
+}
+
+type SuperConnect struct {
+	ID         string    `json:"id"`
+	SenderID   string    `json:"sender_id"`
+	Sender     *User     `json:"sender,omitempty"`
+	ReceiverID string    `json:"receiver_id"`
+	Message    string    `json:"message,omitempty"`
+	Seen       bool      `json:"seen"`
+	CreatedAt  time.Time `json:"created_at"`
+}
+
+type SendSuperConnectRequest struct {
+	ReceiverID string `json:"receiver_id" binding:"required"`
+	Message    string `json:"message"`
+}
+
+type SetGhostModeRequest struct {
+	IsDiscoverable bool `json:"is_discoverable"`
+}
+
+type SetVibeTagsRequest struct {
+	Tags []string `json:"tags" binding:"required"`
+}
+
+type SetTravelModeRequest struct {
+	Latitude     float64 `json:"latitude" binding:"required"`
+	Longitude    float64 `json:"longitude" binding:"required"`
+	ExpiresHours int     `json:"expires_hours"`
+}
+
+type ReportRequest struct {
+	Reason  string `json:"reason" binding:"required"`
+	Details string `json:"details"`
 }

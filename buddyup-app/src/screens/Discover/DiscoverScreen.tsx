@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  FlatList,
+  Alert,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "react-native-linear-gradient";
@@ -15,7 +17,9 @@ import { observer } from "mobx-react-lite";
 import Swiper from "react-native-deck-swiper";
 import { api } from "@/services/api";
 import { discoverStore, DiscoverUser } from "@/stores/discoverStore";
+import { socialStore } from "@/stores/SocialStore";
 import { colors, spacing, radii, fontSizes, INTEREST_COLORS } from "@/theme";
+import { ACTIVITY_TYPES } from "@/types";
 import SkeletonCard from "@/components/SkeletonCard";
 import EmptyState from "@/components/EmptyState";
 import MatchModal from "./MatchModal";
@@ -26,12 +30,13 @@ export default observer(function DiscoverScreen({ navigation }: any) {
   const [matchModal, setMatchModal] = useState(false);
   const [matchedUser, setMatchedUser] = useState<DiscoverUser | null>(null);
   const [matchedMatchId, setMatchedMatchId] = useState<string | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
   const swiperRef = useRef<Swiper<DiscoverUser>>(null);
 
   useFocusEffect(
     React.useCallback(() => {
-      discoverStore.fetchDiscover();
-    }, [])
+      discoverStore.fetchDiscover(selectedActivity ?? undefined);
+    }, [selectedActivity])
   );
 
   const handleLike = async (user: DiscoverUser) => {
@@ -57,6 +62,19 @@ export default observer(function DiscoverScreen({ navigation }: any) {
     discoverStore.swipeLeft();
   };
 
+  const handleSuperConnect = async (userId: string) => {
+    try {
+      await socialStore.sendSuperConnect(userId);
+      Alert.alert("⚡ Super Connect Sent!", "They'll be notified.");
+    } catch (e: any) {
+      if (e?.response?.status === 429) {
+        Alert.alert("Limit Reached", "You've used all 5 super connects for today. Come back tomorrow!");
+      } else {
+        Alert.alert("Error", e?.response?.data?.error ?? "Failed to super connect");
+      }
+    }
+  };
+
   const users = discoverStore.users.slice(discoverStore.currentIndex);
 
   return (
@@ -74,6 +92,26 @@ export default observer(function DiscoverScreen({ navigation }: any) {
           <Text style={styles.filterText}>Filter</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Activity filter chips */}
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={["All", ...ACTIVITY_TYPES]}
+        keyExtractor={(item) => item}
+        contentContainerStyle={styles.activityFilterRow}
+        renderItem={({ item }) => {
+          const active = item === "All" ? !selectedActivity : selectedActivity === item;
+          return (
+            <TouchableOpacity
+              style={[styles.activityChip, active && { backgroundColor: colors.primary }]}
+              onPress={() => setSelectedActivity(item === "All" ? null : item)}
+            >
+              <Text style={[styles.activityChipText, active && { color: "#fff" }]}>{item}</Text>
+            </TouchableOpacity>
+          );
+        }}
+      />
 
       {discoverStore.isLoading ? (
         <View style={styles.cardArea}>
@@ -100,7 +138,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
             ref={swiperRef}
             cards={users}
             keyExtractor={(u) => u.id}
-            renderCard={(user) => <UserCard user={user} />}
+            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} />}
             onSwipedRight={(i) => handleLike(users[i])}
             onSwipedLeft={(i) => handlePass(users[i])}
             backgroundColor="transparent"
@@ -171,7 +209,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
   );
 });
 
-function UserCard({ user }: { user: DiscoverUser }) {
+function UserCard({ user, onSuperConnect }: { user: DiscoverUser; onSuperConnect: (id: string) => void }) {
   const compatScore = user.common_interests > 0
     ? Math.min(Math.round((user.common_interests / Math.max(user.interests.length, 1)) * 100), 99)
     : null;
@@ -198,6 +236,10 @@ function UserCard({ user }: { user: DiscoverUser }) {
           <Text style={styles.compatText}>{compatScore}% match</Text>
         </View>
       )}
+      {/* Super Connect button */}
+      <TouchableOpacity style={styles.superConnectBtn} onPress={() => onSuperConnect(user.id)}>
+        <Text style={styles.superConnectIcon}>⚡</Text>
+      </TouchableOpacity>
 
       <View style={styles.cardContent}>
         <Text style={styles.name}>{user.display_name}</Text>
@@ -215,6 +257,16 @@ function UserCard({ user }: { user: DiscoverUser }) {
             </View>
           ))}
         </View>
+        {/* Vibe tags */}
+        {(user as any).vibe_tags?.length > 0 && (
+          <View style={styles.vibeTags}>
+            {((user as any).vibe_tags as string[]).slice(0, 3).map((tag) => (
+              <View key={tag} style={styles.vibeTag}>
+                <Text style={styles.vibeTagText}>{tag}</Text>
+              </View>
+            ))}
+          </View>
+        )}
         {user.common_interests > 0 && (
           <Text style={styles.common}>
             🤝 {user.common_interests} shared interest{user.common_interests > 1 ? "s" : ""}
@@ -273,6 +325,24 @@ const styles = StyleSheet.create({
   chip: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: radii.full },
   chipText: { fontSize: 11, fontWeight: "700", color: "#fff" },
   common: { fontSize: 12, color: colors.accent, fontWeight: "700" },
+  superConnectBtn: {
+    position: "absolute",
+    top: 52,
+    right: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: "rgba(255,179,71,0.85)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  superConnectIcon: { fontSize: 18 },
+  vibeTags: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 },
+  vibeTag: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: radii.full, backgroundColor: "rgba(255,255,255,0.15)", borderWidth: 1, borderColor: "rgba(255,255,255,0.25)" },
+  vibeTagText: { fontSize: 10, color: "rgba(255,255,255,0.9)", fontWeight: "600" },
+  activityFilterRow: { paddingHorizontal: spacing.lg, paddingBottom: spacing.sm, gap: 8 },
+  activityChip: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: radii.full, backgroundColor: colors.bgCard, borderWidth: 1, borderColor: colors.border },
+  activityChipText: { color: colors.textSub, fontSize: 11, fontWeight: "600", textTransform: "capitalize" },
   actions: {
     flexDirection: "row",
     justifyContent: "center",
