@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   Alert,
+  Platform,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "react-native-linear-gradient";
@@ -74,6 +75,63 @@ export default observer(function DiscoverScreen({ navigation }: any) {
         Alert.alert("Error", e?.response?.data?.error ?? "Failed to super connect");
       }
     }
+  };
+
+  const handleBlock = async (user: DiscoverUser) => {
+    try {
+      await api.post(`/users/${user.id}/block`);
+      discoverStore.swipeLeft();
+    } catch {
+      Alert.alert("Error", "Failed to block user");
+    }
+  };
+
+  const handleReport = (user: DiscoverUser) => {
+    if (Platform.OS === "ios") {
+      Alert.prompt(
+        `Report ${user.display_name}`,
+        "Describe why you are reporting this user",
+        async (reason) => {
+          if (!reason) return;
+          try {
+            await api.post(`/users/${user.id}/report`, { reason });
+            Alert.alert("Reported", "Thank you for your report.");
+            discoverStore.swipeLeft();
+          } catch {
+            Alert.alert("Error", "Failed to report user");
+          }
+        }
+      );
+    } else {
+      Alert.alert(
+        `Report ${user.display_name}`,
+        "Report this user for inappropriate behavior?",
+        [
+          { text: "Cancel", style: "cancel" },
+          {
+            text: "Report",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                await api.post(`/users/${user.id}/report`, { reason: "Inappropriate behavior" });
+                Alert.alert("Reported", "Thank you for your report.");
+                discoverStore.swipeLeft();
+              } catch {
+                Alert.alert("Error", "Failed to report user");
+              }
+            },
+          },
+        ]
+      );
+    }
+  };
+
+  const handleOverflow = (user: DiscoverUser) => {
+    Alert.alert(user.display_name, "What would you like to do?", [
+      { text: "🚫 Block", style: "destructive", onPress: () => handleBlock(user) },
+      { text: "⚠️ Report", onPress: () => handleReport(user) },
+      { text: "Cancel", style: "cancel" },
+    ]);
   };
 
   const users = discoverStore.users.slice(discoverStore.currentIndex);
@@ -151,7 +209,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
             ref={swiperRef}
             cards={users}
             keyExtractor={(u) => u.id}
-            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} remaining={superConnectsLeft} />}
+            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} remaining={superConnectsLeft} onOverflow={handleOverflow} />}
             onSwipedRight={(i) => handleLike(users[i])}
             onSwipedLeft={(i) => handlePass(users[i])}
             backgroundColor="transparent"
@@ -222,7 +280,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
   );
 });
 
-function UserCard({ user, onSuperConnect, remaining }: { user: DiscoverUser; onSuperConnect: (id: string) => void; remaining?: number }) {
+function UserCard({ user, onSuperConnect, remaining, onOverflow }: { user: DiscoverUser; onSuperConnect: (id: string) => void; remaining?: number; onOverflow: (user: DiscoverUser) => void }) {
   const compatScore = user.common_interests > 0
     ? Math.min(Math.round((user.common_interests / Math.max(user.interests.length, 1)) * 100), 99)
     : null;
@@ -249,6 +307,10 @@ function UserCard({ user, onSuperConnect, remaining }: { user: DiscoverUser; onS
           <Text style={styles.compatText}>{compatScore}% match</Text>
         </View>
       )}
+      {/* Overflow menu button */}
+      <TouchableOpacity style={styles.overflowBtn} onPress={() => onOverflow(user)}>
+        <Text style={styles.overflowIcon}>⋮</Text>
+      </TouchableOpacity>
       {/* Super Connect button */}
       <TouchableOpacity style={styles.superConnectBtn} onPress={() => onSuperConnect(user.id)}>
         <Text style={styles.superConnectIcon}>⚡</Text>
@@ -344,6 +406,18 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
   },
   compatText: { color: "#fff", fontWeight: "700", fontSize: 12 },
+  overflowBtn: {
+    position: "absolute",
+    top: 52,
+    left: 16,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "rgba(0,0,0,0.55)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  overflowIcon: { color: "#fff", fontSize: 18, fontWeight: "900", lineHeight: 22 },
   cardContent: { position: "absolute", bottom: 0, left: 0, right: 0, padding: spacing.lg },
   name: { fontSize: fontSizes.xl, fontWeight: "900", color: "#fff", marginBottom: 4 },
   bio: { fontSize: fontSizes.sm, color: "rgba(255,255,255,0.8)", marginBottom: 8 },

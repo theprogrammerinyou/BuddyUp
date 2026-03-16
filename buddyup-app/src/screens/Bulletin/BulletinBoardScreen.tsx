@@ -18,14 +18,7 @@ import { observer } from "mobx-react-lite";
 import { postStore } from "@/stores/PostStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";
 import { ACTIVITY_TYPES, Post } from "@/types";
-
-function timeAgo(dateStr: string) {
-  const diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
-  if (diff < 60) return "just now";
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
+import { timeAgo } from "@/utils/time";
 
 const ACTIVITY_COLORS: Record<string, string> = {
   gym: "#FF4B4B", coding: "#00F2FE", hiking: "#00D2FF", gaming: "#BD34FE",

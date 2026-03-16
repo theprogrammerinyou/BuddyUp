@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -17,10 +17,11 @@ import { observer } from "mobx-react-lite";
 import { authStore } from "@/stores/authStore";
 import { socialStore } from "@/stores/SocialStore";
 import { premiumStore } from "@/stores/PremiumStore";
-import { colors, spacing, radii, fontSizes } from "@/theme";
+import { colors, spacing, radii, fontSizes, ThemeContext } from "@/theme";
 import { VIBE_TAGS } from "@/types";
 
 export default observer(function SettingsScreen({ navigation }: any) {
+  const { themeName, setTheme } = useContext(ThemeContext);
   const [vibeTagModal, setVibeTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>(socialStore.vibeTags);
 
@@ -187,6 +188,22 @@ export default observer(function SettingsScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
+        {/* Appearance */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Appearance</Text>
+          <View style={styles.themeRow}>
+            {(["dark", "anime"] as const).map((t) => (
+              <TouchableOpacity
+                key={t}
+                style={[styles.themeChip, themeName === t && styles.themeChipActive]}
+                onPress={() => setTheme(t)}
+              >
+                <Text style={styles.themeChipText}>{t === "dark" ? "🌑 Dark" : "🌸 Anime"}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+
         {/* Blocked Users */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Safety</Text>
@@ -298,6 +315,18 @@ const styles = StyleSheet.create({
     borderColor: colors.warning + "55",
   },
   premiumGateText: { fontSize: 11, color: colors.warning, fontWeight: "800" },
+  themeRow: { flexDirection: "row", gap: 10 },
+  themeChip: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: radii.md,
+    backgroundColor: colors.bgInput,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  themeChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  themeChipText: { fontSize: fontSizes.sm, color: colors.text, fontWeight: "700" },
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.7)", justifyContent: "flex-end" },
   modalContent: { backgroundColor: colors.bgCard, borderTopLeftRadius: radii.xl, borderTopRightRadius: radii.xl, padding: spacing.lg, gap: 14 },
   modalTitle: { fontSize: fontSizes.md, fontWeight: "800", color: colors.text },

@@ -44,6 +44,9 @@ import TravelMapScreen from "@/screens/Profile/TravelMapScreen";
 // Phase 4 screens
 import BuddyPassScreen from "@/screens/Premium/BuddyPassScreen";
 
+// Notification screen
+import NotificationsScreen from "@/screens/Notifications/NotificationsScreen";
+
 const _storage = new MMKV();
 const ONBOARDING_KEY = "onboarding_complete";
 
@@ -173,11 +176,28 @@ function TabNavigator() {
 
 export const navigationRef = React.createRef<any>();
 
+const linking = {
+  prefixes: ["buddyup://"],
+  config: {
+    screens: {
+      Main: {
+        screens: {
+          Messages: {
+            screens: {
+              Chat: "chat/:matchId",
+            },
+          },
+        },
+      },
+    },
+  },
+} as any;
+
 export const AppNavigator = observer(() => {
   const onboardingDone = isOnboardingComplete();
 
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigationRef} linking={linking}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!authStore.isAuthenticated || !onboardingDone ? (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
@@ -212,6 +232,7 @@ export const AppNavigator = observer(() => {
               component={BuddyPassScreen}
               options={{ presentation: "modal" }}
             />
+            <RootStack.Screen name="Notifications" component={NotificationsScreen} />
           </>
         )}
       </RootStack.Navigator>

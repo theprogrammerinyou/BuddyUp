@@ -80,9 +80,14 @@ export default observer(function ProfileScreen({ navigation }: any) {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Profile</Text>
-          <TouchableOpacity onPress={handleSettings}>
-            <Ionicons name="settings-outline" size={24} color={colors.textMuted} />
-          </TouchableOpacity>
+          <View style={styles.headerActions}>
+            <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
+              <Ionicons name="notifications-outline" size={24} color={colors.textMuted} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSettings}>
+              <Ionicons name="settings-outline" size={24} color={colors.textMuted} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Travel Mode Banner */}
@@ -268,6 +273,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   inner: { padding: spacing.lg, paddingBottom: 40, gap: 20 },
   header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  headerActions: { flexDirection: "row", alignItems: "center", gap: 16 },
   title: { fontSize: fontSizes.xl, fontWeight: "900", color: colors.text },
   travelBanner: { backgroundColor: colors.accent + "33", borderRadius: radii.lg, padding: spacing.md, alignItems: "center", borderWidth: 1, borderColor: colors.accent + "66" },
   travelBannerText: { color: colors.accent, fontWeight: "700", fontSize: fontSizes.sm },
