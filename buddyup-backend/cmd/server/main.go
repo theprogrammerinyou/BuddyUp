@@ -49,6 +49,7 @@ func main() {
 	xpRepo := repository.NewXPRepo(pool)
 	challengeRepo := repository.NewChallengeRepo(pool)
 	personaRepo := repository.NewPersonaRepo(pool)
+	subRepo := repository.NewSubscriptionRepo(pool)
 
 	// Push notifications client (shared by hub and like handler)
 	pushClient := expo.NewPushClient(nil)
@@ -72,6 +73,8 @@ func main() {
 	challengeH := handlers.NewChallengeHandler(challengeRepo, xpRepo)
 	personaH := handlers.NewPersonaHandler(personaRepo)
 	travelH := handlers.NewTravelHandler(userRepo)
+	subH := handlers.NewSubscriptionHandler(subRepo)
+	adminH := handlers.NewAdminHandler(pool)
 
 	r := gin.New()
 	r.Use(gin.Logger())
@@ -193,6 +196,21 @@ func main() {
 			protected.GET("/users/:id/visited-cities", travelH.GetVisitedCities)
 			protected.PUT("/me/local-guide", travelH.SetLocalGuide)
 			protected.GET("/discover/co-travel", travelH.DiscoverCoTravel)
+
+			// Subscriptions & Monetisation
+			protected.GET("/me/subscription", subH.GetSubscription)
+			protected.POST("/me/subscription/verify", subH.VerifySubscription)
+			protected.POST("/me/boost", subH.ActivateBoost)
+			protected.GET("/me/boost", subH.GetBoostStatus)
+			protected.POST("/me/super-like-packs", subH.PurchaseSuperLikePack)
+		}
+
+		// Admin routes
+		admin := api.Group("/admin")
+		admin.Use(handlers.AdminAuth())
+		{
+			admin.POST("/sponsored-groups", adminH.CreateSponsoredGroup)
+			admin.GET("/reports", adminH.ListReports)
 		}
 	}
 

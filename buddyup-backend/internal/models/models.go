@@ -110,17 +110,20 @@ type DiscoverUser struct {
 }
 
 type Group struct {
-	ID            string    `json:"id"`
-	Name          string    `json:"name"`
-	Description   string    `json:"description"`
-	ActivityType  string    `json:"activity_type"`
-	CreatorID     string    `json:"creator_id"`
-	CoverImageURL string    `json:"cover_image_url,omitempty"`
-	MaxMembers    int       `json:"max_members"`
-	IsPublic      bool      `json:"is_public"`
-	MemberCount   int       `json:"member_count,omitempty"`
-	IsMember      bool      `json:"is_member,omitempty"`
-	CreatedAt     time.Time `json:"created_at"`
+	ID             string    `json:"id"`
+	Name           string    `json:"name"`
+	Description    string    `json:"description"`
+	ActivityType   string    `json:"activity_type"`
+	CreatorID      string    `json:"creator_id"`
+	CoverImageURL  string    `json:"cover_image_url,omitempty"`
+	MaxMembers     int       `json:"max_members"`
+	IsPublic       bool      `json:"is_public"`
+	MemberCount    int       `json:"member_count,omitempty"`
+	IsMember       bool      `json:"is_member,omitempty"`
+	CreatedAt      time.Time `json:"created_at"`
+	IsSponsored    bool      `json:"is_sponsored,omitempty"`
+	SponsorName    string    `json:"sponsor_name,omitempty"`
+	SponsorLogoURL string    `json:"sponsor_logo_url,omitempty"`
 }
 
 type CreateGroupRequest struct {
@@ -345,4 +348,60 @@ type LeaderboardEntry struct {
 	TotalXP     int    `json:"total_xp"`
 	Level       int    `json:"level"`
 	Rank        int    `json:"rank"`
+}
+
+// Phase 4 models
+
+type Subscription struct {
+	ID                     string     `json:"id" db:"id"`
+	UserID                 string     `json:"user_id" db:"user_id"`
+	Plan                   string     `json:"plan" db:"plan"`
+	Status                 string     `json:"status" db:"status"`
+	ExpiresAt              *time.Time `json:"expires_at,omitempty" db:"expires_at"`
+	Provider               string     `json:"provider,omitempty" db:"provider"`
+	ProviderSubscriptionID string     `json:"provider_subscription_id,omitempty" db:"provider_subscription_id"`
+	CreatedAt              time.Time  `json:"created_at" db:"created_at"`
+}
+
+type Boost struct {
+	ID          string    `json:"id" db:"id"`
+	UserID      string    `json:"user_id" db:"user_id"`
+	ActivatedAt time.Time `json:"activated_at" db:"activated_at"`
+	ExpiresAt   time.Time `json:"expires_at" db:"expires_at"`
+	BoostType   string    `json:"boost_type" db:"boost_type"`
+	IsActive    bool      `json:"is_active,omitempty"`
+}
+
+type SuperLikePack struct {
+	ID                    string    `json:"id" db:"id"`
+	UserID                string    `json:"user_id" db:"user_id"`
+	Quantity              int       `json:"quantity" db:"quantity"`
+	PurchasedAt           time.Time `json:"purchased_at" db:"purchased_at"`
+	ProviderTransactionID string    `json:"provider_transaction_id,omitempty" db:"provider_transaction_id"`
+}
+
+type SponsoredGroup struct {
+	GroupID        string    `json:"group_id" db:"group_id"`
+	SponsorName    string    `json:"sponsor_name" db:"sponsor_name"`
+	SponsorLogoURL string    `json:"sponsor_logo_url,omitempty" db:"sponsor_logo_url"`
+	ActiveUntil    time.Time `json:"active_until" db:"active_until"`
+}
+
+type VerifySubscriptionRequest struct {
+	Provider string `json:"provider" binding:"required"`
+	Receipt  string `json:"receipt" binding:"required"`
+	Plan     string `json:"plan" binding:"required"`
+}
+
+type PurchaseSuperLikePackRequest struct {
+	Provider      string `json:"provider" binding:"required"`
+	TransactionID string `json:"transaction_id" binding:"required"`
+	Quantity      int    `json:"quantity" binding:"required"`
+}
+
+type CreateSponsoredGroupRequest struct {
+	GroupID        string `json:"group_id" binding:"required"`
+	SponsorName    string `json:"sponsor_name" binding:"required"`
+	SponsorLogoURL string `json:"sponsor_logo_url"`
+	ActiveDays     int    `json:"active_days"`
 }
