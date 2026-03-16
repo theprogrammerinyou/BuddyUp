@@ -55,9 +55,10 @@ func newRateLimiter(limit int, window time.Duration) *rateLimiter {
 			rl.entries.Range(func(key, value any) bool {
 				entry := value.(*windowEntry)
 				entry.mu.Lock()
-				allStale := len(entry.timestamps) == 0 || entry.timestamps[len(entry.timestamps)-1].Before(cutoff)
+				empty := len(entry.timestamps) == 0
+				lastStale := !empty && entry.timestamps[len(entry.timestamps)-1].Before(cutoff)
 				entry.mu.Unlock()
-				if allStale {
+				if empty || lastStale {
 					rl.entries.Delete(key)
 				}
 				return true

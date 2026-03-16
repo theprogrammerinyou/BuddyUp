@@ -1,0 +1,11 @@
+# Build artifacts
+server
+buddyup
+*.exe
+*.test
+
+# Environment
+.env
+
+# Go specific
+vendor/

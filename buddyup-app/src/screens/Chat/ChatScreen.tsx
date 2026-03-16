@@ -75,7 +75,7 @@ export default observer(function ChatScreen({ route, navigation }: any) {
       setWsStatus("disconnected");
       return;
     }
-    const delay = INITIAL_RETRY_DELAY * Math.pow(2, retryCount.current);
+    const delay = Math.min(INITIAL_RETRY_DELAY * Math.pow(2, retryCount.current), 30000);
     retryCount.current += 1;
     retryTimeout.current = setTimeout(() => {
       connect();

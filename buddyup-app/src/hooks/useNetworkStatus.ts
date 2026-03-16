@@ -11,7 +11,7 @@ export function useNetworkStatus(): { isOnline: boolean } {
       try {
         const state = await Network.getNetworkStateAsync();
         if (!cancelled) {
-          setIsOnline(!!state.isConnected && !!state.isInternetReachable);
+          setIsOnline(!!state.isConnected && state.isInternetReachable !== false);
         }
       } catch {
         if (!cancelled) setIsOnline(true); // assume online if check fails

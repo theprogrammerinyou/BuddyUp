@@ -7,7 +7,6 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
@@ -28,7 +27,6 @@ export default observer(function RegisterScreen({ navigation, route }: any) {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const validate = () => {
     let valid = true;
@@ -59,12 +57,7 @@ export default observer(function RegisterScreen({ navigation, route }: any) {
 
   const handleNext = () => {
     if (!validate()) return;
-    setIsLoading(true);
-    try {
-      navigation.navigate("Interests", { display_name: displayName.trim(), email: email.trim().toLowerCase(), password, bio: bio.trim() });
-    } finally {
-      setIsLoading(false);
-    }
+    navigation.navigate("Interests", { display_name: displayName.trim(), email: email.trim().toLowerCase(), password, bio: bio.trim() });
   };
 
   return (
@@ -151,9 +144,9 @@ export default observer(function RegisterScreen({ navigation, route }: any) {
           </View>
         </View>
 
-        <TouchableOpacity style={[styles.btn, isLoading && { opacity: 0.7 }]} onPress={handleNext} disabled={isLoading}>
+        <TouchableOpacity style={styles.btn} onPress={handleNext}>
           <LinearGradient colors={[colors.primary, colors.secondary]} style={styles.btnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-            {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={styles.btnText}>Next: Choose Interests →</Text>}
+            <Text style={styles.btnText}>Next: Choose Interests →</Text>
           </LinearGradient>
         </TouchableOpacity>
 

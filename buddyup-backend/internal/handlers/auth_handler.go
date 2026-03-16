@@ -119,7 +119,7 @@ func (h *AuthHandler) UpdateProfile(c *gin.Context) {
 
 	userID := c.GetString("user_id")
 	if err := h.userRepo.UpdateProfile(c.Request.Context(), userID, req); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "could not update profile: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to update profile"})
 		return
 	}
 

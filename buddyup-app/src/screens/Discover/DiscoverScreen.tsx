@@ -100,7 +100,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
             ref={swiperRef}
             cards={users}
             keyExtractor={(u) => u.id}
-            renderCard={(user) => user ? <UserCard user={user} /> : null}
+            renderCard={(user) => <UserCard user={user} />}
             onSwipedRight={(i) => handleLike(users[i])}
             onSwipedLeft={(i) => handlePass(users[i])}
             backgroundColor="transparent"

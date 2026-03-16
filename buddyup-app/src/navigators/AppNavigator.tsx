@@ -113,11 +113,7 @@ export const AppNavigator = observer(() => {
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        {!authStore.isAuthenticated ? (
-          <RootStack.Screen name="Auth" component={AuthNavigator} />
-        ) : !onboardingDone ? (
-          // Authenticated but onboarding not complete — show onboarding steps
-          // (uses Auth stack which includes Interests & AvatarPicker)
+        {!authStore.isAuthenticated || !onboardingDone ? (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
         ) : (
           <>

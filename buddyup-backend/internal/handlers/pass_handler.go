@@ -31,7 +31,7 @@ func (h *PassHandler) Pass(c *gin.Context) {
 	}
 
 	if err := h.passRepo.Pass(c.Request.Context(), userID, req.PassedID); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "could not record pass: " + err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to record pass"})
 		return
 	}
 
