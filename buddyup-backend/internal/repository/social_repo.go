@@ -169,3 +169,69 @@ func (r *SocialRepo) ClearTravelMode(ctx context.Context, userID string) error {
 	`, userID)
 	return err
 }
+
+// --- Vouch methods ---
+
+func (r *SocialRepo) VouchForUser(ctx context.Context, voucherID, vouchedID string) error {
+	_, err := r.db.Exec(ctx, `
+		INSERT INTO vouches (voucher_id, vouched_id) VALUES ($1, $2)
+		ON CONFLICT DO NOTHING
+	`, voucherID, vouchedID)
+	return err
+}
+
+func (r *SocialRepo) GetVouches(ctx context.Context, userID string) ([]models.Vouch, int, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT v.voucher_id, v.vouched_id, v.created_at,
+		       u.id, u.display_name, u.bio, u.avatar_character_id, u.interests, u.created_at
+		FROM vouches v
+		JOIN users u ON u.id = v.voucher_id
+		WHERE v.vouched_id = $1
+		ORDER BY v.created_at DESC
+	`, userID)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+	var result []models.Vouch
+	for rows.Next() {
+		var v models.Vouch
+		var u models.User
+		if err := rows.Scan(
+			&v.VoucherID, &v.VouchedID, &v.CreatedAt,
+			&u.ID, &u.DisplayName, &u.Bio, &u.AvatarCharacterID, &u.Interests, &u.CreatedAt,
+		); err != nil {
+			continue
+		}
+		v.Voucher = &u
+		result = append(result, v)
+	}
+	if result == nil {
+		result = []models.Vouch{}
+	}
+	return result, len(result), nil
+}
+
+// --- Badge methods ---
+
+func (r *SocialRepo) GetBadges(ctx context.Context, userID string) ([]models.Badge, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, user_id, badge_type, earned_at FROM badges WHERE user_id = $1 ORDER BY earned_at DESC
+	`, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var result []models.Badge
+	for rows.Next() {
+		var b models.Badge
+		if err := rows.Scan(&b.ID, &b.UserID, &b.BadgeType, &b.EarnedAt); err != nil {
+			continue
+		}
+		result = append(result, b)
+	}
+	if result == nil {
+		result = []models.Badge{}
+	}
+	return result, nil
+}

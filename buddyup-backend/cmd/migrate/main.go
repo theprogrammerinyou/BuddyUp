@@ -42,6 +42,7 @@ func main() {
 		"migrations/007_bulletin_board.sql",
 		"migrations/008_events.sql",
 		"migrations/009_social_features.sql",
+		"migrations/010_phase3.sql",
 	}
 
 	for _, m := range migrations {

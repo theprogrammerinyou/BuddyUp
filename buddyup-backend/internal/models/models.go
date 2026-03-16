@@ -256,3 +256,93 @@ type ReportRequest struct {
 	Reason  string `json:"reason" binding:"required"`
 	Details string `json:"details"`
 }
+
+// Phase 3 models
+
+type XPEvent struct {
+	ID        string    `json:"id" db:"id"`
+	UserID    string    `json:"user_id" db:"user_id"`
+	EventType string    `json:"event_type" db:"event_type"`
+	XPAmount  int       `json:"xp_amount" db:"xp_amount"`
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+}
+
+type UserXP struct {
+	TotalXP      int       `json:"total_xp"`
+	Level        int       `json:"level"`
+	RecentEvents []XPEvent `json:"recent_events"`
+}
+
+type Challenge struct {
+	ID          string     `json:"id" db:"id"`
+	Title       string     `json:"title" db:"title"`
+	Description string     `json:"description,omitempty" db:"description"`
+	XPReward    int        `json:"xp_reward" db:"xp_reward"`
+	EndsAt      *time.Time `json:"ends_at,omitempty" db:"ends_at"`
+	CreatedAt   time.Time  `json:"created_at" db:"created_at"`
+	Completed   bool       `json:"completed,omitempty"`
+}
+
+type Vouch struct {
+	VoucherID string    `json:"voucher_id" db:"voucher_id"`
+	VouchedID string    `json:"vouched_id" db:"vouched_id"`
+	Voucher   *User     `json:"voucher,omitempty"`
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+}
+
+type Persona struct {
+	ID          string    `json:"id" db:"id"`
+	UserID      string    `json:"user_id" db:"user_id"`
+	DisplayName string    `json:"display_name" db:"display_name"`
+	Bio         string    `json:"bio,omitempty" db:"bio"`
+	Interests   []string  `json:"interests" db:"interests"`
+	VibeTags    []string  `json:"vibe_tags" db:"vibe_tags"`
+	IsActive    bool      `json:"is_active" db:"is_active"`
+	CreatedAt   time.Time `json:"created_at" db:"created_at"`
+}
+
+type VisitedCity struct {
+	ID          string    `json:"id" db:"id"`
+	UserID      string    `json:"user_id" db:"user_id"`
+	CityName    string    `json:"city_name" db:"city_name"`
+	CountryCode string    `json:"country_code,omitempty" db:"country_code"`
+	VisitedAt   time.Time `json:"visited_at" db:"visited_at"`
+}
+
+type Badge struct {
+	ID        string    `json:"id" db:"id"`
+	UserID    string    `json:"user_id" db:"user_id"`
+	BadgeType string    `json:"badge_type" db:"badge_type"`
+	EarnedAt  time.Time `json:"earned_at" db:"earned_at"`
+}
+
+type CreatePersonaRequest struct {
+	DisplayName string   `json:"display_name" binding:"required"`
+	Bio         string   `json:"bio"`
+	Interests   []string `json:"interests"`
+	VibeTags    []string `json:"vibe_tags"`
+}
+
+type AddVisitedCityRequest struct {
+	CityName    string `json:"city_name" binding:"required"`
+	CountryCode string `json:"country_code"`
+}
+
+type AwardXPRequest struct {
+	UserID    string `json:"user_id" binding:"required"`
+	EventType string `json:"event_type" binding:"required"`
+	XPAmount  int    `json:"xp_amount"`
+}
+
+type SetLocalGuideRequest struct {
+	IsLocalGuide bool `json:"is_local_guide"`
+}
+
+type LeaderboardEntry struct {
+	UserID      string `json:"user_id"`
+	DisplayName string `json:"display_name"`
+	AvatarURL   string `json:"avatar_url,omitempty"`
+	TotalXP     int    `json:"total_xp"`
+	Level       int    `json:"level"`
+	Rank        int    `json:"rank"`
+}

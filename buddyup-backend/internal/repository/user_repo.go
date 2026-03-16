@@ -211,6 +211,76 @@ func (r *UserRepo) CheckPassword(user *models.User, password string) bool {
 	return err == nil
 }
 
+func (r *UserRepo) AddVisitedCity(ctx context.Context, userID, cityName, countryCode string) (*models.VisitedCity, error) {
+	var city models.VisitedCity
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO visited_cities (user_id, city_name, country_code)
+		VALUES ($1, $2, $3)
+		RETURNING id, user_id, city_name, COALESCE(country_code,''), visited_at
+	`, userID, cityName, countryCode).Scan(&city.ID, &city.UserID, &city.CityName, &city.CountryCode, &city.VisitedAt)
+	if err != nil {
+		return nil, err
+	}
+	return &city, nil
+}
+
+func (r *UserRepo) GetVisitedCities(ctx context.Context, userID string) ([]models.VisitedCity, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, user_id, city_name, COALESCE(country_code,''), visited_at
+		FROM visited_cities WHERE user_id = $1 ORDER BY visited_at DESC
+	`, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var result []models.VisitedCity
+	for rows.Next() {
+		var city models.VisitedCity
+		if err := rows.Scan(&city.ID, &city.UserID, &city.CityName, &city.CountryCode, &city.VisitedAt); err != nil {
+			continue
+		}
+		result = append(result, city)
+	}
+	if result == nil {
+		result = []models.VisitedCity{}
+	}
+	return result, nil
+}
+
+func (r *UserRepo) SetLocalGuide(ctx context.Context, userID string, isLocalGuide bool) error {
+	_, err := r.db.Exec(ctx, `
+		UPDATE users SET is_local_guide = $2, updated_at = NOW() WHERE id = $1
+	`, userID, isLocalGuide)
+	return err
+}
+
+func (r *UserRepo) DiscoverCoTravel(ctx context.Context, destination string) ([]models.User, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT DISTINCT u.id, u.display_name, u.bio, u.avatar_character_id, u.interests, u.created_at
+		FROM users u
+		JOIN visited_cities vc ON vc.user_id = u.id
+		WHERE LOWER(vc.city_name) = LOWER($1)
+		ORDER BY u.display_name ASC
+		LIMIT 50
+	`, destination)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var result []models.User
+	for rows.Next() {
+		var u models.User
+		if err := rows.Scan(&u.ID, &u.DisplayName, &u.Bio, &u.AvatarCharacterID, &u.Interests, &u.CreatedAt); err != nil {
+			continue
+		}
+		result = append(result, u)
+	}
+	if result == nil {
+		result = []models.User{}
+	}
+	return result, nil
+}
+
 // Discover returns nearby users sorted by interest overlap then distance (using Haversine-like approximation)
 func (r *UserRepo) Discover(ctx context.Context, userID string, lat, lng, radiusKm float64, activityType string) ([]models.DiscoverUser, error) {
 	if radiusKm <= 0 {

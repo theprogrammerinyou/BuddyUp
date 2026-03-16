@@ -46,6 +46,9 @@ func main() {
 	postRepo := repository.NewPostRepo(pool)
 	eventRepo := repository.NewEventRepo(pool)
 	socialRepo := repository.NewSocialRepo(pool)
+	xpRepo := repository.NewXPRepo(pool)
+	challengeRepo := repository.NewChallengeRepo(pool)
+	personaRepo := repository.NewPersonaRepo(pool)
 
 	// Push notifications client (shared by hub and like handler)
 	pushClient := expo.NewPushClient(nil)
@@ -65,6 +68,10 @@ func main() {
 	postH := handlers.NewPostHandler(postRepo)
 	eventH := handlers.NewEventHandler(eventRepo)
 	socialH := handlers.NewSocialHandler(socialRepo, userRepo)
+	xpH := handlers.NewXPHandler(xpRepo)
+	challengeH := handlers.NewChallengeHandler(challengeRepo, xpRepo)
+	personaH := handlers.NewPersonaHandler(personaRepo)
+	travelH := handlers.NewTravelHandler(userRepo)
 
 	r := gin.New()
 	r.Use(gin.Logger())
@@ -161,6 +168,31 @@ func main() {
 			protected.PUT("/me/vibe-tags", socialH.SetVibeTags)
 			protected.PUT("/me/travel-mode", socialH.SetTravelMode)
 			protected.DELETE("/me/travel-mode", socialH.ClearTravelMode)
+
+			// Vouches & Badges
+			protected.POST("/users/:id/vouch", socialH.VouchForUser)
+			protected.GET("/users/:id/vouches", socialH.GetVouches)
+			protected.GET("/users/:id/badges", socialH.GetBadges)
+
+			// XP & Leaderboard
+			protected.GET("/me/xp", xpH.GetMyXP)
+			protected.POST("/xp", xpH.AwardXP)
+			protected.GET("/leaderboard", xpH.Leaderboard)
+
+			// Challenges
+			protected.GET("/challenges", challengeH.ListChallenges)
+			protected.POST("/challenges/:id/complete", challengeH.CompleteChallenge)
+
+			// Personas
+			protected.GET("/me/personas", personaH.ListPersonas)
+			protected.POST("/me/personas", personaH.CreatePersona)
+			protected.PUT("/me/personas/:id/activate", personaH.ActivatePersona)
+
+			// Travel / Visited Cities
+			protected.POST("/me/visited-cities", travelH.AddVisitedCity)
+			protected.GET("/users/:id/visited-cities", travelH.GetVisitedCities)
+			protected.PUT("/me/local-guide", travelH.SetLocalGuide)
+			protected.GET("/discover/co-travel", travelH.DiscoverCoTravel)
 		}
 	}
 
