@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: buddyup
+      POSTGRES_PASSWORD: buddyup
+      POSTGRES_DB: buddyup
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://buddyup:buddyup@db:5432/buddyup?sslmode=disable
+      JWT_SECRET: change_me_to_something_very_secret_and_long
+      PORT: "8080"
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
