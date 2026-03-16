@@ -35,6 +35,15 @@ import SuperConnectsScreen from "@/screens/SuperConnect/SuperConnectsScreen";
 import SettingsScreen from "@/screens/Settings/SettingsScreen";
 import BlockedUsersScreen from "@/screens/Settings/BlockedUsersScreen";
 
+// Phase 3 screens
+import LeaderboardScreen from "@/screens/Leaderboard/LeaderboardScreen";
+import ChallengesScreen from "@/screens/Challenges/ChallengesScreen";
+import AnalyticsScreen from "@/screens/Profile/AnalyticsScreen";
+import TravelMapScreen from "@/screens/Profile/TravelMapScreen";
+
+// Phase 4 screens
+import BuddyPassScreen from "@/screens/Premium/BuddyPassScreen";
+
 const _storage = new MMKV();
 const ONBOARDING_KEY = "onboarding_complete";
 
@@ -193,6 +202,15 @@ export const AppNavigator = observer(() => {
             <RootStack.Screen
               name="BlockedUsers"
               component={BlockedUsersScreen}
+            />
+            <RootStack.Screen name="Leaderboard" component={LeaderboardScreen} />
+            <RootStack.Screen name="Challenges" component={ChallengesScreen} />
+            <RootStack.Screen name="Analytics" component={AnalyticsScreen} />
+            <RootStack.Screen name="TravelMap" component={TravelMapScreen} />
+            <RootStack.Screen
+              name="BuddyPass"
+              component={BuddyPassScreen}
+              options={{ presentation: "modal" }}
             />
           </>
         )}

@@ -18,6 +18,7 @@ import Swiper from "react-native-deck-swiper";
 import { api } from "@/services/api";
 import { discoverStore, DiscoverUser } from "@/stores/discoverStore";
 import { socialStore } from "@/stores/SocialStore";
+import { premiumStore } from "@/stores/PremiumStore";
 import { colors, spacing, radii, fontSizes, INTEREST_COLORS } from "@/theme";
 import { ACTIVITY_TYPES } from "@/types";
 import SkeletonCard from "@/components/SkeletonCard";
@@ -77,6 +78,8 @@ export default observer(function DiscoverScreen({ navigation }: any) {
 
   const users = discoverStore.users.slice(discoverStore.currentIndex);
 
+  const superConnectsLeft = Math.max(0, 5 - socialStore.dailySuperConnectsSent);
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={["#0F0F1A", "#1A1A2E"]} style={StyleSheet.absoluteFill} />
@@ -84,13 +87,23 @@ export default observer(function DiscoverScreen({ navigation }: any) {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.logo}>BuddyUp</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LocationFilter")}
-          style={styles.filterBtn}
-        >
-          <Ionicons name="location" size={18} color={colors.primary} />
-          <Text style={styles.filterText}>Filter</Text>
-        </TouchableOpacity>
+        <View style={styles.headerRight}>
+          {superConnectsLeft === 0 && (
+            <TouchableOpacity
+              style={styles.buyMoreBtn}
+              onPress={() => navigation.navigate("BuddyPass")}
+            >
+              <Text style={styles.buyMoreText}>Buy more ⚡</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("LocationFilter")}
+            style={styles.filterBtn}
+          >
+            <Ionicons name="location" size={18} color={colors.primary} />
+            <Text style={styles.filterText}>Filter</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Activity filter chips */}
@@ -138,7 +151,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
             ref={swiperRef}
             cards={users}
             keyExtractor={(u) => u.id}
-            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} />}
+            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} remaining={superConnectsLeft} />}
             onSwipedRight={(i) => handleLike(users[i])}
             onSwipedLeft={(i) => handlePass(users[i])}
             backgroundColor="transparent"
@@ -209,7 +222,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
   );
 });
 
-function UserCard({ user, onSuperConnect }: { user: DiscoverUser; onSuperConnect: (id: string) => void }) {
+function UserCard({ user, onSuperConnect, remaining }: { user: DiscoverUser; onSuperConnect: (id: string) => void; remaining?: number }) {
   const compatScore = user.common_interests > 0
     ? Math.min(Math.round((user.common_interests / Math.max(user.interests.length, 1)) * 100), 99)
     : null;
@@ -239,6 +252,9 @@ function UserCard({ user, onSuperConnect }: { user: DiscoverUser; onSuperConnect
       {/* Super Connect button */}
       <TouchableOpacity style={styles.superConnectBtn} onPress={() => onSuperConnect(user.id)}>
         <Text style={styles.superConnectIcon}>⚡</Text>
+        {remaining !== undefined && (
+          <Text style={styles.superConnectCount}>{remaining}</Text>
+        )}
       </TouchableOpacity>
 
       <View style={styles.cardContent}>
@@ -281,6 +297,18 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: spacing.lg, paddingVertical: spacing.md },
   logo: { fontSize: fontSizes.xl, fontWeight: "900", color: colors.text },
+  headerRight: { flexDirection: "row", alignItems: "center", gap: 8 },
+  buyMoreBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.warning + "33",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radii.full,
+    borderWidth: 1,
+    borderColor: colors.warning + "66",
+  },
+  buyMoreText: { color: colors.warning, fontSize: 12, fontWeight: "800" },
   filterBtn: { flexDirection: "row", alignItems: "center", gap: 4, backgroundColor: colors.bgCard, paddingHorizontal: 12, paddingVertical: 8, borderRadius: radii.full, borderWidth: 1, borderColor: colors.border },
   filterText: { color: colors.text, fontWeight: "600", fontSize: 13 },
   cardArea: { flex: 1, paddingHorizontal: spacing.lg },
@@ -337,6 +365,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   superConnectIcon: { fontSize: 18 },
+  superConnectCount: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: colors.error,
+    fontSize: 9,
+    color: "#fff",
+    fontWeight: "900",
+    textAlign: "center",
+    lineHeight: 16,
+  },
   vibeTags: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 },
   vibeTag: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: radii.full, backgroundColor: "rgba(255,255,255,0.15)", borderWidth: 1, borderColor: "rgba(255,255,255,0.25)" },
   vibeTagText: { fontSize: 10, color: "rgba(255,255,255,0.9)", fontWeight: "600" },

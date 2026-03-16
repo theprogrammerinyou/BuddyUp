@@ -59,6 +59,13 @@ export default observer(function GroupsListScreen({ navigation }: any) {
     }
   };
 
+  // Sort sponsored groups to the top
+  const sortedGroups = [...groupStore.groups].sort((a, b) => {
+    const aSponsored = (a as any).is_sponsored || (a as any).sponsor_name ? 1 : 0;
+    const bSponsored = (b as any).is_sponsored || (b as any).sponsor_name ? 1 : 0;
+    return bSponsored - aSponsored;
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={["#0F0F1A", "#1A1A2E"]} style={StyleSheet.absoluteFill} />
@@ -94,7 +101,7 @@ export default observer(function GroupsListScreen({ navigation }: any) {
       />
 
       <FlatList
-        data={groupStore.groups}
+        data={sortedGroups}
         keyExtractor={(g) => g.id}
         contentContainerStyle={styles.list}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={colors.primary} />}
@@ -105,43 +112,55 @@ export default observer(function GroupsListScreen({ navigation }: any) {
             <Text style={styles.emptySub}>Create one and invite your buddies!</Text>
           </View>
         }
-        renderItem={({ item: group }) => (
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => {
-              groupStore.setSelectedGroup(group);
-              navigation.navigate("GroupDetail", { groupId: group.id });
-            }}
-            activeOpacity={0.85}
-          >
-            <View style={styles.cardTop}>
-              <View style={[styles.activityBadge, { backgroundColor: ACTIVITY_COLORS[group.activity_type] ?? colors.primary }]}>
-                <Text style={styles.activityText}>{group.activity_type}</Text>
+        renderItem={({ item: group }) => {
+          const isSponsored = (group as any).is_sponsored || !!(group as any).sponsor_name;
+          return (
+            <TouchableOpacity
+              style={[styles.card, isSponsored && styles.cardSponsored]}
+              onPress={() => {
+                groupStore.setSelectedGroup(group);
+                navigation.navigate("GroupDetail", { groupId: group.id });
+              }}
+              activeOpacity={0.85}
+            >
+              <View style={styles.cardTop}>
+                <View style={[styles.activityBadge, { backgroundColor: ACTIVITY_COLORS[group.activity_type] ?? colors.primary }]}>
+                  <Text style={styles.activityText}>{group.activity_type}</Text>
+                </View>
+                <View style={styles.cardTopRight}>
+                  {isSponsored && (
+                    <View style={styles.sponsoredBadge}>
+                      <Text style={styles.sponsoredText}>
+                        {(group as any).sponsor_name ? `✦ ${(group as any).sponsor_name}` : "✦ Sponsored"}
+                      </Text>
+                    </View>
+                  )}
+                  {group.is_public ? null : (
+                    <Ionicons name="lock-closed" size={14} color={colors.textMuted} />
+                  )}
+                </View>
               </View>
-              {group.is_public ? null : (
-                <Ionicons name="lock-closed" size={14} color={colors.textMuted} />
-              )}
-            </View>
-            <Text style={styles.groupName} numberOfLines={1}>{group.name}</Text>
-            {group.description ? (
-              <Text style={styles.groupDesc} numberOfLines={2}>{group.description}</Text>
-            ) : null}
-            <View style={styles.cardBottom}>
-              <View style={styles.memberRow}>
-                <Ionicons name="people" size={14} color={colors.textMuted} />
-                <Text style={styles.memberText}>{group.member_count ?? 0} / {group.max_members}</Text>
+              <Text style={styles.groupName} numberOfLines={1}>{group.name}</Text>
+              {group.description ? (
+                <Text style={styles.groupDesc} numberOfLines={2}>{group.description}</Text>
+              ) : null}
+              <View style={styles.cardBottom}>
+                <View style={styles.memberRow}>
+                  <Ionicons name="people" size={14} color={colors.textMuted} />
+                  <Text style={styles.memberText}>{group.member_count ?? 0} / {group.max_members}</Text>
+                </View>
+                <TouchableOpacity
+                  style={[styles.joinBtn, group.is_member && styles.joinedBtn]}
+                  onPress={() => handleJoin(group)}
+                >
+                  <Text style={[styles.joinText, group.is_member && styles.joinedText]}>
+                    {group.is_member ? "Joined" : "Join"}
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                style={[styles.joinBtn, group.is_member && styles.joinedBtn]}
-                onPress={() => handleJoin(group)}
-              >
-                <Text style={[styles.joinText, group.is_member && styles.joinedText]}>
-                  {group.is_member ? "Joined" : "Join"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        )}
+            </TouchableOpacity>
+          );
+        }}
       />
     </SafeAreaView>
   );
@@ -157,7 +176,16 @@ const styles = StyleSheet.create({
   chipText: { color: colors.textSub, fontSize: fontSizes.sm, fontWeight: "600", textTransform: "capitalize" },
   list: { paddingHorizontal: spacing.lg, paddingBottom: 100, gap: 12 },
   card: { backgroundColor: colors.bgCard, borderRadius: radii.lg, padding: spacing.md, borderWidth: 1, borderColor: colors.border },
+  cardSponsored: { borderColor: colors.warning, backgroundColor: colors.warning + "0D" },
   cardTop: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
+  cardTopRight: { flexDirection: "row", alignItems: "center", gap: 8 },
+  sponsoredBadge: {
+    backgroundColor: colors.warning,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: radii.full,
+  },
+  sponsoredText: { color: "#000", fontSize: 10, fontWeight: "900" },
   activityBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: radii.full },
   activityText: { color: "#fff", fontSize: 11, fontWeight: "700", textTransform: "capitalize" },
   groupName: { fontSize: fontSizes.md, fontWeight: "800", color: colors.text, marginBottom: 4 },

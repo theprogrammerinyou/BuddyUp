@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import { authStore } from "@/stores/authStore";
 import { socialStore } from "@/stores/SocialStore";
+import { premiumStore } from "@/stores/PremiumStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";
 import { VIBE_TAGS } from "@/types";
 
@@ -23,7 +24,15 @@ export default observer(function SettingsScreen({ navigation }: any) {
   const [vibeTagModal, setVibeTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>(socialStore.vibeTags);
 
+  useEffect(() => {
+    premiumStore.fetchSubscription();
+  }, []);
+
   const handleGhostMode = async (isDiscoverable: boolean) => {
+    if (!premiumStore.isPremium) {
+      navigation.navigate("BuddyPass");
+      return;
+    }
     try {
       await socialStore.setGhostMode(isDiscoverable);
     } catch {
@@ -32,6 +41,10 @@ export default observer(function SettingsScreen({ navigation }: any) {
   };
 
   const handleTravelMode = async () => {
+    if (!premiumStore.isPremium) {
+      navigation.navigate("BuddyPass");
+      return;
+    }
     Alert.prompt(
       "Set Travel Location",
       "Enter latitude,longitude (e.g. 40.7128,-74.0060)",
@@ -94,12 +107,22 @@ export default observer(function SettingsScreen({ navigation }: any) {
                 <Text style={styles.rowSub}>Hide yourself from discovery</Text>
               </View>
             </View>
-            <Switch
-              value={!socialStore.isGhostMode}
-              onValueChange={handleGhostMode}
-              trackColor={{ true: colors.primary, false: colors.border }}
-              thumbColor="#fff"
-            />
+            {premiumStore.isPremium ? (
+              <Switch
+                value={!socialStore.isGhostMode}
+                onValueChange={handleGhostMode}
+                trackColor={{ true: colors.primary, false: colors.border }}
+                thumbColor="#fff"
+              />
+            ) : (
+              <TouchableOpacity
+                style={styles.premiumGate}
+                onPress={() => navigation.navigate("BuddyPass")}
+              >
+                <Ionicons name="lock-closed" size={14} color={colors.warning} />
+                <Text style={styles.premiumGateText}>BuddyPass</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 
@@ -116,16 +139,26 @@ export default observer(function SettingsScreen({ navigation }: any) {
                 </Text>
               </View>
             </View>
-            <View style={styles.travelBtns}>
-              {socialStore.isTravelModeActive && (
-                <TouchableOpacity style={styles.clearBtn} onPress={handleClearTravelMode}>
-                  <Text style={styles.clearBtnText}>Clear</Text>
+            {premiumStore.isPremium ? (
+              <View style={styles.travelBtns}>
+                {socialStore.isTravelModeActive && (
+                  <TouchableOpacity style={styles.clearBtn} onPress={handleClearTravelMode}>
+                    <Text style={styles.clearBtnText}>Clear</Text>
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity style={styles.setBtn} onPress={handleTravelMode}>
+                  <Text style={styles.setBtnText}>Set</Text>
                 </TouchableOpacity>
-              )}
-              <TouchableOpacity style={styles.setBtn} onPress={handleTravelMode}>
-                <Text style={styles.setBtnText}>Set</Text>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={styles.premiumGate}
+                onPress={() => navigation.navigate("BuddyPass")}
+              >
+                <Ionicons name="lock-closed" size={14} color={colors.warning} />
+                <Text style={styles.premiumGateText}>BuddyPass</Text>
               </TouchableOpacity>
-            </View>
+            )}
           </View>
         </View>
 
@@ -253,6 +286,18 @@ const styles = StyleSheet.create({
   tagChipText: { fontSize: 11, color: colors.primary, fontWeight: "700" },
   logoutBtn: { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: colors.bgCard, borderRadius: radii.lg, padding: spacing.md, borderWidth: 1, borderColor: colors.error + "55", marginTop: 8 },
   logoutText: { fontSize: fontSizes.md, fontWeight: "700", color: colors.error },
+  premiumGate: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    backgroundColor: colors.warning + "22",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radii.full,
+    borderWidth: 1,
+    borderColor: colors.warning + "55",
+  },
+  premiumGateText: { fontSize: 11, color: colors.warning, fontWeight: "800" },
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.7)", justifyContent: "flex-end" },
   modalContent: { backgroundColor: colors.bgCard, borderTopLeftRadius: radii.xl, borderTopRightRadius: radii.xl, padding: spacing.lg, gap: 14 },
   modalTitle: { fontSize: fontSizes.md, fontWeight: "800", color: colors.text },
