@@ -21,6 +21,7 @@
     "expo-device": "~6.0.2",
     "expo-linear-gradient": "^55.0.8",
     "expo-location": "~17.0.1",
+    "expo-network": "~6.0.1",
     "expo-notifications": "~0.28.19",
     "expo-status-bar": "~1.12.1",
     "mobx": "^6.13.1",

@@ -99,6 +99,32 @@ func (r *UserRepo) GetUserByID(ctx context.Context, id string) (*models.User, er
 	return &u, nil
 }
 
+func (r *UserRepo) UpdateProfile(ctx context.Context, userID string, req models.UpdateProfileRequest) error {
+	setClauses := []string{"updated_at = NOW()"}
+	args := []interface{}{userID}
+
+	if req.DisplayName != nil {
+		args = append(args, *req.DisplayName)
+		setClauses = append(setClauses, fmt.Sprintf("display_name = $%d", len(args)))
+	}
+	if req.Bio != nil {
+		args = append(args, *req.Bio)
+		setClauses = append(setClauses, fmt.Sprintf("bio = $%d", len(args)))
+	}
+	if req.Interests != nil {
+		args = append(args, req.Interests)
+		setClauses = append(setClauses, fmt.Sprintf("interests = $%d", len(args)))
+	}
+	if req.AvatarCharacterID != nil {
+		args = append(args, *req.AvatarCharacterID)
+		setClauses = append(setClauses, fmt.Sprintf("avatar_character_id = $%d", len(args)))
+	}
+
+	query := fmt.Sprintf("UPDATE users SET %s WHERE id = $1", strings.Join(setClauses, ", "))
+	_, err := r.db.Exec(ctx, query, args...)
+	return err
+}
+
 func (r *UserRepo) UpdateLocation(ctx context.Context, userID string, lat, lng float64) error {
 	_, err := r.db.Exec(ctx, `
 		UPDATE users SET latitude = $2, longitude = $3, updated_at = NOW()
@@ -209,6 +235,7 @@ func (r *UserRepo) Discover(ctx context.Context, userID string, lat, lng, radius
 		  AND u.latitude BETWEEN $2 - $4 AND $2 + $4
 		  AND u.longitude BETWEEN $3 - ($4 / cos(radians($2))) AND $3 + ($4 / cos(radians($2)))
 		  AND NOT EXISTS (SELECT 1 FROM likes l WHERE l.liker_id = $1 AND l.liked_id = u.id)
+		  AND NOT EXISTS (SELECT 1 FROM passes p WHERE p.passer_id = $1 AND p.passed_id = u.id)
 		ORDER BY common_interests DESC NULLS LAST, distance_km ASC
 		LIMIT 100
 	`, userID, lat, lng, degreeRadius)

@@ -83,6 +83,17 @@ type UpdatePushTokenRequest struct {
 	Token string `json:"token" binding:"required"`
 }
 
+type UpdateProfileRequest struct {
+	DisplayName       *string  `json:"display_name"`
+	Bio               *string  `json:"bio"`
+	Interests         []string `json:"interests"`
+	AvatarCharacterID *int     `json:"avatar_character_id"`
+}
+
+type PassRequest struct {
+	PassedID string `json:"passed_id" binding:"required"`
+}
+
 type DiscoverQuery struct {
 	Latitude  float64 `form:"latitude"`
 	Longitude float64 `form:"longitude"`

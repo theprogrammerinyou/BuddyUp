@@ -1,13 +1,16 @@
 import "react-native-gesture-handler";
 import React, { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as Notifications from "expo-notifications";
 import { AppNavigator, navigationRef } from "@/navigators/AppNavigator";
 import { authStore } from "@/stores/authStore";
 import { registerForPushAndSync } from "@/services/notifications";
+import { useNetworkStatus } from "@/hooks/useNetworkStatus";
+import OfflineBanner from "@/components/OfflineBanner";
 
-export default function App() {
+function AppContent() {
+  const { isOnline } = useNetworkStatus();
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
   useEffect(() => {
@@ -30,8 +33,17 @@ export default function App() {
   }, [lastNotificationResponse]);
 
   return (
-    <GestureHandlerRootView style={styles.root}>
+    <View style={styles.root}>
+      <OfflineBanner visible={!isOnline} />
       <AppNavigator />
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <GestureHandlerRootView style={styles.root}>
+      <AppContent />
     </GestureHandlerRootView>
   );
 }

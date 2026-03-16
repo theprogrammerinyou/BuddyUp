@@ -7,14 +7,15 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Alert,
-  ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { Ionicons } from "@expo/vector-icons";
-import { authStore } from "@/stores/authStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";
+
+function validateEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 // Simple step 1: collect basic info, then go to Interests, then AvatarPicker
 export default observer(function RegisterScreen({ navigation, route }: any) {
@@ -23,12 +24,40 @@ export default observer(function RegisterScreen({ navigation, route }: any) {
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const validate = () => {
+    let valid = true;
+    setNameError("");
+    setEmailError("");
+    setPasswordError("");
+
+    if (!displayName.trim()) {
+      setNameError("Display name is required");
+      valid = false;
+    }
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      valid = false;
+    } else if (!validateEmail(email.trim())) {
+      setEmailError("Please enter a valid email address");
+      valid = false;
+    }
+    if (!password) {
+      setPasswordError("Password is required");
+      valid = false;
+    } else if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters");
+      valid = false;
+    }
+    return valid;
+  };
 
   const handleNext = () => {
-    if (!displayName || !email || !password) {
-      return Alert.alert("Fill all required fields");
-    }
-    navigation.navigate("Interests", { display_name: displayName, email, password, bio });
+    if (!validate()) return;
+    navigation.navigate("Interests", { display_name: displayName.trim(), email: email.trim().toLowerCase(), password, bio: bio.trim() });
   };
 
   return (
@@ -44,44 +73,74 @@ export default observer(function RegisterScreen({ navigation, route }: any) {
         <Text style={styles.sub}>Tell us about yourself</Text>
 
         <View style={styles.form}>
-          {[
-            { label: "Display Name *", icon: "person-outline", value: displayName, onChangeText: setDisplayName, placeholder: "e.g. Arjun" },
-            { label: "Email *", icon: "mail-outline", value: email, onChangeText: setEmail, placeholder: "you@example.com", keyboardType: "email-address", autoCapitalize: "none" },
-            { label: "Bio", icon: "chatbubble-outline", value: bio, onChangeText: setBio, placeholder: "What are you into?" },
-          ].map((field) => (
-            <View key={field.label}>
-              <Text style={styles.label}>{field.label}</Text>
-              <View style={styles.inputWrap}>
-                <Ionicons name={field.icon as any} size={18} color={colors.textMuted} style={{ marginRight: 10 }} />
-                <TextInput
-                  style={styles.input}
-                  placeholder={field.placeholder}
-                  placeholderTextColor={colors.textMuted}
-                  value={field.value}
-                  onChangeText={field.onChangeText}
-                  keyboardType={(field as any).keyboardType}
-                  autoCapitalize={(field as any).autoCapitalize ?? "sentences"}
-                />
-              </View>
+          {/* Display Name */}
+          <View>
+            <Text style={styles.label}>Display Name *</Text>
+            <View style={[styles.inputWrap, !!nameError && styles.inputError]}>
+              <Ionicons name="person-outline" size={18} color={colors.textMuted} style={{ marginRight: 10 }} />
+              <TextInput
+                style={styles.input}
+                placeholder="e.g. Arjun"
+                placeholderTextColor={colors.textMuted}
+                value={displayName}
+                onChangeText={(v) => { setDisplayName(v); setNameError(""); }}
+                autoCapitalize="words"
+              />
             </View>
-          ))}
+            {!!nameError && <Text style={styles.fieldError}>{nameError}</Text>}
+          </View>
 
+          {/* Email */}
+          <View>
+            <Text style={styles.label}>Email *</Text>
+            <View style={[styles.inputWrap, !!emailError && styles.inputError]}>
+              <Ionicons name="mail-outline" size={18} color={colors.textMuted} style={{ marginRight: 10 }} />
+              <TextInput
+                style={styles.input}
+                placeholder="you@example.com"
+                placeholderTextColor={colors.textMuted}
+                value={email}
+                onChangeText={(v) => { setEmail(v); setEmailError(""); }}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+            {!!emailError && <Text style={styles.fieldError}>{emailError}</Text>}
+          </View>
+
+          {/* Bio */}
+          <View>
+            <Text style={styles.label}>Bio</Text>
+            <View style={styles.inputWrap}>
+              <Ionicons name="chatbubble-outline" size={18} color={colors.textMuted} style={{ marginRight: 10 }} />
+              <TextInput
+                style={styles.input}
+                placeholder="What are you into?"
+                placeholderTextColor={colors.textMuted}
+                value={bio}
+                onChangeText={setBio}
+              />
+            </View>
+          </View>
+
+          {/* Password */}
           <View>
             <Text style={styles.label}>Password *</Text>
-            <View style={styles.inputWrap}>
+            <View style={[styles.inputWrap, !!passwordError && styles.inputError]}>
               <Ionicons name="lock-closed-outline" size={18} color={colors.textMuted} style={{ marginRight: 10 }} />
               <TextInput
                 style={styles.input}
                 placeholder="Min 6 characters"
                 placeholderTextColor={colors.textMuted}
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={(v) => { setPassword(v); setPasswordError(""); }}
                 secureTextEntry={!showPass}
               />
               <TouchableOpacity onPress={() => setShowPass(!showPass)}>
                 <Ionicons name={showPass ? "eye-off" : "eye"} size={20} color={colors.textMuted} />
               </TouchableOpacity>
             </View>
+            {!!passwordError && <Text style={styles.fieldError}>{passwordError}</Text>}
           </View>
         </View>
 
@@ -121,7 +180,9 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     height: 56,
   },
+  inputError: { borderColor: colors.error },
   input: { flex: 1, color: colors.text, fontSize: fontSizes.md },
+  fieldError: { color: colors.error, fontSize: fontSizes.xs, marginTop: 6, marginLeft: 4 },
   btn: { borderRadius: radii.xl, overflow: "hidden", marginTop: 36 },
   btnGrad: { paddingVertical: 18, alignItems: "center" },
   btnText: { color: "#fff", fontWeight: "800", fontSize: fontSizes.md },

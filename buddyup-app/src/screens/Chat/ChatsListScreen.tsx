@@ -7,25 +7,29 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { Ionicons } from "@expo/vector-icons";
 import { chatStore, Match } from "@/stores/chatStore";
-import { authStore } from "@/stores/authStore";
 import { api } from "@/services/api";
 import { colors, spacing, radii, fontSizes } from "@/theme";
+import EmptyState from "@/components/EmptyState";
+import SkeletonListItem from "@/components/SkeletonListItem";
 
 export default observer(function ChatsListScreen({ navigation }: any) {
+  const [loading, setLoading] = React.useState(true);
+
   useEffect(() => {
     (async () => {
+      setLoading(true);
       try {
         await api.post("/me/ensure-seed-matches");
       } catch {
         // ignore
       }
-      chatStore.fetchMatches();
+      await chatStore.fetchMatches();
+      setLoading(false);
     })();
   }, []);
 
@@ -63,12 +67,18 @@ export default observer(function ChatsListScreen({ navigation }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={["#0F0F1A", "#1A1A2E"]} style={StyleSheet.absoluteFill} />
-      {chatStore.matches.length === 0 ? (
-        <View style={styles.empty}>
-          <Ionicons name="chatbubbles-outline" size={60} color={colors.textMuted} />
-          <Text style={styles.emptyTitle}>No messages yet</Text>
-          <Text style={styles.emptyText}>Match with someone to start chatting!</Text>
+      {loading ? (
+        <View style={{ padding: spacing.md, gap: 10 }}>
+          {[0, 1, 2, 3].map((i) => <SkeletonListItem key={i} />)}
         </View>
+      ) : chatStore.matches.length === 0 ? (
+        <EmptyState
+          icon="💬"
+          title="No conversations yet"
+          subtitle="Match with someone to start chatting!"
+          actionLabel="Find Buddies"
+          onAction={() => navigation.navigate("Discover")}
+        />
       ) : (
         <FlatList
           data={chatStore.matches}
@@ -98,7 +108,4 @@ const styles = StyleSheet.create({
   name: { fontSize: fontSizes.md, fontWeight: "800", color: colors.text },
   charText: { fontSize: 11, color: colors.warning, fontWeight: "600", marginTop: 2 },
   sub: { fontSize: 12, color: colors.textMuted, marginTop: 4 },
-  empty: { flex: 1, alignItems: "center", justifyContent: "center", gap: 14 },
-  emptyTitle: { fontSize: fontSizes.lg, fontWeight: "800", color: colors.text },
-  emptyText: { fontSize: fontSizes.sm, color: colors.textSub },
 });
