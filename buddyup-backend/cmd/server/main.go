@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-contrib/cors"
@@ -40,6 +41,7 @@ func main() {
 	charRepo := repository.NewCharacterRepo(pool)
 	likeRepo := repository.NewLikeRepo(pool)
 	chatRepo := repository.NewChatRepo(pool)
+	passRepo := repository.NewPassRepo(pool)
 
 	// Push notifications client (shared by hub and like handler)
 	pushClient := expo.NewPushClient(nil)
@@ -53,10 +55,14 @@ func main() {
 	likeH := handlers.NewLikeHandler(likeRepo, userRepo, pushClient)
 	chatH := handlers.NewChatHandler(chatRepo, likeRepo, hub)
 	charH := handlers.NewCharacterHandler(charRepo)
+	passH := handlers.NewPassHandler(passRepo)
+	userH := handlers.NewUserHandler(userRepo)
 
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Logger())
 
-	// CORS
+	// Global middlewares
+	r.Use(middleware.ErrorHandler())
 	r.Use(cors.New(cors.Config{
 		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
@@ -65,11 +71,25 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	// Health check (no rate limit)
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status":  "ok",
+			"service": "buddyup-backend",
+			"version": "1.0.0",
+		})
+	})
+
 	api := r.Group("/api/v1")
+	api.Use(middleware.RateLimit())
 	{
-		// Public
-		api.POST("/auth/register", authH.Register)
-		api.POST("/auth/login", authH.Login)
+		// Public — stricter rate limit for auth endpoints
+		auth := api.Group("/auth")
+		auth.Use(middleware.RateLimitStrict())
+		{
+			auth.POST("/register", authH.Register)
+			auth.POST("/login", authH.Login)
+		}
 		api.GET("/characters", charH.List)
 
 		// Protected
@@ -77,6 +97,7 @@ func main() {
 		protected.Use(middleware.AuthRequired())
 		{
 			protected.GET("/me", authH.Me)
+			protected.PUT("/me", authH.UpdateProfile)
 			protected.POST("/me/ensure-seed-matches", authH.EnsureSeedMatches)
 			protected.PUT("/auth/push-token", authH.UpdatePushToken)
 			protected.PUT("/location", discoverH.UpdateLocation)
@@ -85,6 +106,10 @@ func main() {
 			protected.POST("/likes", likeH.Like)
 			protected.GET("/likes/me", likeH.WhoLikedMe)
 			protected.GET("/matches", likeH.Matches)
+
+			protected.POST("/passes", passH.Pass)
+
+			protected.GET("/users/:id", userH.GetProfile)
 
 			protected.GET("/chats/:matchId", chatH.GetHistory)
 		}

@@ -18,6 +18,7 @@ import { api } from "@/services/api";
 import { authStore, Character } from "@/stores/authStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";
 import * as Location from "expo-location";
+import { markOnboardingComplete } from "@/navigators/AppNavigator";
 
 const TYPES = ["anime", "movie", "book"] as const;
 
@@ -69,6 +70,7 @@ export default observer(function AvatarPickerScreen({ navigation, route }: any) 
       latitude: lat,
       longitude: lng,
     });
+    markOnboardingComplete();
   };
 
   return (

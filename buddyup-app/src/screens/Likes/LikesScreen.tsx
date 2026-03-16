@@ -7,7 +7,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "react-native-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,6 +15,8 @@ import { api } from "@/services/api";
 import { colors, spacing, radii, fontSizes, INTEREST_COLORS } from "@/theme";
 import { User } from "@/stores/authStore";
 import { chatStore } from "@/stores/chatStore";
+import EmptyState from "@/components/EmptyState";
+import SkeletonListItem from "@/components/SkeletonListItem";
 
 type Tab = "liked_me" | "matches";
 
@@ -114,14 +115,17 @@ export default observer(function LikesScreen({ navigation }: any) {
       </View>
 
       {loading ? (
-        <ActivityIndicator color={colors.primary} style={{ marginTop: 40 }} />
-      ) : list.length === 0 ? (
-        <View style={styles.empty}>
-          <Ionicons name={tab === "liked_me" ? "heart-outline" : "people-outline"} size={56} color={colors.textMuted} />
-          <Text style={styles.emptyText}>
-            {tab === "liked_me" ? "No likes yet — keep getting out there!" : "No matches yet — swipe more!"}
-          </Text>
+        <View style={{ padding: spacing.md, gap: 12 }}>
+          {[0, 1, 2, 3].map((i) => <SkeletonListItem key={i} />)}
         </View>
+      ) : list.length === 0 ? (
+        <EmptyState
+          icon={tab === "liked_me" ? "💭" : "💞"}
+          title={tab === "liked_me" ? "No likes yet" : "No matches yet"}
+          subtitle={tab === "liked_me" ? "Keep swiping — your admirers will show up here!" : "Swipe right on someone and hope they feel the same 😊"}
+          actionLabel={tab === "liked_me" ? "Start Swiping" : "Find Buddies"}
+          onAction={() => navigation.navigate("Discover")}
+        />
       ) : (
         <FlatList
           data={list}
@@ -182,6 +186,4 @@ const styles = StyleSheet.create({
   chip: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: radii.full },
   chipText: { fontSize: 10, fontWeight: "700", color: "#fff" },
   chatIcon: { padding: 8 },
-  empty: { flex: 1, alignItems: "center", justifyContent: "center", gap: 16, paddingHorizontal: spacing.xl },
-  emptyText: { fontSize: fontSizes.sm, color: colors.textSub, textAlign: "center" },
 });

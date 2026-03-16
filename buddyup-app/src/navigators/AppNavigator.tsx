@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { observer } from "mobx-react-lite";
 import { Ionicons } from "@expo/vector-icons";
+import { MMKV } from "react-native-mmkv";
 
 import { authStore } from "@/stores/authStore";
 import { colors } from "@/theme";
@@ -20,6 +21,22 @@ import ChatsListScreen from "@/screens/Chat/ChatsListScreen";
 import ChatScreen from "@/screens/Chat/ChatScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
 import LocationFilterScreen from "@/screens/Map/LocationFilterScreen";
+
+const _storage = new MMKV();
+const ONBOARDING_KEY = "onboarding_complete";
+
+export function markOnboardingComplete() {
+  _storage.set(ONBOARDING_KEY, true);
+}
+
+function isOnboardingComplete(): boolean {
+  // Check MMKV flag first (set after registration completes)
+  if (_storage.getBoolean(ONBOARDING_KEY)) return true;
+  // Fallback: if user already has avatar + interests, treat as complete
+  const user = authStore.user;
+  if (!user) return false;
+  return !!(user.avatar_character_id && user.interests?.length > 0);
+}
 
 const AuthStack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -91,10 +108,16 @@ function TabNavigator() {
 export const navigationRef = React.createRef<any>();
 
 export const AppNavigator = observer(() => {
+  const onboardingDone = isOnboardingComplete();
+
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!authStore.isAuthenticated ? (
+          <RootStack.Screen name="Auth" component={AuthNavigator} />
+        ) : !onboardingDone ? (
+          // Authenticated but onboarding not complete — show onboarding steps
+          // (uses Auth stack which includes Interests & AvatarPicker)
           <RootStack.Screen name="Auth" component={AuthNavigator} />
         ) : (
           <>

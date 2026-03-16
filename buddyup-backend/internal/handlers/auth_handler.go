@@ -109,6 +109,28 @@ func (h *AuthHandler) EnsureSeedMatches(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "ok"})
 }
 
+// PUT /api/v1/me
+func (h *AuthHandler) UpdateProfile(c *gin.Context) {
+	var req models.UpdateProfileRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	userID := c.GetString("user_id")
+	if err := h.userRepo.UpdateProfile(c.Request.Context(), userID, req); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "could not update profile: " + err.Error()})
+		return
+	}
+
+	user, err := h.userRepo.GetUserByID(c.Request.Context(), userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "could not fetch updated profile"})
+		return
+	}
+	c.JSON(http.StatusOK, user)
+}
+
 // PUT /api/v1/auth/push-token
 func (h *AuthHandler) UpdatePushToken(c *gin.Context) {
 	var req models.UpdatePushTokenRequest

@@ -88,6 +88,14 @@ class ChatStore {
     };
   }
 
+  appendMessage(matchId: string, msg: Message) {
+    if (!this.messages[matchId]) this.messages[matchId] = [];
+    // Avoid duplicates by ID
+    if (!this.messages[matchId].find((m) => m.id === msg.id)) {
+      this.messages[matchId].push(msg);
+    }
+  }
+
   sendMessage(content: string) {
     if (this.activeSocket?.readyState === WebSocket.OPEN) {
       this.activeSocket.send(JSON.stringify({ content }));
