@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -30,6 +31,18 @@ func main() {
 	`)
 	if err != nil {
 		log.Fatalf("Failed to create schema_migrations table: %v", err)
+	}
+
+	// Determine the directory where migration files are located.
+	// Prefer an explicit MIGRATIONS_DIR env var, and fall back to a
+	// "migrations" directory next to the executable.
+	migrationsDir := os.Getenv("MIGRATIONS_DIR")
+	if migrationsDir == "" {
+		exePath, err := os.Executable()
+		if err != nil {
+			log.Fatalf("Unable to determine executable path: %v", err)
+		}
+		migrationsDir = filepath.Join(filepath.Dir(exePath), "migrations")
 	}
 
 	migrations := []string{
@@ -61,9 +74,10 @@ func main() {
 		}
 
 		fmt.Printf("Running migration: %s\n", m)
-		content, err := os.ReadFile(m)
+		migrationPath := filepath.Join(migrationsDir, filepath.Base(m))
+		content, err := os.ReadFile(migrationPath)
 		if err != nil {
-			log.Fatalf("Unable to read migration %s: %v", m, err)
+			log.Fatalf("Unable to read migration %s from %s: %v", m, migrationPath, err)
 		}
 
 		// Wrap each migration in a transaction for atomicity.
