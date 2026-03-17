@@ -30,9 +30,9 @@ export default observer(function GroupDetailScreen({ route, navigation }: any) {
   const loadGroup = async () => {
     try {
       const [groupData, memberData] = await Promise.all([
-          apiService.getGroup(groupId).then((r) => r.data.group),
-          groupStore.fetchGroupMembers(groupId),
-        ]);
+        apiService.getGroup(groupId).then((r) => r.data.group),
+        groupStore.fetchGroupMembers(groupId),
+      ]);
       setGroup(groupData);
       setMembers(memberData);
     } catch (e) {

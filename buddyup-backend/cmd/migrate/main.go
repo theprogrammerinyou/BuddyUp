@@ -60,19 +60,6 @@ func main() {
 	}
 
 	for _, m := range migrations {
-		// Skip already-applied migrations.
-		var applied bool
-		err = pool.QueryRow(context.Background(),
-			`SELECT EXISTS(SELECT 1 FROM schema_migrations WHERE filename = $1)`, m,
-		).Scan(&applied)
-		if err != nil {
-			log.Fatalf("Error checking migration status for %s: %v", m, err)
-		}
-		if applied {
-			fmt.Printf("Skipping (already applied): %s\n", m)
-			continue
-		}
-
 		fmt.Printf("Running migration: %s\n", m)
 		migrationPath := filepath.Join(migrationsDir, filepath.Base(m))
 		content, err := os.ReadFile(migrationPath)
@@ -85,18 +72,27 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to begin transaction for %s: %v", m, err)
 		}
+		// Always clean up the transaction on any early exit.
+		defer tx.Rollback(context.Background()) //nolint:errcheck
 
 		if _, err = tx.Exec(context.Background(), string(content)); err != nil {
-			_ = tx.Rollback(context.Background())
 			log.Fatalf("Error executing migration %s: %v", m, err)
 		}
 
 		// Record the migration as applied within the same transaction.
-		if _, err = tx.Exec(context.Background(),
-			`INSERT INTO schema_migrations (filename) VALUES ($1)`, m,
-		); err != nil {
-			_ = tx.Rollback(context.Background())
+		// ON CONFLICT DO NOTHING makes concurrent runs safe and idempotent:
+		// if another process already inserted this row, we treat it as
+		// already applied and skip without error.
+		tag, err := tx.Exec(context.Background(),
+			`INSERT INTO schema_migrations (filename) VALUES ($1) ON CONFLICT DO NOTHING`, m,
+		)
+		if err != nil {
 			log.Fatalf("Error recording migration %s: %v", m, err)
+		}
+		if tag.RowsAffected() == 0 {
+			// Another concurrent runner already applied this migration.
+			fmt.Printf("Skipping (already applied by concurrent runner): %s\n", m)
+			continue
 		}
 
 		if err = tx.Commit(context.Background()); err != nil {
