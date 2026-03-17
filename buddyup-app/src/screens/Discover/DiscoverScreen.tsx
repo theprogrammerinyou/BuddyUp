@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   Alert,
+  Platform,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "react-native-linear-gradient";
@@ -18,6 +19,7 @@ import Swiper from "react-native-deck-swiper";
 import { api } from "@/services/api";
 import { discoverStore, DiscoverUser } from "@/stores/discoverStore";
 import { socialStore } from "@/stores/SocialStore";
+import { premiumStore } from "@/stores/PremiumStore";
 import { colors, spacing, radii, fontSizes, INTEREST_COLORS } from "@/theme";
 import { ACTIVITY_TYPES } from "@/types";
 import SkeletonCard from "@/components/SkeletonCard";
@@ -75,7 +77,66 @@ export default observer(function DiscoverScreen({ navigation }: any) {
     }
   };
 
+  const handleBlock = async (user: DiscoverUser) => {
+    try {
+      await api.post(`/users/${user.id}/block`);
+      discoverStore.swipeLeft();
+    } catch {
+      Alert.alert("Error", "Failed to block user");
+    }
+  };
+
+  const handleReport = (user: DiscoverUser) => {
+    if (Platform.OS === "ios") {
+      Alert.prompt(
+        `Report ${user.display_name}`,
+        "Describe why you are reporting this user",
+        async (reason) => {
+          if (!reason) return;
+          try {
+            await api.post(`/users/${user.id}/report`, { reason });
+            Alert.alert("Reported", "Thank you for your report.");
+            discoverStore.swipeLeft();
+          } catch {
+            Alert.alert("Error", "Failed to report user");
+          }
+        }
+      );
+    } else {
+      Alert.alert(
+        `Report ${user.display_name}`,
+        "Report this user for inappropriate behavior?",
+        [
+          { text: "Cancel", style: "cancel" },
+          {
+            text: "Report",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                await api.post(`/users/${user.id}/report`, { reason: "Inappropriate behavior" });
+                Alert.alert("Reported", "Thank you for your report.");
+                discoverStore.swipeLeft();
+              } catch {
+                Alert.alert("Error", "Failed to report user");
+              }
+            },
+          },
+        ]
+      );
+    }
+  };
+
+  const handleOverflow = (user: DiscoverUser) => {
+    Alert.alert(user.display_name, "What would you like to do?", [
+      { text: "🚫 Block", style: "destructive", onPress: () => handleBlock(user) },
+      { text: "⚠️ Report", onPress: () => handleReport(user) },
+      { text: "Cancel", style: "cancel" },
+    ]);
+  };
+
   const users = discoverStore.users.slice(discoverStore.currentIndex);
+
+  const superConnectsLeft = Math.max(0, 5 - socialStore.dailySuperConnectsSent);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,13 +145,23 @@ export default observer(function DiscoverScreen({ navigation }: any) {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.logo}>BuddyUp</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LocationFilter")}
-          style={styles.filterBtn}
-        >
-          <Ionicons name="location" size={18} color={colors.primary} />
-          <Text style={styles.filterText}>Filter</Text>
-        </TouchableOpacity>
+        <View style={styles.headerRight}>
+          {superConnectsLeft === 0 && (
+            <TouchableOpacity
+              style={styles.buyMoreBtn}
+              onPress={() => navigation.navigate("BuddyPass")}
+            >
+              <Text style={styles.buyMoreText}>Buy more ⚡</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("LocationFilter")}
+            style={styles.filterBtn}
+          >
+            <Ionicons name="location" size={18} color={colors.primary} />
+            <Text style={styles.filterText}>Filter</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Activity filter chips */}
@@ -138,7 +209,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
             ref={swiperRef}
             cards={users}
             keyExtractor={(u) => u.id}
-            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} />}
+            renderCard={(user) => <UserCard user={user} onSuperConnect={handleSuperConnect} remaining={superConnectsLeft} onOverflow={handleOverflow} />}
             onSwipedRight={(i) => handleLike(users[i])}
             onSwipedLeft={(i) => handlePass(users[i])}
             backgroundColor="transparent"
@@ -209,7 +280,7 @@ export default observer(function DiscoverScreen({ navigation }: any) {
   );
 });
 
-function UserCard({ user, onSuperConnect }: { user: DiscoverUser; onSuperConnect: (id: string) => void }) {
+function UserCard({ user, onSuperConnect, remaining, onOverflow }: { user: DiscoverUser; onSuperConnect: (id: string) => void; remaining?: number; onOverflow: (user: DiscoverUser) => void }) {
   const compatScore = user.common_interests > 0
     ? Math.min(Math.round((user.common_interests / Math.max(user.interests.length, 1)) * 100), 99)
     : null;
@@ -236,9 +307,16 @@ function UserCard({ user, onSuperConnect }: { user: DiscoverUser; onSuperConnect
           <Text style={styles.compatText}>{compatScore}% match</Text>
         </View>
       )}
+      {/* Overflow menu button */}
+      <TouchableOpacity style={styles.overflowBtn} onPress={() => onOverflow(user)}>
+        <Text style={styles.overflowIcon}>⋮</Text>
+      </TouchableOpacity>
       {/* Super Connect button */}
       <TouchableOpacity style={styles.superConnectBtn} onPress={() => onSuperConnect(user.id)}>
         <Text style={styles.superConnectIcon}>⚡</Text>
+        {remaining !== undefined && (
+          <Text style={styles.superConnectCount}>{remaining}</Text>
+        )}
       </TouchableOpacity>
 
       <View style={styles.cardContent}>
@@ -281,6 +359,18 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: spacing.lg, paddingVertical: spacing.md },
   logo: { fontSize: fontSizes.xl, fontWeight: "900", color: colors.text },
+  headerRight: { flexDirection: "row", alignItems: "center", gap: 8 },
+  buyMoreBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.warning + "33",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radii.full,
+    borderWidth: 1,
+    borderColor: colors.warning + "66",
+  },
+  buyMoreText: { color: colors.warning, fontSize: 12, fontWeight: "800" },
   filterBtn: { flexDirection: "row", alignItems: "center", gap: 4, backgroundColor: colors.bgCard, paddingHorizontal: 12, paddingVertical: 8, borderRadius: radii.full, borderWidth: 1, borderColor: colors.border },
   filterText: { color: colors.text, fontWeight: "600", fontSize: 13 },
   cardArea: { flex: 1, paddingHorizontal: spacing.lg },
@@ -316,6 +406,18 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
   },
   compatText: { color: "#fff", fontWeight: "700", fontSize: 12 },
+  overflowBtn: {
+    position: "absolute",
+    top: 52,
+    left: 16,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "rgba(0,0,0,0.55)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  overflowIcon: { color: "#fff", fontSize: 18, fontWeight: "900", lineHeight: 22 },
   cardContent: { position: "absolute", bottom: 0, left: 0, right: 0, padding: spacing.lg },
   name: { fontSize: fontSizes.xl, fontWeight: "900", color: "#fff", marginBottom: 4 },
   bio: { fontSize: fontSizes.sm, color: "rgba(255,255,255,0.8)", marginBottom: 8 },
@@ -337,6 +439,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   superConnectIcon: { fontSize: 18 },
+  superConnectCount: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: colors.error,
+    fontSize: 9,
+    color: "#fff",
+    fontWeight: "900",
+    textAlign: "center",
+    lineHeight: 16,
+  },
   vibeTags: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginBottom: 6 },
   vibeTag: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: radii.full, backgroundColor: "rgba(255,255,255,0.15)", borderWidth: 1, borderColor: "rgba(255,255,255,0.25)" },
   vibeTagText: { fontSize: 10, color: "rgba(255,255,255,0.9)", fontWeight: "600" },

@@ -12,6 +12,7 @@ import {
 import { LinearGradient } from "react-native-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
+import { apiService } from "@/services/api";
 import { groupStore } from "@/stores/GroupStore";
 import { authStore } from "@/stores/authStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";
@@ -29,9 +30,7 @@ export default observer(function GroupDetailScreen({ route, navigation }: any) {
   const loadGroup = async () => {
     try {
       const [groupData, memberData] = await Promise.all([
-        import("@/services/api").then(({ apiService }) =>
-          apiService.getGroup(groupId).then((r) => r.data.group)
-        ),
+        apiService.getGroup(groupId).then((r) => r.data.group),
         groupStore.fetchGroupMembers(groupId),
       ]);
       setGroup(groupData);

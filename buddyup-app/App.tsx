@@ -1,17 +1,32 @@
 import "react-native-gesture-handler";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StyleSheet, View } from "react-native";
 import * as Notifications from "expo-notifications";
+import { MMKV } from "react-native-mmkv";
 import { AppNavigator, navigationRef } from "@/navigators/AppNavigator";
 import { authStore } from "@/stores/authStore";
 import { registerForPushAndSync } from "@/services/notifications";
 import { useNetworkStatus } from "@/hooks/useNetworkStatus";
 import OfflineBanner from "@/components/OfflineBanner";
+import { ThemeContext, ThemeName, themes } from "@/theme";
+
+const themeStorage = new MMKV();
 
 function AppContent() {
   const { isOnline } = useNetworkStatus();
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
+  const [themeName, setThemeNameState] = useState<ThemeName>("dark");
+
+  useEffect(() => {
+    const saved = themeStorage.getString("theme") as ThemeName | undefined;
+    if (saved && themes[saved]) setThemeNameState(saved);
+  }, []);
+
+  const setTheme = (name: ThemeName) => {
+    themeStorage.set("theme", name);
+    setThemeNameState(name);
+  };
 
   useEffect(() => {
     if (authStore.isAuthenticated) {
@@ -33,10 +48,12 @@ function AppContent() {
   }, [lastNotificationResponse]);
 
   return (
-    <View style={styles.root}>
-      <OfflineBanner visible={!isOnline} />
-      <AppNavigator />
-    </View>
+    <ThemeContext.Provider value={{ themeName, setTheme, colors: themes[themeName] }}>
+      <View style={styles.root}>
+        <OfflineBanner visible={!isOnline} />
+        <AppNavigator />
+      </View>
+    </ThemeContext.Provider>
   );
 }
 

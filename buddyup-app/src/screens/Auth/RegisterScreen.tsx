@@ -37,6 +37,9 @@ export default observer(function RegisterScreen({ navigation, route }: any) {
     if (!displayName.trim()) {
       setNameError("Display name is required");
       valid = false;
+    } else if (displayName.trim().length < 2) {
+      setNameError("Display name must be at least 2 characters");
+      valid = false;
     }
     if (!email.trim()) {
       setEmailError("Email is required");

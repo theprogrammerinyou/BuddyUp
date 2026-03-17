@@ -110,17 +110,20 @@ type DiscoverUser struct {
 }
 
 type Group struct {
-	ID            string    `json:"id"`
-	Name          string    `json:"name"`
-	Description   string    `json:"description"`
-	ActivityType  string    `json:"activity_type"`
-	CreatorID     string    `json:"creator_id"`
-	CoverImageURL string    `json:"cover_image_url,omitempty"`
-	MaxMembers    int       `json:"max_members"`
-	IsPublic      bool      `json:"is_public"`
-	MemberCount   int       `json:"member_count,omitempty"`
-	IsMember      bool      `json:"is_member,omitempty"`
-	CreatedAt     time.Time `json:"created_at"`
+	ID             string    `json:"id"`
+	Name           string    `json:"name"`
+	Description    string    `json:"description"`
+	ActivityType   string    `json:"activity_type"`
+	CreatorID      string    `json:"creator_id"`
+	CoverImageURL  string    `json:"cover_image_url,omitempty"`
+	MaxMembers     int       `json:"max_members"`
+	IsPublic       bool      `json:"is_public"`
+	MemberCount    int       `json:"member_count,omitempty"`
+	IsMember       bool      `json:"is_member,omitempty"`
+	CreatedAt      time.Time `json:"created_at"`
+	IsSponsored    bool      `json:"is_sponsored,omitempty"`
+	SponsorName    string    `json:"sponsor_name,omitempty"`
+	SponsorLogoURL string    `json:"sponsor_logo_url,omitempty"`
 }
 
 type CreateGroupRequest struct {
@@ -255,4 +258,150 @@ type SetTravelModeRequest struct {
 type ReportRequest struct {
 	Reason  string `json:"reason" binding:"required"`
 	Details string `json:"details"`
+}
+
+// Phase 3 models
+
+type XPEvent struct {
+	ID        string    `json:"id" db:"id"`
+	UserID    string    `json:"user_id" db:"user_id"`
+	EventType string    `json:"event_type" db:"event_type"`
+	XPAmount  int       `json:"xp_amount" db:"xp_amount"`
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+}
+
+type UserXP struct {
+	TotalXP      int       `json:"total_xp"`
+	Level        int       `json:"level"`
+	RecentEvents []XPEvent `json:"recent_events"`
+}
+
+type Challenge struct {
+	ID          string     `json:"id" db:"id"`
+	Title       string     `json:"title" db:"title"`
+	Description string     `json:"description,omitempty" db:"description"`
+	XPReward    int        `json:"xp_reward" db:"xp_reward"`
+	EndsAt      *time.Time `json:"ends_at,omitempty" db:"ends_at"`
+	CreatedAt   time.Time  `json:"created_at" db:"created_at"`
+	Completed   bool       `json:"completed,omitempty"`
+}
+
+type Vouch struct {
+	VoucherID string    `json:"voucher_id" db:"voucher_id"`
+	VouchedID string    `json:"vouched_id" db:"vouched_id"`
+	Voucher   *User     `json:"voucher,omitempty"`
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+}
+
+type Persona struct {
+	ID          string    `json:"id" db:"id"`
+	UserID      string    `json:"user_id" db:"user_id"`
+	DisplayName string    `json:"display_name" db:"display_name"`
+	Bio         string    `json:"bio,omitempty" db:"bio"`
+	Interests   []string  `json:"interests" db:"interests"`
+	VibeTags    []string  `json:"vibe_tags" db:"vibe_tags"`
+	IsActive    bool      `json:"is_active" db:"is_active"`
+	CreatedAt   time.Time `json:"created_at" db:"created_at"`
+}
+
+type VisitedCity struct {
+	ID          string    `json:"id" db:"id"`
+	UserID      string    `json:"user_id" db:"user_id"`
+	CityName    string    `json:"city_name" db:"city_name"`
+	CountryCode string    `json:"country_code,omitempty" db:"country_code"`
+	VisitedAt   time.Time `json:"visited_at" db:"visited_at"`
+}
+
+type Badge struct {
+	ID        string    `json:"id" db:"id"`
+	UserID    string    `json:"user_id" db:"user_id"`
+	BadgeType string    `json:"badge_type" db:"badge_type"`
+	EarnedAt  time.Time `json:"earned_at" db:"earned_at"`
+}
+
+type CreatePersonaRequest struct {
+	DisplayName string   `json:"display_name" binding:"required"`
+	Bio         string   `json:"bio"`
+	Interests   []string `json:"interests"`
+	VibeTags    []string `json:"vibe_tags"`
+}
+
+type AddVisitedCityRequest struct {
+	CityName    string `json:"city_name" binding:"required"`
+	CountryCode string `json:"country_code"`
+}
+
+type AwardXPRequest struct {
+	UserID    string `json:"user_id" binding:"required"`
+	EventType string `json:"event_type" binding:"required"`
+	XPAmount  int    `json:"xp_amount"`
+}
+
+type SetLocalGuideRequest struct {
+	IsLocalGuide bool `json:"is_local_guide"`
+}
+
+type LeaderboardEntry struct {
+	UserID      string `json:"user_id"`
+	DisplayName string `json:"display_name"`
+	AvatarURL   string `json:"avatar_url,omitempty"`
+	TotalXP     int    `json:"total_xp"`
+	Level       int    `json:"level"`
+	Rank        int    `json:"rank"`
+}
+
+// Phase 4 models
+
+type Subscription struct {
+	ID                     string     `json:"id" db:"id"`
+	UserID                 string     `json:"user_id" db:"user_id"`
+	Plan                   string     `json:"plan" db:"plan"`
+	Status                 string     `json:"status" db:"status"`
+	ExpiresAt              *time.Time `json:"expires_at,omitempty" db:"expires_at"`
+	Provider               string     `json:"provider,omitempty" db:"provider"`
+	ProviderSubscriptionID string     `json:"provider_subscription_id,omitempty" db:"provider_subscription_id"`
+	CreatedAt              time.Time  `json:"created_at" db:"created_at"`
+}
+
+type Boost struct {
+	ID          string    `json:"id" db:"id"`
+	UserID      string    `json:"user_id" db:"user_id"`
+	ActivatedAt time.Time `json:"activated_at" db:"activated_at"`
+	ExpiresAt   time.Time `json:"expires_at" db:"expires_at"`
+	BoostType   string    `json:"boost_type" db:"boost_type"`
+	IsActive    bool      `json:"is_active,omitempty"`
+}
+
+type SuperLikePack struct {
+	ID                    string    `json:"id" db:"id"`
+	UserID                string    `json:"user_id" db:"user_id"`
+	Quantity              int       `json:"quantity" db:"quantity"`
+	PurchasedAt           time.Time `json:"purchased_at" db:"purchased_at"`
+	ProviderTransactionID string    `json:"provider_transaction_id,omitempty" db:"provider_transaction_id"`
+}
+
+type SponsoredGroup struct {
+	GroupID        string    `json:"group_id" db:"group_id"`
+	SponsorName    string    `json:"sponsor_name" db:"sponsor_name"`
+	SponsorLogoURL string    `json:"sponsor_logo_url,omitempty" db:"sponsor_logo_url"`
+	ActiveUntil    time.Time `json:"active_until" db:"active_until"`
+}
+
+type VerifySubscriptionRequest struct {
+	Provider string `json:"provider" binding:"required"`
+	Receipt  string `json:"receipt" binding:"required"`
+	Plan     string `json:"plan" binding:"required"`
+}
+
+type PurchaseSuperLikePackRequest struct {
+	Provider      string `json:"provider" binding:"required"`
+	TransactionID string `json:"transaction_id" binding:"required"`
+	Quantity      int    `json:"quantity" binding:"required"`
+}
+
+type CreateSponsoredGroupRequest struct {
+	GroupID        string `json:"group_id" binding:"required"`
+	SponsorName    string `json:"sponsor_name" binding:"required"`
+	SponsorLogoURL string `json:"sponsor_logo_url"`
+	ActiveDays     int    `json:"active_days"`
 }

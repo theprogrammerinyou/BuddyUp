@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,14 +16,24 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import { authStore } from "@/stores/authStore";
 import { socialStore } from "@/stores/SocialStore";
-import { colors, spacing, radii, fontSizes } from "@/theme";
+import { premiumStore } from "@/stores/PremiumStore";
+import { colors, spacing, radii, fontSizes, ThemeContext } from "@/theme";
 import { VIBE_TAGS } from "@/types";
 
 export default observer(function SettingsScreen({ navigation }: any) {
+  const { themeName, setTheme } = useContext(ThemeContext);
   const [vibeTagModal, setVibeTagModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>(socialStore.vibeTags);
 
+  useEffect(() => {
+    premiumStore.fetchSubscription();
+  }, []);
+
   const handleGhostMode = async (isDiscoverable: boolean) => {
+    if (!premiumStore.isPremium) {
+      navigation.navigate("BuddyPass");
+      return;
+    }
     try {
       await socialStore.setGhostMode(isDiscoverable);
     } catch {
@@ -32,6 +42,10 @@ export default observer(function SettingsScreen({ navigation }: any) {
   };
 
   const handleTravelMode = async () => {
+    if (!premiumStore.isPremium) {
+      navigation.navigate("BuddyPass");
+      return;
+    }
     Alert.prompt(
       "Set Travel Location",
       "Enter latitude,longitude (e.g. 40.7128,-74.0060)",
@@ -94,12 +108,22 @@ export default observer(function SettingsScreen({ navigation }: any) {
                 <Text style={styles.rowSub}>Hide yourself from discovery</Text>
               </View>
             </View>
-            <Switch
-              value={!socialStore.isGhostMode}
-              onValueChange={handleGhostMode}
-              trackColor={{ true: colors.primary, false: colors.border }}
-              thumbColor="#fff"
-            />
+            {premiumStore.isPremium ? (
+              <Switch
+                value={!socialStore.isGhostMode}
+                onValueChange={handleGhostMode}
+                trackColor={{ true: colors.primary, false: colors.border }}
+                thumbColor="#fff"
+              />
+            ) : (
+              <TouchableOpacity
+                style={styles.premiumGate}
+                onPress={() => navigation.navigate("BuddyPass")}
+              >
+                <Ionicons name="lock-closed" size={14} color={colors.warning} />
+                <Text style={styles.premiumGateText}>BuddyPass</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 
@@ -116,16 +140,26 @@ export default observer(function SettingsScreen({ navigation }: any) {
                 </Text>
               </View>
             </View>
-            <View style={styles.travelBtns}>
-              {socialStore.isTravelModeActive && (
-                <TouchableOpacity style={styles.clearBtn} onPress={handleClearTravelMode}>
-                  <Text style={styles.clearBtnText}>Clear</Text>
+            {premiumStore.isPremium ? (
+              <View style={styles.travelBtns}>
+                {socialStore.isTravelModeActive && (
+                  <TouchableOpacity style={styles.clearBtn} onPress={handleClearTravelMode}>
+                    <Text style={styles.clearBtnText}>Clear</Text>
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity style={styles.setBtn} onPress={handleTravelMode}>
+                  <Text style={styles.setBtnText}>Set</Text>
                 </TouchableOpacity>
-              )}
-              <TouchableOpacity style={styles.setBtn} onPress={handleTravelMode}>
-                <Text style={styles.setBtnText}>Set</Text>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={styles.premiumGate}
+                onPress={() => navigation.navigate("BuddyPass")}
+              >
+                <Ionicons name="lock-closed" size={14} color={colors.warning} />
+                <Text style={styles.premiumGateText}>BuddyPass</Text>
               </TouchableOpacity>
-            </View>
+            )}
           </View>
         </View>
 
@@ -152,6 +186,22 @@ export default observer(function SettingsScreen({ navigation }: any) {
             </View>
             <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
           </TouchableOpacity>
+        </View>
+
+        {/* Appearance */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Appearance</Text>
+          <View style={styles.themeRow}>
+            {(["dark", "anime"] as const).map((t) => (
+              <TouchableOpacity
+                key={t}
+                style={[styles.themeChip, themeName === t && styles.themeChipActive]}
+                onPress={() => setTheme(t)}
+              >
+                <Text style={styles.themeChipText}>{t === "dark" ? "🌑 Dark" : "🌸 Anime"}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
 
         {/* Blocked Users */}
@@ -253,6 +303,30 @@ const styles = StyleSheet.create({
   tagChipText: { fontSize: 11, color: colors.primary, fontWeight: "700" },
   logoutBtn: { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: colors.bgCard, borderRadius: radii.lg, padding: spacing.md, borderWidth: 1, borderColor: colors.error + "55", marginTop: 8 },
   logoutText: { fontSize: fontSizes.md, fontWeight: "700", color: colors.error },
+  premiumGate: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    backgroundColor: colors.warning + "22",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: radii.full,
+    borderWidth: 1,
+    borderColor: colors.warning + "55",
+  },
+  premiumGateText: { fontSize: 11, color: colors.warning, fontWeight: "800" },
+  themeRow: { flexDirection: "row", gap: 10 },
+  themeChip: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: radii.md,
+    backgroundColor: colors.bgInput,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  themeChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  themeChipText: { fontSize: fontSizes.sm, color: colors.text, fontWeight: "700" },
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.7)", justifyContent: "flex-end" },
   modalContent: { backgroundColor: colors.bgCard, borderTopLeftRadius: radii.xl, borderTopRightRadius: radii.xl, padding: spacing.lg, gap: 14 },
   modalTitle: { fontSize: fontSizes.md, fontWeight: "800", color: colors.text },

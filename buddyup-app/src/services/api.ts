@@ -140,4 +140,32 @@ export const apiService = {
   setTravelMode: (latitude: number, longitude: number, expires_hours?: number) =>
     api.put("/me/travel-mode", { latitude, longitude, expires_hours }),
   clearTravelMode: () => api.delete("/me/travel-mode"),
+
+  // Phase 3 — XP, Leaderboard, Challenges, Personas, Social
+  getMyXP: () => api.get("/me/xp"),
+  getLeaderboard: (params?: { city?: string; period?: string }) =>
+    api.get("/leaderboard", { params }),
+  getChallenges: () => api.get("/challenges"),
+  completeChallenge: (id: string) => api.post(`/challenges/${id}/complete`),
+  getMyPersonas: () => api.get("/me/personas"),
+  createPersona: (data: object) => api.post("/me/personas", data),
+  activatePersona: (id: string) => api.put(`/me/personas/${id}/activate`),
+  addVisitedCity: (data: { city_name: string; country_code?: string }) =>
+    api.post("/me/visited-cities", data),
+  getVisitedCities: (userId: string) => api.get(`/users/${userId}/visited-cities`),
+  vouchForUser: (id: string) => api.post(`/users/${id}/vouch`),
+  getVouches: (id: string) => api.get(`/users/${id}/vouches`),
+  getBadges: (id: string) => api.get(`/users/${id}/badges`),
+
+  // Phase 4 — Premium / Subscription
+  getSubscription: () => api.get("/me/subscription"),
+  verifySubscription: (data: { provider: string; receipt: string; plan: string }) =>
+    api.post("/me/subscription/verify", data),
+  activateBoost: () => api.post("/me/boost"),
+  getBoostStatus: () => api.get("/me/boost"),
+  purchaseSuperLikePack: (data: {
+    provider: string;
+    transaction_id: string;
+    quantity: number;
+  }) => api.post("/me/super-like-packs", data),
 };

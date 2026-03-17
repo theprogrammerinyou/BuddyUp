@@ -183,3 +183,40 @@ func (h *SocialHandler) ClearTravelMode(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "travel mode cleared"})
 }
+
+// POST /api/v1/users/:id/vouch
+func (h *SocialHandler) VouchForUser(c *gin.Context) {
+	voucherID := c.GetString("user_id")
+	vouchedID := c.Param("id")
+	if voucherID == vouchedID {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "cannot vouch for yourself"})
+		return
+	}
+	if err := h.socialRepo.VouchForUser(c.Request.Context(), voucherID, vouchedID); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "vouch recorded"})
+}
+
+// GET /api/v1/users/:id/vouches
+func (h *SocialHandler) GetVouches(c *gin.Context) {
+	userID := c.Param("id")
+	vouches, count, err := h.socialRepo.GetVouches(c.Request.Context(), userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"vouches": vouches, "count": count})
+}
+
+// GET /api/v1/users/:id/badges
+func (h *SocialHandler) GetBadges(c *gin.Context) {
+	userID := c.Param("id")
+	badges, err := h.socialRepo.GetBadges(c.Request.Context(), userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"badges": badges})
+}

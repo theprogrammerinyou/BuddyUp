@@ -35,6 +35,18 @@ import SuperConnectsScreen from "@/screens/SuperConnect/SuperConnectsScreen";
 import SettingsScreen from "@/screens/Settings/SettingsScreen";
 import BlockedUsersScreen from "@/screens/Settings/BlockedUsersScreen";
 
+// Phase 3 screens
+import LeaderboardScreen from "@/screens/Leaderboard/LeaderboardScreen";
+import ChallengesScreen from "@/screens/Challenges/ChallengesScreen";
+import AnalyticsScreen from "@/screens/Profile/AnalyticsScreen";
+import TravelMapScreen from "@/screens/Profile/TravelMapScreen";
+
+// Phase 4 screens
+import BuddyPassScreen from "@/screens/Premium/BuddyPassScreen";
+
+// Notification screen
+import NotificationsScreen from "@/screens/Notifications/NotificationsScreen";
+
 const _storage = new MMKV();
 const ONBOARDING_KEY = "onboarding_complete";
 
@@ -164,11 +176,28 @@ function TabNavigator() {
 
 export const navigationRef = React.createRef<any>();
 
+const linking = {
+  prefixes: ["buddyup://"],
+  config: {
+    screens: {
+      Main: {
+        screens: {
+          Messages: {
+            screens: {
+              Chat: "chat/:matchId",
+            },
+          },
+        },
+      },
+    },
+  },
+} as any;
+
 export const AppNavigator = observer(() => {
   const onboardingDone = isOnboardingComplete();
 
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigationRef} linking={linking}>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!authStore.isAuthenticated || !onboardingDone ? (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
@@ -194,6 +223,16 @@ export const AppNavigator = observer(() => {
               name="BlockedUsers"
               component={BlockedUsersScreen}
             />
+            <RootStack.Screen name="Leaderboard" component={LeaderboardScreen} />
+            <RootStack.Screen name="Challenges" component={ChallengesScreen} />
+            <RootStack.Screen name="Analytics" component={AnalyticsScreen} />
+            <RootStack.Screen name="TravelMap" component={TravelMapScreen} />
+            <RootStack.Screen
+              name="BuddyPass"
+              component={BuddyPassScreen}
+              options={{ presentation: "modal" }}
+            />
+            <RootStack.Screen name="Notifications" component={NotificationsScreen} />
           </>
         )}
       </RootStack.Navigator>

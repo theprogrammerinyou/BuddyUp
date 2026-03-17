@@ -94,10 +94,14 @@ func (r *GroupRepo) ListGroups(ctx context.Context, activityType string, limit, 
 	rows, err := r.db.Query(ctx, fmt.Sprintf(`
 		SELECT g.id, g.name, g.description, g.activity_type, g.creator_id,
 		       COALESCE(g.cover_image_url,''), g.max_members, g.is_public, g.created_at,
-		       (SELECT COUNT(*) FROM group_members gm WHERE gm.group_id = g.id) AS member_count
+		       (SELECT COUNT(*) FROM group_members gm WHERE gm.group_id = g.id) AS member_count,
+		       (sg.group_id IS NOT NULL AND sg.active_until > NOW()) AS is_sponsored,
+		       COALESCE(sg.sponsor_name,''),
+		       COALESCE(sg.sponsor_logo_url,'')
 		FROM groups g
+		LEFT JOIN sponsored_groups sg ON sg.group_id = g.id
 		%s
-		ORDER BY g.created_at DESC
+		ORDER BY is_sponsored DESC, g.created_at DESC
 		LIMIT $%d OFFSET $%d
 	`, where, len(args)-1, len(args)), args...)
 	if err != nil {
@@ -111,7 +115,7 @@ func (r *GroupRepo) ListGroups(ctx context.Context, activityType string, limit, 
 		if err := rows.Scan(
 			&g.ID, &g.Name, &g.Description, &g.ActivityType, &g.CreatorID,
 			&g.CoverImageURL, &g.MaxMembers, &g.IsPublic, &g.CreatedAt,
-			&g.MemberCount,
+			&g.MemberCount, &g.IsSponsored, &g.SponsorName, &g.SponsorLogoURL,
 		); err != nil {
 			return nil, err
 		}
