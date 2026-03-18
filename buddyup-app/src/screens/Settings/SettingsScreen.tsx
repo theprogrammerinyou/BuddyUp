@@ -250,23 +250,20 @@ export default observer(function SettingsScreen({ navigation }: any) {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Pick Vibe Tags (max 5)</Text>
-            <FlatList
-              data={[...VIBE_TAGS]}
-              keyExtractor={(t) => t}
-              numColumns={2}
-              columnWrapperStyle={{ gap: 8, marginBottom: 8 }}
-              renderItem={({ item: tag }) => {
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+              {[...VIBE_TAGS].map((tag) => {
                 const selected = selectedTags.includes(tag);
                 return (
                   <TouchableOpacity
+                    key={tag}
                     style={[styles.vibeChip, selected && styles.vibeChipActive]}
                     onPress={() => toggleVibeTag(tag)}
                   >
                     <Text style={[styles.vibeChipText, selected && styles.vibeChipTextActive]}>{tag}</Text>
                   </TouchableOpacity>
                 );
-              }}
-            />
+              })}
+            </View>
             <View style={styles.modalActions}>
               <TouchableOpacity style={styles.cancelBtn} onPress={() => setVibeTagModal(false)}>
                 <Text style={styles.cancelBtnText}>Cancel</Text>
@@ -330,7 +327,7 @@ const styles = StyleSheet.create({
   modalOverlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.7)", justifyContent: "flex-end" },
   modalContent: { backgroundColor: colors.bgCard, borderTopLeftRadius: radii.xl, borderTopRightRadius: radii.xl, padding: spacing.lg, gap: 14 },
   modalTitle: { fontSize: fontSizes.md, fontWeight: "800", color: colors.text },
-  vibeChip: { flex: 1, paddingVertical: 12, borderRadius: radii.md, backgroundColor: colors.bgInput, alignItems: "center", borderWidth: 1, borderColor: colors.border },
+  vibeChip: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: radii.full, backgroundColor: colors.bgInput, alignItems: "center", borderWidth: 1, borderColor: colors.border },
   vibeChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   vibeChipText: { fontSize: fontSizes.sm, color: colors.textSub, fontWeight: "600" },
   vibeChipTextActive: { color: "#fff", fontWeight: "700" },

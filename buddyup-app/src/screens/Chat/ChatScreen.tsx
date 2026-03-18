@@ -119,7 +119,7 @@ export default observer(function ChatScreen({ route, navigation }: any) {
       >
         <FlatList
           ref={flatRef}
-          data={messages}
+          data={messages.slice()}
           keyExtractor={(m) => m.id}
           onContentSizeChange={() => flatRef.current?.scrollToEnd({ animated: true })}
           onLayout={() => flatRef.current?.scrollToEnd({ animated: false })}

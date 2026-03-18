@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   title: { fontSize: fontSizes.xl, fontWeight: "900", color: colors.text },
   createBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center" },
   filterRow: { paddingHorizontal: spacing.lg, paddingBottom: spacing.md, gap: 8 },
-  chip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: radii.full, backgroundColor: colors.bgCard, borderWidth: 1, borderColor: colors.border },
+  chip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: radii.full, backgroundColor: colors.bgCard, borderWidth: 1, borderColor: colors.border, alignSelf: "flex-start" },
   chipText: { color: colors.textSub, fontSize: fontSizes.sm, fontWeight: "600", textTransform: "capitalize" },
   list: { paddingHorizontal: spacing.lg, paddingBottom: 100, gap: 12 },
   card: { backgroundColor: colors.bgCard, borderRadius: radii.lg, padding: spacing.md, borderWidth: 1, borderColor: colors.border, gap: 8 },

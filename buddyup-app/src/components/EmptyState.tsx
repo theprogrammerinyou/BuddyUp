@@ -1,19 +1,25 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { colors, fontSizes, radii, spacing } from "@/theme";
 
 interface EmptyStateProps {
-  icon: string;
+  icon?: string;
   title: string;
   subtitle: string;
   actionLabel?: string;
+  iconName?: keyof typeof Ionicons.glyphMap;
   onAction?: () => void;
 }
 
-export default function EmptyState({ icon, title, subtitle, actionLabel, onAction }: EmptyStateProps) {
+export default function EmptyState({ icon, iconName, title, subtitle, actionLabel, onAction }: EmptyStateProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.icon}>{icon}</Text>
+      {iconName ? (
+        <Ionicons name={iconName} size={64} color={colors.textMuted} style={styles.iconStyle} />
+      ) : icon ? (
+        <Text style={styles.icon}>{icon}</Text>
+      ) : null}
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
       {actionLabel && onAction && (
@@ -34,6 +40,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   icon: { fontSize: 56 },
+  iconStyle: { marginBottom: 8 },
   title: { fontSize: fontSizes.lg, fontWeight: "800", color: colors.text, textAlign: "center" },
   subtitle: { fontSize: fontSizes.sm, color: colors.textSub, textAlign: "center", lineHeight: 20 },
   btn: {
