@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import Swiper from "react-native-deck-swiper";

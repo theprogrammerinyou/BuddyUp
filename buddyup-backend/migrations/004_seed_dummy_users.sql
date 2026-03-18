@@ -1,5 +1,8 @@
 -- Seed dummy users for Discover and default matches (password: password123)
 -- bcrypt hash for "password123" (cost 10)
+ALTER TABLE users ADD COLUMN IF NOT EXISTS latitude DOUBLE PRECISION;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS longitude DOUBLE PRECISION;
+
 INSERT INTO users (id, email, password_hash, display_name, bio, avatar_character_id, interests, latitude, longitude, created_at, updated_at)
 VALUES
   (gen_random_uuid(), 'seed_1@buddyup.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Aarav', 'Tech enthusiast. Always learning something new. Let''s grab coffee! ☕', 1, ARRAY['Gym','Coding','Coffee Hangouts'], 28.6139, 77.209, NOW(), NOW()),

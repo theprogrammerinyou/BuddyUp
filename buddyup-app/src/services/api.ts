@@ -1,7 +1,7 @@
 import axios from "axios";
-import { MMKV } from "react-native-mmkv";
+import { createStorage } from "@/utils/storage";
 
-const storage = new MMKV();
+const storage = createStorage();
 
 export const API_BASE_URL = "http://localhost:8080";
 

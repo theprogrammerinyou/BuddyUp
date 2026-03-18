@@ -2,9 +2,11 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/shivansh/buddyup-backend/internal/models"
 	"golang.org/x/crypto/bcrypt"
@@ -334,6 +336,31 @@ func (r *UserRepo) Discover(ctx context.Context, userID string, lat, lng, radius
 		ORDER BY common_interests DESC NULLS LAST, distance_km ASC
 		LIMIT 100
 	`, activityFilter), args...)
+	if err != nil && isMissingSchemaError(err) {
+		rows, err = r.db.Query(ctx, fmt.Sprintf(`
+			WITH me AS (SELECT interests FROM users WHERE id = $1)
+			SELECT
+				u.id, u.display_name, u.bio, u.avatar_character_id, u.interests,
+				u.latitude AS lat,
+				u.longitude AS lng,
+				ROUND(( 6371 * acos( cos( radians($2) ) * cos( radians( u.latitude ) ) * cos( radians( u.longitude ) - radians($3) ) + sin( radians($2) ) * sin( radians( u.latitude ) ) ) )::numeric, 2) AS distance_km,
+				array_length(ARRAY(SELECT unnest(u.interests) INTERSECT SELECT unnest(me.interests) FROM me), 1) AS common_interests,
+				'{}'::TEXT[],
+				c.id, c.name, c.type, c.franchise, c.image_url
+			FROM users u
+			CROSS JOIN me
+			LEFT JOIN characters c ON c.id = u.avatar_character_id
+			WHERE u.id != $1
+			  AND u.latitude IS NOT NULL
+			  AND u.latitude BETWEEN $2 - $4 AND $2 + $4
+			  AND u.longitude BETWEEN $3 - ($4 / cos(radians($2))) AND $3 + ($4 / cos(radians($2)))
+			  AND NOT EXISTS (SELECT 1 FROM likes l WHERE l.liker_id = $1 AND l.liked_id = u.id)
+			  AND NOT EXISTS (SELECT 1 FROM passes p WHERE p.passer_id = $1 AND p.passed_id = u.id)
+			  %s
+			ORDER BY common_interests DESC NULLS LAST, distance_km ASC
+			LIMIT 100
+		`, activityFilter), args...)
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -373,4 +400,12 @@ func (r *UserRepo) Discover(ctx context.Context, userID string, lat, lng, radius
 		result = append(result, du)
 	}
 	return result, nil
+}
+
+func isMissingSchemaError(err error) bool {
+	var pgErr *pgconn.PgError
+	if !errors.As(err, &pgErr) {
+		return false
+	}
+	return pgErr.Code == "42703" || pgErr.Code == "42P01"
 }

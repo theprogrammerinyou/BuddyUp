@@ -7,7 +7,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { socialStore } from "@/stores/SocialStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";

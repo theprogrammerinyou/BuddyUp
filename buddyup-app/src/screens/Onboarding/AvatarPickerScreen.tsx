@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import { api } from "@/services/api";
@@ -30,6 +30,7 @@ export default observer(function AvatarPickerScreen({ navigation, route }: any) 
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState("");
 
   useEffect(() => {
     api.get("/characters").then(({ data }) => {
@@ -52,6 +53,7 @@ export default observer(function AvatarPickerScreen({ navigation, route }: any) 
 
   const handleFinish = async () => {
     if (!selected) return Alert.alert("Please pick an avatar");
+    setApiError("");
     // Get location (optional)
     let lat: number | undefined;
     let lng: number | undefined;
@@ -64,13 +66,17 @@ export default observer(function AvatarPickerScreen({ navigation, route }: any) 
       }
     } catch {}
 
-    await authStore.register({
-      ...prevData,
-      avatar_character_id: selected.id,
-      latitude: lat,
-      longitude: lng,
-    });
-    markOnboardingComplete();
+    try {
+      await authStore.register({
+        ...prevData,
+        avatar_character_id: selected.id,
+        latitude: lat,
+        longitude: lng,
+      });
+      markOnboardingComplete();
+    } catch {
+      setApiError(authStore.error ?? "Could not create account. Please try again.");
+    }
   };
 
   return (
@@ -145,6 +151,11 @@ export default observer(function AvatarPickerScreen({ navigation, route }: any) 
 
       {/* Sticky footer */}
       <View style={styles.footer}>
+        {!!apiError && (
+          <View style={styles.apiErrorBox}>
+            <Text style={styles.apiErrorText}>{apiError}</Text>
+          </View>
+        )}
         <TouchableOpacity
           style={[styles.btn, !selected && { opacity: 0.5 }]}
           onPress={handleFinish}
@@ -213,6 +224,15 @@ const styles = StyleSheet.create({
   charName: { color: colors.text, fontWeight: "700", fontSize: 11, marginTop: 8, textAlign: "center" },
   franchise: { color: colors.textMuted, fontSize: 10, textAlign: "center", marginTop: 2 },
   footer: { position: "absolute", bottom: 0, left: 0, right: 0, padding: spacing.lg, backgroundColor: colors.bg },
+  apiErrorBox: {
+    backgroundColor: colors.error + "22",
+    borderWidth: 1,
+    borderColor: colors.error + "55",
+    borderRadius: radii.md,
+    padding: spacing.md,
+    marginBottom: 12,
+  },
+  apiErrorText: { color: colors.error, fontSize: fontSizes.sm, textAlign: "center" },
   btn: { borderRadius: radii.xl, overflow: "hidden" },
   btnGrad: { paddingVertical: 18, alignItems: "center" },
   btnText: { color: "#fff", fontWeight: "800", fontSize: fontSizes.md },

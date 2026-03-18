@@ -2,6 +2,24 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { api, authStorage } from "@/services/api";
 import { registerForPushAndSync } from "@/services/notifications";
 
+function normalizeAuthError(error: unknown, fallback: string): string {
+  const raw =
+    (error as any)?.response?.data?.error ??
+    (error as any)?.message ??
+    "";
+
+  const msg = String(raw).toLowerCase();
+  if (
+    msg.includes("users_email_key") ||
+    (msg.includes("duplicate") && msg.includes("email")) ||
+    msg.includes("email already")
+  ) {
+    return "This email is already registered. Please log in or use another email.";
+  }
+
+  return String(raw || fallback);
+}
+
 export interface Character {
   id: number;
   name: string;
@@ -65,7 +83,7 @@ class AuthStore {
       registerForPushAndSync();
     } catch (e: any) {
       runInAction(() => {
-        this.error = e.response?.data?.error ?? "Registration failed";
+        this.error = normalizeAuthError(e, "Registration failed");
       });
       throw e;
     } finally {
@@ -89,7 +107,7 @@ class AuthStore {
       registerForPushAndSync();
     } catch (e: any) {
       runInAction(() => {
-        this.error = e.response?.data?.error ?? "Login failed";
+        this.error = normalizeAuthError(e, "Login failed");
       });
       throw e;
     } finally {

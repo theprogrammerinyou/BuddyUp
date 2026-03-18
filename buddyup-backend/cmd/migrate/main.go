@@ -2,11 +2,13 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -60,6 +62,20 @@ func main() {
 	}
 
 	for _, m := range migrations {
+		var alreadyApplied bool
+		err := pool.QueryRow(
+			context.Background(),
+			`SELECT EXISTS(SELECT 1 FROM schema_migrations WHERE filename = $1)`,
+			m,
+		).Scan(&alreadyApplied)
+		if err != nil {
+			log.Fatalf("Failed to check migration status for %s: %v", m, err)
+		}
+		if alreadyApplied {
+			fmt.Printf("Skipping (already applied): %s\n", m)
+			continue
+		}
+
 		fmt.Printf("Running migration: %s\n", m)
 		migrationPath := filepath.Join(migrationsDir, filepath.Base(m))
 		content, err := os.ReadFile(migrationPath)
@@ -72,10 +88,24 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to begin transaction for %s: %v", m, err)
 		}
-		// Always clean up the transaction on any early exit.
-		defer tx.Rollback(context.Background()) //nolint:errcheck
 
 		if _, err = tx.Exec(context.Background(), string(content)); err != nil {
+			_ = tx.Rollback(context.Background())
+
+			// If migration objects already exist, treat this as an already-applied migration
+			// and record it so future runs remain idempotent.
+			if isAlreadyExistsError(err) {
+				fmt.Printf("Migration appears already applied, marking as applied: %s (%v)\n", m, err)
+				if _, markErr := pool.Exec(
+					context.Background(),
+					`INSERT INTO schema_migrations (filename) VALUES ($1) ON CONFLICT DO NOTHING`,
+					m,
+				); markErr != nil {
+					log.Fatalf("Failed to mark migration %s as applied: %v", m, markErr)
+				}
+				continue
+			}
+
 			log.Fatalf("Error executing migration %s: %v", m, err)
 		}
 
@@ -87,9 +117,11 @@ func main() {
 			`INSERT INTO schema_migrations (filename) VALUES ($1) ON CONFLICT DO NOTHING`, m,
 		)
 		if err != nil {
+			_ = tx.Rollback(context.Background())
 			log.Fatalf("Error recording migration %s: %v", m, err)
 		}
 		if tag.RowsAffected() == 0 {
+			_ = tx.Rollback(context.Background())
 			// Another concurrent runner already applied this migration.
 			fmt.Printf("Skipping (already applied by concurrent runner): %s\n", m)
 			continue
@@ -100,4 +132,14 @@ func main() {
 		}
 		fmt.Printf("Successfully applied %s\n", m)
 	}
+}
+
+func isAlreadyExistsError(err error) bool {
+	var pgErr *pgconn.PgError
+	if !errors.As(err, &pgErr) {
+		return false
+	}
+
+	// 42P07: duplicate_table, 42701: duplicate_column, 42710: duplicate_object
+	return pgErr.Code == "42P07" || pgErr.Code == "42701" || pgErr.Code == "42710"
 }

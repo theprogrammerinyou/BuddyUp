@@ -12,7 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import Slider from "@react-native-community/slider";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";

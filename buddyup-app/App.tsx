@@ -3,20 +3,37 @@ import React, { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StyleSheet, View } from "react-native";
 import * as Notifications from "expo-notifications";
-import { MMKV } from "react-native-mmkv";
+import { Ionicons } from "@expo/vector-icons";
 import { AppNavigator, navigationRef } from "@/navigators/AppNavigator";
 import { authStore } from "@/stores/authStore";
 import { registerForPushAndSync } from "@/services/notifications";
 import { useNetworkStatus } from "@/hooks/useNetworkStatus";
 import OfflineBanner from "@/components/OfflineBanner";
 import { ThemeContext, ThemeName, themes } from "@/theme";
+import { createStorage } from "@/utils/storage";
 
-const themeStorage = new MMKV();
+const themeStorage = createStorage();
 
 function AppContent() {
   const { isOnline } = useNetworkStatus();
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
   const [themeName, setThemeNameState] = useState<ThemeName>("dark");
+  const [iconsReady, setIconsReady] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    Ionicons.loadFont()
+      .then(() => {
+        if (mounted) setIconsReady(true);
+      })
+      .catch(() => {
+        if (mounted) setIconsReady(true);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const saved = themeStorage.getString("theme") as ThemeName | undefined;
@@ -50,8 +67,12 @@ function AppContent() {
   return (
     <ThemeContext.Provider value={{ themeName, setTheme, colors: themes[themeName] }}>
       <View style={styles.root}>
-        <OfflineBanner visible={!isOnline} />
-        <AppNavigator />
+        {iconsReady ? (
+          <>
+            <OfflineBanner visible={!isOnline} />
+            <AppNavigator />
+          </>
+        ) : null}
       </View>
     </ThemeContext.Provider>
   );

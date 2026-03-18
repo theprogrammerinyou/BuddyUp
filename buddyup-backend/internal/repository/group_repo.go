@@ -2,9 +2,11 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/shivansh/buddyup-backend/internal/models"
 )
@@ -105,6 +107,9 @@ func (r *GroupRepo) ListGroups(ctx context.Context, activityType string, limit, 
 		LIMIT $%d OFFSET $%d
 	`, where, len(args)-1, len(args)), args...)
 	if err != nil {
+		if isMissingGroupsSchemaError(err) {
+			return []models.Group{}, nil
+		}
 		return nil, err
 	}
 	defer rows.Close()
@@ -160,6 +165,9 @@ func (r *GroupRepo) GetGroupMembers(ctx context.Context, groupID string) ([]mode
 		ORDER BY gm.joined_at ASC
 	`, groupID)
 	if err != nil {
+		if isMissingGroupsSchemaError(err) {
+			return []models.User{}, nil
+		}
 		return nil, err
 	}
 	defer rows.Close()
@@ -186,6 +194,9 @@ func (r *GroupRepo) GetUserGroups(ctx context.Context, userID string) ([]models.
 		ORDER BY gm.joined_at DESC
 	`, userID)
 	if err != nil {
+		if isMissingGroupsSchemaError(err) {
+			return []models.Group{}, nil
+		}
 		return nil, err
 	}
 	defer rows.Close()
@@ -257,4 +268,12 @@ func (r *GroupRepo) UpdateGroup(ctx context.Context, groupID, requesterID string
 		return nil, err
 	}
 	return &g, nil
+}
+
+func isMissingGroupsSchemaError(err error) bool {
+	var pgErr *pgconn.PgError
+	if !errors.As(err, &pgErr) {
+		return false
+	}
+	return pgErr.Code == "42P01"
 }

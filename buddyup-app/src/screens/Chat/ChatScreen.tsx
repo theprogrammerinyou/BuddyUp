@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { Ionicons } from "@expo/vector-icons";
 import { chatStore, Message } from "@/stores/chatStore";

@@ -4,10 +4,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { observer } from "mobx-react-lite";
 import { Ionicons } from "@expo/vector-icons";
-import { MMKV } from "react-native-mmkv";
 
 import { authStore } from "@/stores/authStore";
 import { colors } from "@/theme";
+import { createStorage } from "@/utils/storage";
 
 // Screens
 import WelcomeScreen from "@/screens/Auth/WelcomeScreen";
@@ -47,7 +47,7 @@ import BuddyPassScreen from "@/screens/Premium/BuddyPassScreen";
 // Notification screen
 import NotificationsScreen from "@/screens/Notifications/NotificationsScreen";
 
-const _storage = new MMKV();
+const _storage = createStorage();
 const ONBOARDING_KEY = "onboarding_complete";
 
 export function markOnboardingComplete() {

@@ -2,6 +2,7 @@
   "expo": {
     "name": "BuddyUp",
     "slug": "buddyup-app",
+    "newArchEnabled": true,
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,11 +14,14 @@
     },
     "ios": {
       "supportsTablet": false,
+      "deploymentTarget": "15.1",
       "bundleIdentifier": "com.buddyup.app",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "BuddyUp uses your location to find buddies near you.",
         "NSLocationAlwaysUsageDescription": "BuddyUp uses your location to find buddies near you.",
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
       }
     },
     "android": {
@@ -26,7 +30,10 @@
         "backgroundColor": "#0F0F1A"
       },
       "package": "com.buddyup.app",
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "scheme": "buddyup",
     "web": {
@@ -41,7 +48,8 @@
           "color": "#6C63FF",
           "sounds": []
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "API_URL": "http://localhost:8080"

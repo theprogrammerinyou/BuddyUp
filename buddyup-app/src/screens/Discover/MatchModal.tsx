@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { colors, fontSizes, radii, spacing } from "@/theme";
 import { DiscoverUser } from "@/stores/discoverStore";
 

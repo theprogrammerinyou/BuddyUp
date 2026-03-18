@@ -10,7 +10,7 @@ import {
   Platform,
   ActivityIndicator,
 } from "react-native";
-import { LinearGradient } from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { authStore } from "@/stores/authStore";
 import { colors, spacing, radii, fontSizes } from "@/theme";
