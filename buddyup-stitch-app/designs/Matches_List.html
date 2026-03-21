@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pulse - Matches</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-background": "#f9dcff",
+                        "on-surface": "#f9dcff",
+                        "outline-variant": "#593e63",
+                        "on-tertiary": "#646200",
+                        "on-secondary-fixed": "#064200",
+                        "error-container": "#a70138",
+                        "surface-container-lowest": "#000000",
+                        "outline": "#896b93",
+                        "error-dim": "#d73357",
+                        "surface-container-high": "#31113f",
+                        "primary-fixed": "#d878ff",
+                        "tertiary-container": "#f6f200",
+                        "on-primary-fixed": "#000000",
+                        "secondary-dim": "#2be800",
+                        "primary-container": "#d878ff",
+                        "primary-dim": "#bb00fc",
+                        "secondary-fixed": "#2ff801",
+                        "tertiary-fixed": "#fffb00",
+                        "on-secondary-fixed-variant": "#0d6200",
+                        "secondary-fixed-dim": "#2be800",
+                        "surface-bright": "#411c51",
+                        "surface-tint": "#df8eff",
+                        "background": "#1a0425",
+                        "surface-container-low": "#21072d",
+                        "surface-container-highest": "#391648",
+                        "tertiary-fixed-dim": "#f0ec00",
+                        "inverse-surface": "#fff7fb",
+                        "surface-dim": "#1a0425",
+                        "on-secondary": "#0b5800",
+                        "on-tertiary-fixed": "#4d4c00",
+                        "tertiary": "#fffcca",
+                        "primary-fixed-dim": "#d061ff",
+                        "on-tertiary-fixed-variant": "#6b6900",
+                        "surface": "#1a0425",
+                        "inverse-primary": "#9a00d0",
+                        "on-primary-fixed-variant": "#4b0068",
+                        "secondary-container": "#106e00",
+                        "surface-variant": "#391648",
+                        "on-primary-container": "#3d0055",
+                        "on-tertiary-container": "#5b5900",
+                        "surface-container": "#290c36",
+                        "secondary": "#2ff801",
+                        "on-secondary-container": "#e7ffd9",
+                        "on-primary": "#4f006d",
+                        "on-error-container": "#ffb2b9",
+                        "on-error": "#490013",
+                        "error": "#ff6e84",
+                        "tertiary-dim": "#f0ec00",
+                        "on-surface-variant": "#c1a0cb",
+                        "inverse-on-surface": "#674b71",
+                        "primary": "#df8eff"
+                    },
+                    fontFamily: {
+                        "headline": ["Epilogue"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-pulse-ring {
+            box-shadow: 0 0 0 2px #1a0425, 0 0 0 4px #2ff801;
+        }
+        .glass-card {
+            background: rgba(57, 22, 72, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl flex justify-between items-center px-6 h-20 shadow-[0_0_20px_rgba(223,142,255,0.1)]">
+<div class="w-10 h-10 rounded-full overflow-hidden hover:scale-105 transition-transform duration-200 active:scale-95">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Stylish user profile portrait in dark lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcX9KDkonokKF6Rr9foKNBvparSx9YYeTxo-OpHpKbta7r65lDIMe4ZS3AYPzrVNoMfVoVBBfiHtYYbPPCSoy71fu6e_BQjjzb76pQ77yMyVhXoTUDD8_Q2DsJQGjGxBcaUNU-vUGzhDNF37ptE2RwW0Q8e_n09kx0BSjIIQJ8bRumZYg4zH0-AjOtMVPnP4-wtbLllFWQCZRZf-ZI3Ju41upBJ6r6Xr7qLbHS0FEt8ItwfFhQVRXrHpqlubgcqtFL_udRk-DEvA"/>
+</div>
+<h1 class="font-headline font-black uppercase tracking-tighter text-2xl text-[#df8eff]">Pulse</h1>
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined text-3xl">tune</span>
+</button>
+</header>
+<main class="pt-24 px-6 space-y-12 max-w-2xl mx-auto">
+<!-- Section: New Vibes -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="font-headline text-2xl font-black uppercase tracking-tight">New Vibes</h2>
+<span class="bg-secondary text-on-secondary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">Live</span>
+</div>
+<div class="flex space-x-5 overflow-x-auto hide-scrollbar py-2 -mx-2 px-2">
+<!-- Vibe 1 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-3 cursor-pointer group">
+<div class="relative w-20 h-20 p-1 rounded-full bg-gradient-to-tr from-secondary to-primary group-hover:scale-110 transition-transform duration-300">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden">
+<img alt="New Vibe 1" class="w-full h-full object-cover" data-alt="Vibrant portrait of a woman with neon lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtkmWfGsIAUQO2XcYwd66QFQGsM4cnB9eH3K8MsENKbfZHTZajc1yYZ6G1f3i8RIZLg053R5OK1vl7DffbSCrHkAavr3M5d54oHBzZK0hgwS6hpw8L0kWDvXZRlWbXqSyUo6BrBz_-THvYQLoUXGtXY0U0fq3r_aNxL0w7lDNv6XWoNelys_GB1HRrrCxZ339NiRgN0NUMSGRgP6cV1gFmM_gM5tGkfu3Wggxs0el30VjdOV_s04LLXrrLFoFjzeYssai9oWKkoA"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-secondary rounded-full border-4 border-background"></div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">LUNA</span>
+</div>
+<!-- Vibe 2 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-3 cursor-pointer group">
+<div class="relative w-20 h-20 p-1 rounded-full bg-gradient-to-tr from-secondary to-primary">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden">
+<img alt="New Vibe 2" class="w-full h-full object-cover" data-alt="Man in high-end streetwear style profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANdRG7E1K4ogGKbjYcpXlqNrPf4eDKC3pLCdWa35lfX4x_O8ZH4JX_vLcFtCzSDeRxx9CXGj9W2XPP753snJrVjFKmOMNSQQ9gp6awGUIssN_xlignxSp-k0oMTSqEnwNhUOWM7vFGR-L60SwASwiLEfS55zH_wu-BZqEWdzIRcDauqQdZZeCr5mSoFAq0tkEILge5AGLtMOTKe4YZMyZohQv-JswjaZX7ngzM20bosUiFE97gq_3hLBzFEFXErq7KGPZXObLGQg"/>
+</div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">AXEL</span>
+</div>
+<!-- Vibe 3 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-3 cursor-pointer group">
+<div class="relative w-20 h-20 p-1 rounded-full bg-gradient-to-tr from-secondary to-primary">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden">
+<img alt="New Vibe 3" class="w-full h-full object-cover" data-alt="Woman with artistic makeup and purple hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzjIo9Bg1AiIOGxRLpZw2OqT2rrc9zevwFwhwCpkV6Nqq2NjiEAu-mQa25ypel5l9Kl1TDVFRJLununnhkwRZkcYgnEEiRgY5E5mGSz-u9eLvX1p86rXxm-YGQdA_qH-7Rva2ZEpMBmlaSGwlBQQjidOyuWIiOOHrQVLU_LEa_AK0TOHKaagkh2dF7CCGz6BxxnjRFKwynr3f8p04ThS3JTDuNz1ZKP6cPp2NC0iKeA8lhGAXrIH-zPF5BnkiBRJzhGYhnLQfl2g"/>
+</div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">MIA</span>
+</div>
+<!-- Vibe 4 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-3 cursor-pointer group">
+<div class="relative w-20 h-20 p-1 rounded-full bg-gradient-to-tr from-secondary to-primary">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden">
+<img alt="New Vibe 4" class="w-full h-full object-cover" data-alt="Man with athletic build in gym setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQdeEanMvuFobRmKfKCpnZh6W5qCbtBAmQ2SUiDzPTv5Squ39TadX9OpMzRaStMo5sMou-Z2NSlM3F2_dxXTvqHcUqXiPWd2V_6KTsGe-XyvRM2eLwQEIDcJh_sbsS5kzFChDIvfnPtheNbQpdxEEl0fUhHXpQtaELKMG80jnFZyOOahwelhcAhjVGKbq4kdeYKS0qWcN6cpOC39mNkri07bh52lKuQxQL0JvZ7ujGnI6_QB9XpRw4OGkTgRBVqWBjkE6mBY63eQ"/>
+</div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">RYAN</span>
+</div>
+<!-- Vibe 5 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-3 cursor-pointer group">
+<div class="relative w-20 h-20 p-1 rounded-full bg-gradient-to-tr from-secondary to-primary">
+<div class="w-full h-full rounded-full border-2 border-background overflow-hidden">
+<img alt="New Vibe 5" class="w-full h-full object-cover" data-alt="Portrait of a young creative person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMMWyFw7fov8QYRknUGrETRySjBxsgKnUDwFVeFXNDC2UEa0hhLxrrRMyrr8-e1sto8ZPiynJtA76oCFzNSJRVTDa8M9AwCbi6_CutExcDHWhXgP6B-d7gbaoqaLHKzL7_DPOigEW0Cm3G6D5qgdEybgyh67O6epEQcGZ5vGClPp9wLYd3T72lf17370tjUax_gNFKdkBxd6dwdyCEkufQNRKtxZblDTcTmbTtp93IJ9F6clmbFakoTcQHSBLxG3b_XmwjEvhn_A"/>
+</div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">JADE</span>
+</div>
+</div>
+</section>
+<!-- Section: Active Connections -->
+<section class="space-y-8">
+<h2 class="font-headline text-2xl font-black uppercase tracking-tight">Active Connections</h2>
+<div class="space-y-6">
+<!-- Connection Card 1 -->
+<div class="group relative aspect-[4/5] w-full rounded-xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-2">
+<img alt="Zara" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Woman exercising in a high-tech gym" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH9AkZCCgHkUwkVchA6eYIl9qE_5pLoxi__oQ6uWaqrrmt_Jm58FlyFxC-mcZp5re1p3rFmaWRqrYGadrMluK2NqaETp45KJaZtqjq5p0Rzw1wX7wUJ1Dj4X8vFXwM-eb9Yi60hXrSTHJcsjC5fiZZ2KrNSArhyvd2Jp9a_bE2ou2DFzMgCMTiRESCzgFevY021KfHEZv2BFRqW0VniWem5hKVYfYveEcplPlIsmzd3Hd9lY6fCbA2NYrqOHbCD1DF9VkGX3Q7Mw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<!-- Overlay Content -->
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<div class="glass-card p-6 rounded-lg border border-outline-variant/15 space-y-4">
+<div class="space-y-1">
+<h3 class="font-headline text-3xl font-black text-on-background uppercase italic tracking-tighter">Zara, 24</h3>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary text-sm">bolt</span>
+<p class="font-label text-sm font-bold text-secondary uppercase tracking-widest">Both love Techno Yoga</p>
+</div>
+</div>
+<div class="flex space-x-3">
+<button class="flex-1 bg-primary text-on-primary font-headline font-black py-4 rounded-full uppercase tracking-widest text-xs hover:scale-105 transition-transform active:scale-95">
+                                    Message
+                                </button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full glass-card border border-outline-variant/15 text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Connection Card 2 -->
+<div class="group relative aspect-[4/5] w-full rounded-xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-2">
+<img alt="Felix" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Developer surrounded by multiple screens and neon tech decor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDAPLh4S7V6sRidIj8U8JC_2YTyscm9OJsx2ouxVITMeHjagCCd_0mo65iQBJW5Hi5BhVgv4nQnrguh7fnXmCWybRnMKUz_wRaY8fQTJwFieNY6GWtJVONTkSTSj4yD6_LJA6nyYPs8YfMwFaY-K2XddSEPcm9zTFGwh6P4RoR6H33onACxxgiTS3GJZ93XQePmzBbNap3xUXjsuDEX34lzo43cLvXPzE7JqoUEA6Re56H0U2-1rmF1L1J7F-Hy0zzjQquGmPJDw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<!-- Overlay Content -->
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<div class="glass-card p-6 rounded-lg border border-outline-variant/15 space-y-4">
+<div class="space-y-1">
+<h3 class="font-headline text-3xl font-black text-on-background uppercase italic tracking-tighter">Felix, 27</h3>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary text-sm">bolt</span>
+<p class="font-label text-sm font-bold text-secondary uppercase tracking-widest">Both into Cyberpunk AI</p>
+</div>
+</div>
+<div class="flex space-x-3">
+<button class="flex-1 bg-primary text-on-primary font-headline font-black py-4 rounded-full uppercase tracking-widest text-xs hover:scale-105 transition-transform active:scale-95">
+                                    Message
+                                </button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full glass-card border border-outline-variant/15 text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Connection Card 3 -->
+<div class="group relative aspect-[4/5] w-full rounded-xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-2">
+<img alt="Nico" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="DJ at a nightclub with purple stage lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALOZ0cci3qywIlxOtx3XymgK7A4BCnzBmgcD13QdFL9Op2JzOAhWx24xideYJSoI7fVM24Eg2Vupvx5HIMw4xZa0Gqqj6siZYa6wdfs_qIjB1kPhy1TZtQMD9d9846aL8QjRBV1OIFhfLIxyEROXEpJXKUymaqE90d_nngnI_VsqJPOW5gM_SBcd6bYHmlyGpYAsIfpaQ1uiKtO8S07VSYYaMkmWiS6_G2d4fY44wHUCygudmmp5qgchJL6_2xa8mSFGKZI17Bjw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<!-- Overlay Content -->
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<div class="glass-card p-6 rounded-lg border border-outline-variant/15 space-y-4">
+<div class="space-y-1">
+<h3 class="font-headline text-3xl font-black text-on-background uppercase italic tracking-tighter">Nico, 25</h3>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary text-sm">bolt</span>
+<p class="font-label text-sm font-bold text-secondary uppercase tracking-widest">Both attend Midnight Raves</p>
+</div>
+</div>
+<div class="flex space-x-3">
+<button class="flex-1 bg-primary text-on-primary font-headline font-black py-4 rounded-full uppercase tracking-widest text-xs hover:scale-105 transition-transform active:scale-95">
+                                    Message
+                                </button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full glass-card border border-outline-variant/15 text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[3rem] bg-[#1a0425]/40 backdrop-blur-xl flex justify-around items-center px-8 pb-8 pt-4 shadow-[0_-10px_40px_rgba(223,142,255,0.1)]">
+<!-- Bolt/Discover -->
+<a class="flex items-center justify-center text-[#df8eff]/40 w-12 h-12 hover:text-[#2ff801] transition-colors active:scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="bolt">bolt</span>
+</a>
+<!-- Explore/Matches - ACTIVE -->
+<a class="flex items-center justify-center bg-[#df8eff] text-[#1a0425] rounded-full w-12 h-12 shadow-[0_0_15px_#df8eff] active:scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="explore">explore</span>
+</a>
+<!-- Chat -->
+<a class="flex items-center justify-center text-[#df8eff]/40 w-12 h-12 hover:text-[#2ff801] transition-colors active:scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="chat_bubble">chat_bubble</span>
+</a>
+<!-- Profile -->
+<a class="flex items-center justify-center text-[#df8eff]/40 w-12 h-12 hover:text-[#2ff801] transition-colors active:scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#391648",
+              "on-surface": "#f9dcff",
+              "inverse-primary": "#9a00d0",
+              "surface-container": "#290c36",
+              "primary": "#df8eff",
+              "surface": "#1a0425",
+              "on-tertiary-container": "#5b5900",
+              "on-primary-fixed-variant": "#4b0068",
+              "error-container": "#a70138",
+              "tertiary-fixed-dim": "#f0ec00",
+              "secondary-fixed-dim": "#2be800",
+              "outline": "#896b93",
+              "on-error-container": "#ffb2b9",
+              "inverse-on-surface": "#674b71",
+              "on-secondary-fixed-variant": "#0d6200",
+              "tertiary-container": "#f6f200",
+              "on-primary-container": "#3d0055",
+              "surface-container-low": "#21072d",
+              "surface-dim": "#1a0425",
+              "error": "#ff6e84",
+              "surface-tint": "#df8eff",
+              "error-dim": "#d73357",
+              "on-error": "#490013",
+              "primary-fixed-dim": "#d061ff",
+              "on-tertiary": "#646200",
+              "inverse-surface": "#fff7fb",
+              "outline-variant": "#593e63",
+              "tertiary-fixed": "#fffb00",
+              "on-primary-fixed": "#000000",
+              "surface-container-highest": "#391648",
+              "surface-container-lowest": "#000000",
+              "surface-container-high": "#31113f",
+              "background": "#1a0425",
+              "on-primary": "#4f006d",
+              "on-background": "#f9dcff",
+              "secondary-container": "#106e00",
+              "primary-fixed": "#d878ff",
+              "on-secondary-fixed": "#064200",
+              "on-secondary": "#0b5800",
+              "surface-bright": "#411c51",
+              "tertiary-dim": "#f0ec00",
+              "tertiary": "#fffcca",
+              "primary-dim": "#bb00fc",
+              "on-surface-variant": "#c1a0cb",
+              "secondary-fixed": "#2ff801",
+              "secondary-dim": "#2be800",
+              "on-tertiary-fixed": "#4d4c00",
+              "primary-container": "#d878ff",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "on-secondary-container": "#e7ffd9",
+              "secondary": "#2ff801"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .map-gradient-overlay {
+            background: radial-gradient(circle at center, transparent 0%, #1a0425 90%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_48px_rgba(223,142,255,0.1)] h-20 flex justify-between items-center px-6">
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Epilogue'] font-black uppercase tracking-tighter text-2xl text-[#df8eff] drop-shadow-[0_0_8px_rgba(223,142,255,0.8)]">EXPLORE NEARBY</h1>
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+</button>
+</header>
+<!-- Main Content: Map Canvas -->
+<main class="relative h-screen w-full overflow-hidden bg-surface-container-lowest">
+<!-- Mock Map Background -->
+<div class="absolute inset-0 opacity-40 grayscale contrast-125 saturate-200">
+<img class="w-full h-full object-cover" data-alt="Dark aesthetic high contrast city map view" data-location="Tokyo Night Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCYGipsAT4GAaIuIHkHwTnGKq8SpB7gPiaF5pRqw0e-JJ-cE8dOgEexA6p4G0mAdPV8DkyJl84FP9P1eM3MNl2QLfPeXcZJaoCEttQhOi43t6jH5_bAcuSTiMKFNy0KYpkTVxG57OlsjrQ1kEBuP81RBdrgkxmqMDoGOMGU9PYbhvQGz8mNJCj5FNyjCsfxSIhAa0Uh4hi1WbfqppqfCrKyPzl89GZ-hziZWzyQCETr5DS_y6UijcPA64VSoFgQ5EyYx4ZRQZxpA"/>
+</div>
+<div class="absolute inset-0 map-gradient-overlay pointer-events-none"></div>
+<!-- Custom Markers -->
+<!-- Gym Marker -->
+<div class="absolute top-[30%] left-[25%] -translate-x-1/2 -translate-y-1/2 group">
+<div class="relative flex flex-col items-center">
+<div class="bg-primary p-3 rounded-full shadow-[0_0_20px_rgba(223,142,255,0.8)] hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-surface" data-icon="fitness_center">fitness_center</span>
+</div>
+<div class="mt-2 px-3 py-1 bg-surface-container-high rounded-full border border-primary/20 backdrop-blur-md">
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary">Iron Haven</span>
+</div>
+</div>
+</div>
+<!-- Coding Marker -->
+<div class="absolute top-[45%] left-[65%] -translate-x-1/2 -translate-y-1/2 group">
+<div class="relative flex flex-col items-center">
+<div class="bg-secondary p-3 rounded-full shadow-[0_0_20px_rgba(47,248,1,0.6)] hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-surface" data-icon="code">code</span>
+</div>
+<div class="mt-2 px-3 py-1 bg-surface-container-high rounded-full border border-secondary/20 backdrop-blur-md">
+<span class="text-[10px] font-bold uppercase tracking-widest text-secondary">Dev Jam</span>
+</div>
+</div>
+</div>
+<!-- Sports Marker -->
+<div class="absolute top-[20%] left-[75%] -translate-x-1/2 -translate-y-1/2 group">
+<div class="relative flex flex-col items-center">
+<div class="bg-blue-400 p-3 rounded-full shadow-[0_0_20px_rgba(96,165,250,0.6)] hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-surface" data-icon="sports_basketball">sports_basketball</span>
+</div>
+<div class="mt-2 px-3 py-1 bg-surface-container-high rounded-full border border-blue-400/20 backdrop-blur-md">
+<span class="text-[10px] font-bold uppercase tracking-widest text-blue-400">Hoops Night</span>
+</div>
+</div>
+</div>
+<!-- Location Pulse (User) -->
+<div class="absolute top-[55%] left-[40%] -translate-x-1/2 -translate-y-1/2">
+<div class="relative">
+<div class="w-4 h-4 bg-white rounded-full relative z-10 shadow-[0_0_15px_rgba(255,255,255,0.8)]"></div>
+<div class="absolute inset-0 w-4 h-4 bg-white rounded-full animate-ping opacity-75"></div>
+</div>
+</div>
+<!-- Floating Action Buttons -->
+<div class="absolute right-6 bottom-72 flex flex-col gap-4 z-40">
+<button class="w-14 h-14 bg-surface-container-high/80 backdrop-blur-md text-primary rounded-full flex items-center justify-center shadow-lg border border-primary/10 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span>
+</button>
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(223,142,255,0.4)] hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add" style="font-variation-settings: 'wght' 700;">add</span>
+</button>
+</div>
+<!-- Quick View Carousel -->
+<div class="absolute bottom-32 w-full overflow-x-auto no-scrollbar pb-6 px-6 z-30">
+<div class="flex gap-4 w-max">
+<!-- Card 1 -->
+<div class="w-72 bg-surface-container/60 backdrop-blur-xl p-4 rounded-lg flex gap-4 border border-outline-variant/10 shadow-2xl">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Interior of a modern neon lit gym" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPd1oJiIuCueEbSvKVeH9Kx3HpevDWbADdCmAfdrvE6hk4PS3tvoIAyrrG7xiFNKbnCe2gqyQeA-T9b5qiSt_VPmGf4S-uyhlW28VC6sQSjxaegsRpEsRqv5zUHybHpTitm2VzVOvgPZcDvlyuIwzVPxn91GIwYlWO-GQEFtq_WtiGqWmWD0hlxHvMAEDSgtOH8rJiAfczdx1tINSoU_3WAuSGSG1m-00atkjSFXSPmZw-pm2exNNBJ3lQILdQ1C7thSuc7KEbdg"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline font-bold text-on-surface leading-tight">Iron Haven HIIT</h3>
+<p class="text-secondary text-[10px] font-bold uppercase tracking-widest mt-1">0.8 MILES AWAY</p>
+<div class="flex items-center gap-2 mt-2">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-variant overflow-hidden">
+<img data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7VNVyBw-SWRCNj1P3YY--BkrZSng-tw9XLXumeSzmH9KL-KlO3B7c98rsjR6u6oVsAFORNv21_jQbCis4eI5avWWm4evGEJSzD1DqAeO-qUDaFYcyb7BsqDdFMdOV3vipLcvSYj8FRBdiPlemGhmYsN8KnhXB9mnSlIK4yf4Xf9iJuOB-8wLrBS_fPR-vXw8fWs7C9Ni1VIlVWyC3MSX4yUlSMlDQN1ccq1cN0_Ut0Qd2zf3YHHp2n2IvaYQF1c4nrGflgAcqFg"/>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-variant overflow-hidden">
+<img data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUPmEB6OCR6matvrzAGbs2nVKi-kvOndrADXeX8cefUAO-tz46lQpQZyV3PuYoOgZjI2ViNe8Mfgek2HJ1FhXtJPp6fEWUVa_jdn0O6XGM7zFSzhWISsPsBBV-8BW_OSL9tOEftbw6C6xmMLByhk_q4dzqg6lBCM2ZQn_AaeFmRNhJ36ezjwOZoKQZ1YN57EOJTuDpXCzlAi63_26y5G9KJOjU6I1aSuSERfrsv-IpPWEhPjlReomcQHOxroeERghmBpprlmRQ2A"/>
+</div>
+</div>
+<span class="text-on-surface-variant text-[10px] font-medium">+12 joining</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="w-72 bg-surface-container/60 backdrop-blur-xl p-4 rounded-lg flex gap-4 border border-outline-variant/10 shadow-2xl">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Laptop with code in a dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSH8sOQR0RVsgxBZrhp3pzYxl8V9w34OM4RpKfu5vt1LNY2zc4Q5YLB3AuAzrvSqHLm8vH2GRXPWu-WgYB286t2iK1PpZfetoRysOZaC6wPlvQ7yUQmj7QBW4CtelBS-nbTDblXnYqK28JWL5JG2R7Ko1Pq9mgIO9bQPC8rEYTuCPmqJR9kGPml-Y6eFRA0cl3DZsau-JRuF591Qt7NFDYUp8QHCsru0B50jq10lC7OG3SlILV53hpcU9YUOVHzwDQMgyTsOKmiA"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline font-bold text-on-surface leading-tight">Rust Dev Jam</h3>
+<p class="text-secondary text-[10px] font-bold uppercase tracking-widest mt-1">1.2 MILES AWAY</p>
+<div class="flex items-center gap-2 mt-2">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-variant overflow-hidden">
+<img data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg7ZkQsoYCYlaq7Hei5LdANSv2_B3JCrlcb_lGskp-Z7klzLyhKIs0xH67iM0EJB8OD0tyh54KppOKsCkHyI8_uMw8IK9x3rnOTr8cPg8VIfcD-syiY4JZfCQQGxfRUcKoIf1ndaVPs8476p4ZWtAF459TpU4R1dspZkAqU6EXoyhH9sWmbbuPPv6bDVbwwt0PbXhjuqU_GiNVVZK6P7WQDzrW63aVLEgl5wF_4CtlKipFKQUGwa24Or5OIt542MxusuKdHA2YFg"/>
+</div>
+</div>
+<span class="text-on-surface-variant text-[10px] font-medium">8 slots left</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="w-72 bg-surface-container/60 backdrop-blur-xl p-4 rounded-lg flex gap-4 border border-outline-variant/10 shadow-2xl">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Nighttime basketball court with neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbe7cC1lxUOeUfBcdO7GXbTZ9Ys30dXLLnJblQaBJBhY7x1IdzqYaqNZXT80obYaFY7tu05iCiDhUtrSNxNQB9UXjZX8Mis4fpfS8D64Jcqdc4Z852veLHVMS9SU6WlH-6PGU9VRop0gOY4u30n7peaFTwaQAaOG26CAd5R2UCsoaBhq_wj-yqAdEBbt9c38RM4yK6cjqAbbBCbGlv9yGVKa31C-25tuBkH33hnSNMB-YAKnSP1DCcJaNMdBT53cML0fVs9S3wRA"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline font-bold text-on-surface leading-tight">3v3 Street Hoops</h3>
+<p class="text-secondary text-[10px] font-bold uppercase tracking-widest mt-1">2.5 MILES AWAY</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="text-on-surface-variant text-[10px] font-medium">Starts in 15 mins</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-8 pb-8 pt-4 bg-[#1a0425]/40 backdrop-blur-xl rounded-t-[3rem] z-50 shadow-[0_-10px_40px_rgba(26,4,37,0.8)]">
+<!-- Map Tab (Active) -->
+<a class="flex items-center justify-center bg-[#df8eff] text-[#1a0425] rounded-full w-14 h-14 shadow-[0_0_15px_rgba(223,142,255,0.6)] active:scale-90 transition-all spring-bounce" href="#">
+<span class="material-symbols-outlined" data-icon="map" style="font-variation-settings: 'FILL' 1;">map</span>
+</a>
+<!-- Explore Tab -->
+<a class="flex items-center justify-center text-[#df8eff]/40 w-14 h-14 hover:text-[#2ff801] transition-colors duration-300 active:scale-90 transition-all spring-bounce" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+</a>
+<!-- Activities Tab -->
+<a class="flex items-center justify-center text-[#df8eff]/40 w-14 h-14 hover:text-[#2ff801] transition-colors duration-300 active:scale-90 transition-all spring-bounce" href="#">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</a>
+<!-- Profile Tab -->
+<a class="flex items-center justify-center text-[#df8eff]/40 w-14 h-14 hover:text-[#2ff801] transition-colors duration-300 active:scale-90 transition-all spring-bounce" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</nav>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

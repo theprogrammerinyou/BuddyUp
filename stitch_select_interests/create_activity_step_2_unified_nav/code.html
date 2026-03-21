@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#290c36",
+              "primary-fixed": "#d878ff",
+              "secondary-dim": "#2be800",
+              "surface-container-lowest": "#000000",
+              "tertiary-container": "#f6f200",
+              "surface-variant": "#391648",
+              "tertiary-fixed": "#fffb00",
+              "surface-dim": "#1a0425",
+              "surface-tint": "#df8eff",
+              "surface-container-low": "#21072d",
+              "error-dim": "#d73357",
+              "on-secondary-fixed": "#064200",
+              "primary": "#df8eff",
+              "surface-bright": "#411c51",
+              "on-secondary-fixed-variant": "#0d6200",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "secondary": "#2ff801",
+              "secondary-fixed-dim": "#2be800",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-secondary": "#0b5800",
+              "on-primary-fixed-variant": "#4b0068",
+              "primary-fixed-dim": "#d061ff",
+              "tertiary-dim": "#f0ec00",
+              "surface": "#1a0425",
+              "primary-container": "#d878ff",
+              "inverse-on-surface": "#674b71",
+              "outline": "#896b93",
+              "on-primary-fixed": "#000000",
+              "on-surface-variant": "#c1a0cb",
+              "on-surface": "#f9dcff",
+              "inverse-surface": "#fff7fb",
+              "on-tertiary-fixed": "#4d4c00",
+              "outline-variant": "#593e63",
+              "surface-container-highest": "#391648",
+              "on-tertiary": "#646200",
+              "on-secondary-container": "#e7ffd9",
+              "on-background": "#f9dcff",
+              "primary-dim": "#bb00fc",
+              "on-error": "#490013",
+              "on-tertiary-container": "#5b5900",
+              "secondary-fixed": "#2ff801",
+              "on-primary": "#4f006d",
+              "error-container": "#a70138",
+              "tertiary": "#fffcca",
+              "secondary-container": "#106e00",
+              "inverse-primary": "#9a00d0",
+              "on-primary-container": "#3d0055",
+              "error": "#ff6e84",
+              "surface-container-high": "#31113f",
+              "on-error-container": "#ffb2b9",
+              "background": "#1a0425"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(57, 22, 72, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      body {
+        background-color: #1a0425;
+        color: #f9dcff;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-secondary selection:text-on-secondary">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl border-none shadow-[0_0_48px_rgba(223,142,255,0.1)] flex justify-between items-center px-6 h-20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-secondary p-0.5">
+<img alt="User profile" class="w-full h-full rounded-full object-cover" data-alt="User profile avatar with neon ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv0MtApPvtx91sNZ8MF6K3kNle88KmovRaJ5nVEXfr5I5kQ1UgXkosKxwocfCHqff1Rp9v5Hde809zi-EbPjv7jBB_g6IKoRE9uRrrIkXKKhjCszYK9el1XnotOspoAFslCxeG7smZEC9vALfAtNQp8eaXvwSJqbBakGiTeyxbbEGhJcU_j0T_Sgo0eHRfdfOa-PwqslfMl_teEGASfJ8EP3lDXVmL5cn3SJk-51ETasIMiEHNnAvRTSG0Qlysu-NGa33NwAZYFg"/>
+</div>
+<span class="font-headline font-black tracking-tighter uppercase text-2xl italic text-[#df8eff] drop-shadow-[0_0_8px_rgba(223,142,255,0.8)]">PULSE</span>
+</div>
+<button class="text-[#df8eff] hover:scale-105 hover:text-[#2ff801] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<main class="pt-28 pb-32 px-6 max-w-2xl mx-auto min-h-screen">
+<!-- Progress Indicator -->
+<div class="mb-10 flex items-center justify-between">
+<div class="flex-1 h-1 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-secondary w-2/3 shadow-[0_0_12px_rgba(47,248,1,0.8)]"></div>
+</div>
+<span class="ml-4 font-label text-[10px] font-bold tracking-widest uppercase text-secondary">Step 2 of 3</span>
+</div>
+<!-- Headline Section -->
+<section class="mb-12">
+<h1 class="font-headline text-5xl font-black leading-tight tracking-tight mb-4">Set the <span class="text-secondary italic">Vibe</span></h1>
+<p class="text-on-surface-variant text-lg leading-relaxed">Give your activity a name and describe the energy you're bringing tonight.</p>
+</section>
+<!-- Form Section -->
+<form class="space-y-8">
+<!-- Title Input -->
+<div class="group">
+<label class="block font-label text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-3 px-2">Activity Title</label>
+<div class="glass-panel p-1 rounded-2xl focus-within:ring-1 ring-primary transition-all duration-300">
+<input class="w-full bg-transparent border-none focus:ring-0 text-xl font-semibold py-4 px-6 text-on-surface placeholder:text-white/20" placeholder="e.g., Midnight Rooftop Vinyl Session" type="text"/>
+</div>
+</div>
+<!-- Description -->
+<div class="group">
+<label class="block font-label text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-3 px-2">The Energy</label>
+<div class="glass-panel p-1 rounded-2xl focus-within:ring-1 ring-primary transition-all duration-300">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-lg py-4 px-6 text-on-surface placeholder:text-white/20 resize-none" placeholder="Tell them why they shouldn't miss it..." rows="4"></textarea>
+</div>
+</div>
+<!-- Time and Map Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Time Selection -->
+<div class="glass-panel p-6 rounded-3xl flex flex-col justify-between h-full">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary" data-icon="schedule">schedule</span>
+<label class="font-label text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface/60">When</label>
+</div>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-black font-headline tracking-tighter">22:00</span>
+<button class="bg-surface-container-highest p-2 rounded-full hover:bg-primary/20 transition-colors" type="button">
+<span class="material-symbols-outlined text-primary" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+<!-- Map Preview -->
+<div class="relative h-44 md:h-full min-h-[176px] rounded-3xl overflow-hidden group">
+<img alt="Location Map" class="w-full h-full object-cover brightness-50 contrast-125 grayscale hover:grayscale-0 transition-all duration-700" data-alt="Dark stylized urban map of Berlin" data-location="Berlin, Germany" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJUhwtB4QtWAVaz7hyBHdzfekQjtQkf2nfw6WGdpRImqeax-QXTQfh4jBcoh9QxIQXc_ulsAVKHOxLyTSfLYILp4OUxUQaTKzCYLCKfoGENmlgGZ6OhoZc_bHdeqBUa96eAxBZ_LMY5tJLXCWL66hgYUAcA9dDr9YpbJDeeSRZBUfRejnS9itXT7hmVpC1bUJEb6DFRoqtb18GOHZ-3oL3fp15w-p8SaI4E5rZHsUaU1Ao8-j2WZn8XoEhXt6PJsF4u1_5gegAZQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim to-transparent opacity-60"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 bg-surface/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-outline-variant/20">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label text-[10px] font-extrabold uppercase tracking-widest text-on-surface">Berlin Mitte</span>
+</div>
+</div>
+</div>
+<!-- Large Action Button -->
+<div class="pt-8">
+<button class="w-full py-6 rounded-full bg-secondary text-on-secondary font-headline text-xl font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(47,248,1,0.4)] hover:shadow-[0_0_50px_rgba(47,248,1,0.6)] hover:scale-[1.02] active:scale-95 transition-all duration-300" type="submit">
+                    Post Activity
+                    <span class="material-symbols-outlined" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</div>
+</form>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#290c36]/40 backdrop-blur-2xl rounded-t-[3rem] shadow-[0_-8px_32px_rgba(26,4,37,0.5)] flex justify-around items-center h-24 px-4 pb-4">
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#2ff801] drop-shadow-[0_0_10px_rgba(47,248,1,0.6)] bg-[#391648]/60 rounded-full px-6 py-2 active:scale-110 transition-transform cubic-bezier(0.34,1.56,0.64,1)" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="bolt">bolt</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase">Activity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase">Profile</span>
+</a>
+</nav>
+</body></html>

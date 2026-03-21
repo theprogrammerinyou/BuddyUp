@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Messages - Neon Nocturne</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-background": "#f9dcff",
+                        "on-primary-fixed": "#000000",
+                        "primary-fixed-dim": "#d061ff",
+                        "error-dim": "#d73357",
+                        "on-surface-variant": "#c1a0cb",
+                        "surface-container-high": "#31113f",
+                        "on-primary-container": "#3d0055",
+                        "surface-variant": "#391648",
+                        "on-secondary-fixed": "#064200",
+                        "surface-container": "#290c36",
+                        "on-primary": "#4f006d",
+                        "surface-container-highest": "#391648",
+                        "secondary": "#2ff801",
+                        "on-secondary": "#0b5800",
+                        "tertiary-fixed": "#fffb00",
+                        "on-primary-fixed-variant": "#4b0068",
+                        "surface": "#1a0425",
+                        "surface-bright": "#411c51",
+                        "on-error": "#490013",
+                        "error-container": "#a70138",
+                        "surface-container-lowest": "#000000",
+                        "on-tertiary-fixed": "#4d4c00",
+                        "secondary-fixed": "#2ff801",
+                        "on-secondary-container": "#e7ffd9",
+                        "surface-container-low": "#21072d",
+                        "secondary-fixed-dim": "#2be800",
+                        "tertiary-fixed-dim": "#f0ec00",
+                        "on-tertiary-fixed-variant": "#6b6900",
+                        "outline": "#896b93",
+                        "error": "#ff6e84",
+                        "on-error-container": "#ffb2b9",
+                        "on-tertiary": "#646200",
+                        "tertiary-dim": "#f0ec00",
+                        "tertiary": "#fffcca",
+                        "on-tertiary-container": "#5b5900",
+                        "secondary-container": "#106e00",
+                        "primary": "#df8eff",
+                        "secondary-dim": "#2be800",
+                        "inverse-on-surface": "#674b71",
+                        "outline-variant": "#593e63",
+                        "inverse-surface": "#fff7fb",
+                        "primary-container": "#d878ff",
+                        "surface-dim": "#1a0425",
+                        "tertiary-container": "#f6f200",
+                        "surface-tint": "#df8eff",
+                        "primary-dim": "#bb00fc",
+                        "on-secondary-fixed-variant": "#0d6200",
+                        "background": "#1a0425",
+                        "inverse-primary": "#9a00d0",
+                        "primary-fixed": "#d878ff",
+                        "on-surface": "#f9dcff"
+                    },
+                    fontFamily: {
+                        "epilogue": ["Epilogue"],
+                        "jakarta-sans": ["Plus Jakarta Sans"],
+                        "headline": ["Epilogue"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-glow {
+            box-shadow: 0 0 20px rgba(223, 142, 255, 0.15);
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary selection:text-on-secondary min-h-screen flex flex-col">
+<!-- TopAppBar (from COMPONENTS_34) -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_4px_20px_rgba(223,142,255,0.1)]">
+<div class="flex justify-between items-center px-6 h-20 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-[#df8eff] p-0.5 hover:scale-105 transition-transform duration-200 cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKfrBubWFdPNEpQuF-A8z4egq_FOV5C9CtL1j_-2No77A0ABRVzFgUFT6H15R3SbO8vbDAJQaV2KQ_0DzQEV7xGXwXxjcLq1IYcyqX-T2oW7aDdK3Pn2nHsdD_hG9xIV-6uC1kIHH83UT04Vx2mpy3km5nsj4RqPXFlKjtF2EtEP7QSJXMxKaNzWoTpE1BMuErTAg5f8blpwvdjmkcgmiZv8eKZ5CBP7mcj_cFvHL_kicWtRaFzGr-NdwJoabXo82jh68V0wSd0Q"/>
+</div>
+<h1 class="font-epilogue font-bold text-2xl tracking-tighter text-[#df8eff]">Messages</h1>
+</div>
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+</div>
+</header>
+<!-- Chat List Canvas -->
+<main class="flex-grow pt-24 pb-32 px-6 max-w-2xl mx-auto w-full space-y-2">
+<!-- Active Matches / Stories Section -->
+<div class="flex gap-4 overflow-x-auto py-2 no-scrollbar">
+<div class="flex flex-col items-center gap-1 shrink-0">
+<div class="w-16 h-16 rounded-full p-1 border-2 border-secondary relative">
+<img alt="Alex" class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKfrBubWFdPNEpQuF-A8z4egq_FOV5C9CtL1j_-2No77A0ABRVzFgUFT6H15R3SbO8vbDAJQaV2KQ_0DzQEV7xGXwXxjcLq1IYcyqX-T2oW7aDdK3Pn2nHsdD_hG9xIV-6uC1kIHH83UT04Vx2mpy3km5nsj4RqPXFlKjtF2EtEP7QSJXMxKaNzWoTpE1BMuErTAg5f8blpwvdjmkcgmiZv8eKZ5CBP7mcj_cFvHL_kicWtRaFzGr-NdwJoabXo82jh68V0wSd0Q"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-secondary">Alex</span>
+</div>
+<!-- Placeholder Stories -->
+<div class="flex flex-col items-center gap-1 shrink-0 opacity-60">
+<div class="w-16 h-16 rounded-full p-1 border-2 border-outline-variant">
+<div class="w-full h-full rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Jamie</span>
+</div>
+<div class="flex flex-col items-center gap-1 shrink-0 opacity-60">
+<div class="w-16 h-16 rounded-full p-1 border-2 border-outline-variant">
+<div class="w-full h-full rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Morgan</span>
+</div>
+</div>
+<!-- Conversation List -->
+<div class="mt-6 flex flex-col gap-1">
+<!-- Alex Rivera (Active) -->
+<div class="group flex items-center gap-4 p-4 rounded-2xl bg-surface-container-high border border-outline-variant/10 hover:bg-surface-container-highest transition-colors cursor-pointer chat-glow">
+<div class="relative shrink-0">
+<img alt="Alex Rivera" class="w-14 h-14 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKfrBubWFdPNEpQuF-A8z4egq_FOV5C9CtL1j_-2No77A0ABRVzFgUFT6H15R3SbO8vbDAJQaV2KQ_0DzQEV7xGXwXxjcLq1IYcyqX-T2oW7aDdK3Pn2nHsdD_hG9xIV-6uC1kIHH83UT04Vx2mpy3km5nsj4RqPXFlKjtF2EtEP7QSJXMxKaNzWoTpE1BMuErTAg5f8blpwvdjmkcgmiZv8eKZ5CBP7mcj_cFvHL_kicWtRaFzGr-NdwJoabXo82jh68V0wSd0Q"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-epilogue font-bold text-on-surface truncate">Alex Rivera</h3>
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter shrink-0">18:47</span>
+</div>
+<p class="text-sm text-on-surface font-medium truncate">Absolutely! Just finishing up some work. I'll be there...</p>
+</div>
+<div class="w-2.5 h-2.5 bg-secondary rounded-full shrink-0"></div>
+</div>
+<!-- Inactive Conversations -->
+<div class="group flex items-center gap-4 p-4 rounded-2xl hover:bg-surface-container/50 transition-colors cursor-pointer">
+<div class="shrink-0 w-14 h-14 rounded-full bg-surface-container-low flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-epilogue font-bold text-on-surface-variant truncate">Jamie Chen</h3>
+<span class="text-[10px] text-on-surface-variant/60 font-medium shrink-0">Yesterday</span>
+</div>
+<p class="text-sm text-on-surface-variant/60 truncate italic">Great session today! Catch you later?</p>
+</div>
+</div>
+<div class="group flex items-center gap-4 p-4 rounded-2xl hover:bg-surface-container/50 transition-colors cursor-pointer">
+<div class="shrink-0 w-14 h-14 rounded-full bg-surface-container-low flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-epilogue font-bold text-on-surface-variant truncate">Morgan Smith</h3>
+<span class="text-[10px] text-on-surface-variant/60 font-medium shrink-0">Mon</span>
+</div>
+<p class="text-sm text-on-surface-variant/60 truncate">Sent a photo</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40 text-sm">image</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (from COMPONENTS_34) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-4 bg-[#1a0425]/40 backdrop-blur-2xl rounded-t-[3rem] z-50 pb-safe shadow-[0_-8px_32px_rgba(26,4,37,0.8)]">
+<a class="flex flex-col items-center justify-center text-[#df8eff]/60 px-6 py-2 hover:text-[#2ff801] transition-colors duration-300 active:scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-jakarta-sans text-[10px] font-bold uppercase tracking-widest mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#df8eff]/60 px-6 py-2 hover:text-[#2ff801] transition-colors duration-300 active:scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-jakarta-sans text-[10px] font-bold uppercase tracking-widest mt-1">Activity</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#df8eff] text-[#1a0425] rounded-full px-6 py-2 shadow-[0_0_15px_rgba(223,142,255,0.5)] active:scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-jakarta-sans text-[10px] font-bold uppercase tracking-widest mt-1">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#df8eff]/60 px-6 py-2 hover:text-[#2ff801] transition-colors duration-300 active:scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-jakarta-sans text-[10px] font-bold uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

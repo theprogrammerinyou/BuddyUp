@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-container": "#3d0055",
+              "primary-fixed-dim": "#d061ff",
+              "surface-dim": "#1a0425",
+              "secondary-fixed": "#2ff801",
+              "tertiary-dim": "#f0ec00",
+              "surface-variant": "#391648",
+              "surface-tint": "#df8eff",
+              "primary-dim": "#bb00fc",
+              "on-primary-fixed": "#000000",
+              "inverse-on-surface": "#674b71",
+              "on-background": "#f9dcff",
+              "on-error-container": "#ffb2b9",
+              "on-secondary-fixed": "#064200",
+              "on-secondary-fixed-variant": "#0d6200",
+              "error-container": "#a70138",
+              "background": "#1a0425",
+              "outline": "#896b93",
+              "surface-container-low": "#21072d",
+              "primary-container": "#d878ff",
+              "error": "#ff6e84",
+              "on-tertiary": "#646200",
+              "surface-container-highest": "#391648",
+              "tertiary-fixed-dim": "#f0ec00",
+              "secondary-fixed-dim": "#2be800",
+              "on-tertiary-fixed": "#4d4c00",
+              "on-primary-fixed-variant": "#4b0068",
+              "surface-bright": "#411c51",
+              "on-secondary": "#0b5800",
+              "on-surface": "#f9dcff",
+              "primary": "#df8eff",
+              "tertiary-container": "#f6f200",
+              "inverse-surface": "#fff7fb",
+              "surface-container-lowest": "#000000",
+              "surface-container-high": "#31113f",
+              "tertiary": "#fffcca",
+              "tertiary-fixed": "#fffb00",
+              "on-tertiary-container": "#5b5900",
+              "error-dim": "#d73357",
+              "surface-container": "#290c36",
+              "primary-fixed": "#d878ff",
+              "on-surface-variant": "#c1a0cb",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "secondary": "#2ff801",
+              "secondary-dim": "#2be800",
+              "on-secondary-container": "#e7ffd9",
+              "outline-variant": "#593e63",
+              "on-primary": "#4f006d",
+              "secondary-container": "#106e00",
+              "on-error": "#490013",
+              "surface": "#1a0425",
+              "inverse-primary": "#9a00d0"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl flex justify-between items-center px-6 h-16 shadow-[0_0_20px_rgba(223,142,255,0.1)]">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-secondary to-primary p-[2px]">
+<img class="w-full h-full rounded-full object-cover border-2 border-background" data-alt="User profile with neon ring glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjYdk_TpBfI5brJ4RU6zOMquRY8d3MZIfdUPZVpEjRBpa9KSz4YoWR9eMPSNkbwa3tqypRIn5Jbq7BpN2KBJzIr2PRWLhD5yYrG1fyRSC-sG4-YYVGZ9zRArXpG2GLTDv21RUWqrWwyIBPqcmjrx6XjF5MoGaubmGo3xSm-WL-9fhEcFJHgHvhKMBRAPMi08TRfw7jjdJlhlc-O6sELWxR6hD2xayFZGIw2sgqA1ZWu2uy2MEiMphsMAiQyapYGisPJyzzITFnWQ"/>
+</div>
+</div>
+<h1 class="text-[#df8eff] font-headline font-black uppercase tracking-tighter text-xl">DISCOVER</h1>
+</div>
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined text-2xl" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-10">
+<!-- Search Bar Section -->
+<section>
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/10 blur-xl rounded-full opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+<div class="relative flex items-center bg-surface-container-lowest border border-outline-variant/15 rounded-full px-6 py-4 backdrop-blur-md">
+<span class="material-symbols-outlined text-primary/60 mr-3" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder-on-surface-variant/50 w-full font-medium" placeholder="Find friends" type="text"/>
+<span class="material-symbols-outlined text-primary/40 ml-2" data-icon="tune">tune</span>
+</div>
+</div>
+</section>
+<!-- Contacts Sync Bento Card -->
+<section>
+<div class="bg-surface-container rounded-xl overflow-hidden relative p-8 flex flex-col items-start gap-4 border border-outline-variant/5">
+<div class="absolute -right-10 -top-10 w-48 h-48 bg-primary/10 blur-3xl rounded-full"></div>
+<div class="z-10">
+<h2 class="font-headline text-3xl font-extrabold tracking-tight mb-2 leading-none text-on-background">Your Circle is Waiting</h2>
+<p class="text-on-surface-variant body-lg mb-6 max-w-xs">Sync your phone book to see who's already pulsing on the network.</p>
+<button class="bg-primary text-on-primary font-bold px-8 py-4 rounded-full flex items-center gap-2 hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(223,142,255,0.3)]">
+<span class="material-symbols-outlined" data-icon="contact_page">contact_page</span>
+                        Sync Contacts
+                    </button>
+</div>
+</div>
+</section>
+<!-- Suggested Friends Horizontal -->
+<section class="space-y-6">
+<div class="flex justify-between items-end px-1">
+<h3 class="font-headline text-2xl font-black uppercase tracking-tighter">Vibe Matches</h3>
+<span class="text-secondary font-bold text-xs tracking-widest uppercase">Near You</span>
+</div>
+<div class="flex overflow-x-auto gap-6 hide-scrollbar pb-4 -mx-6 px-6">
+<!-- Suggested User 1 -->
+<div class="min-w-[200px] bg-surface-container-high rounded-lg p-5 flex flex-col items-center text-center relative border border-outline-variant/5">
+<div class="absolute top-3 right-3">
+<span class="flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+</div>
+<img class="w-24 h-24 rounded-full object-cover mb-4 ring-4 ring-surface-variant" data-alt="Portrait of a young stylish man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfKcUi6HSPWrhxVc8moWiUVKdOAgLa-_KvsHFpipfKQbJuB18uxsqVLlI-2ie0mi05r3ljw1zzjEcDPuH9awKiD8uN61gCPq86g6o_0IGivMDiLf7BHTBTYmpSdGXwwe1QRjZJynULTElbCvalCcsOLKl5DqtFgB-OmhN6hF4zFTvJE6KoRtUREj6yZlBDah4nG1unVVE67UCKW0hgSSPkWF1qXKuakD1qAivFkei2louX0oL4IuNw276oGwsd2aeoYTYkHz11Dg"/>
+<h4 class="font-bold text-lg mb-1">Alex Chen</h4>
+<div class="bg-secondary/10 px-3 py-1 rounded-full border border-secondary/20 mb-4">
+<p class="text-secondary text-[10px] font-black uppercase tracking-wider">Both play Tennis</p>
+</div>
+<button class="w-full py-3 bg-primary rounded-full text-on-primary font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Connect</button>
+</div>
+<!-- Suggested User 2 -->
+<div class="min-w-[200px] bg-surface-container-high rounded-lg p-5 flex flex-col items-center text-center border border-outline-variant/5">
+<img class="w-24 h-24 rounded-full object-cover mb-4 ring-4 ring-surface-variant" data-alt="Portrait of a young smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ7LGG3FBQLbhYr3EK-FMXHJFC7cSYeIiXFdymjv7YMcgH75JRLFWukhO1nCDEC6uwl2r0f3SrSfdow35FKpZDJ15H91CjFtyxclmnbU6wOTnxtzwjSm9iCrG-EMAfnmJrDjkYtJEGF-LOr3_iuO0x17oO6uxXR4o1axWQ8tou36kLjofJ4Wf7CW58GeD95kOiXG5LqyUC2DsmXNukPfVCZFw3vCUtzsLa50ggp8NRjgrXmRTHOS7UEPhN0ntVXpYaZjyVWSWDMQ"/>
+<h4 class="font-bold text-lg mb-1">Maya Rossi</h4>
+<div class="bg-secondary/10 px-3 py-1 rounded-full border border-secondary/20 mb-4">
+<p class="text-secondary text-[10px] font-black uppercase tracking-wider">Music Duo</p>
+</div>
+<button class="w-full py-3 bg-primary rounded-full text-on-primary font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Connect</button>
+</div>
+<!-- Suggested User 3 -->
+<div class="min-w-[200px] bg-surface-container-high rounded-lg p-5 flex flex-col items-center text-center border border-outline-variant/5">
+<img class="w-24 h-24 rounded-full object-cover mb-4 ring-4 ring-surface-variant" data-alt="Portrait of a young man with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhrTBQFILORLPKulp_yVJ3M_kShMy3nAK0vhnz78X7ftHKTH7KNxSNhp_imXyYnS0tWvwYZgIb0YMaUvfZCxGtD9nbsxxAu3dIkDF8v75J6ObAGoFOb1wMCJ4CK82f9FLNmQ9n4l1_zVF8NxadDnVdeMelWy7e9jZQ2P6O2A9fT4oC_8SDd-Rs6JNcATyPnMJv2ECGbPHvzw46GgZ-n20FwatUgFjx0IrzTh8DyVc2AoGS24okWXJoTFHjx-GgkiymKT4HKfcOlQ"/>
+<h4 class="font-bold text-lg mb-1">Jordan Lee</h4>
+<div class="bg-secondary/10 px-3 py-1 rounded-full border border-secondary/20 mb-4">
+<p class="text-secondary text-[10px] font-black uppercase tracking-wider">Night Owl</p>
+</div>
+<button class="w-full py-3 bg-primary rounded-full text-on-primary font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform">Connect</button>
+</div>
+</div>
+</section>
+<!-- Mutual Connections Vertical -->
+<section class="space-y-6">
+<h3 class="font-headline text-2xl font-black uppercase tracking-tighter px-1">People You May Know</h3>
+<div class="space-y-4">
+<!-- Connection 1 -->
+<div class="bg-surface-container-low/50 hover:bg-surface-container transition-colors rounded-lg p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-lg object-cover" data-alt="Profile of a woman looking sideways" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVpezCUGLlOcOF1Ak6mhej81vkZPFEQ2JvRo122oxXzxjZgBKBjtqve_sINTRy0RI8zn6uBQShrV08u2zKx8Lp-6I9G1DDMUM_LBe9oY4XLpm_ypCCTTjDW7N3m0Eo3CSyu9V3EEeGwcWjbhth3GzYpZvztK5H9AJfKIFMBAk57L5MBFqaLW-M37mTZJlT0tV_reEeme_HY81fvOe-wng_dgbcwg_04Hvk1kitCzGVgOp7ALUJ9dLrUVVffXY8_iSlekjv1Ry3Ww"/>
+</div>
+<div>
+<h4 class="font-bold text-on-background">Sasha Vane</h4>
+<p class="text-on-surface-variant text-sm font-medium">12 mutual friends</p>
+</div>
+</div>
+<button class="p-3 bg-surface-variant rounded-full text-primary hover:bg-primary hover:text-on-primary transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</button>
+</div>
+<!-- Connection 2 -->
+<div class="bg-surface-container-low/50 hover:bg-surface-container transition-colors rounded-lg p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-lg object-cover" data-alt="Profile of a bearded man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGlZ2fl8-wCgzrLH_IpJIqXRVRm2DX3njBxfh6U5ITWKpFMCc8KQjKnQrILczF-i0mo5N5CFbOuelRWl6OColrtAhM4HNpEUUyyM6Nv-_7pONKx7Qq8lRGmOJOiotIa2_JEUGSYEZ4nFfEDGgEFkV6hMbwwFFLjeFl1cNp3E98nHaIatBPNYIzkZskCbRpWyjtM1Qf_0OTWIZh_SjsAzfMEpAjJwyRf_0Cl7oU01gyFa3QdYkZNtrLrh7ZmlF3hKLJRQzv68FE0A"/>
+</div>
+<div>
+<h4 class="font-bold text-on-background">Leo Wright</h4>
+<p class="text-on-surface-variant text-sm font-medium">3 mutual friends</p>
+</div>
+</div>
+<button class="p-3 bg-surface-variant rounded-full text-primary hover:bg-primary hover:text-on-primary transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</button>
+</div>
+<!-- Connection 3 -->
+<div class="bg-surface-container-low/50 hover:bg-surface-container transition-colors rounded-lg p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-lg object-cover" data-alt="Profile of a young woman with highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAko61nTAsh-fzvsz7JLZRRdxljjHmF3xVk9XMDKyEiHdILHZlqu-co49sDf3kJUaB22xh0oJiMTyxF1RTTlI1uaokw201UGt_5P7FBKuRyUs5dmgM67Va22UUK_9hSZC75Vcb6aUEPR2z6x_wYqhrG8WbpoVoxGM8lVAGWlpcwtosujCx5FsTaRwhmIEg0YvnAuBdU1Y1BajPtGRFHc5L73-XMuuQjC08f65ZWsMpErhORT4ZtmJASygCQBcxVwJRbUMkyAYKtzg"/>
+</div>
+<div>
+<h4 class="font-bold text-on-background">Chloe Sim</h4>
+<p class="text-on-surface-variant text-sm font-medium">8 mutual friends</p>
+</div>
+</div>
+<button class="p-3 bg-surface-variant rounded-full text-primary hover:bg-primary hover:text-on-primary transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-4 bg-[#1a0425]/40 backdrop-blur-2xl h-20 rounded-t-[3rem] border-t border-[#593e63]/15 shadow-[0_-10px_40px_rgba(26,4,37,0.8)]">
+<button class="flex items-center justify-center text-[#df8eff]/40 w-12 h-12 hover:text-[#2ff801] transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined text-2xl" data-icon="explore">explore</span>
+</button>
+<button class="flex items-center justify-center bg-[#df8eff] text-[#1a0425] rounded-full w-12 h-12 shadow-[0_0_15px_#df8eff] scale-110 active:scale-90 transition-all duration-150">
+<span class="material-symbols-outlined text-2xl" data-icon="Groups">groups</span>
+</button>
+<button class="flex items-center justify-center text-[#df8eff]/40 w-12 h-12 hover:text-[#2ff801] transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined text-2xl" data-icon="message">message</span>
+</button>
+<button class="flex items-center justify-center text-[#df8eff]/40 w-12 h-12 hover:text-[#2ff801] transition-colors active:scale-90 duration-150">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+</button>
+</nav>
+</body></html>

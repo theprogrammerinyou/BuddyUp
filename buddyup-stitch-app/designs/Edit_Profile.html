@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit Profile | Neon Nocturne</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Plus_Jakarta_Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#646200",
+              "on-surface-variant": "#c1a0cb",
+              "primary-fixed": "#d878ff",
+              "primary-container": "#d878ff",
+              "on-secondary-fixed": "#064200",
+              "primary": "#df8eff",
+              "tertiary": "#fffcca",
+              "secondary": "#2ff801",
+              "primary-fixed-dim": "#d061ff",
+              "surface-container": "#290c36",
+              "on-error": "#490013",
+              "secondary-fixed-dim": "#2be800",
+              "on-tertiary-container": "#5b5900",
+              "tertiary-dim": "#f0ec00",
+              "inverse-on-surface": "#674b71",
+              "on-tertiary-fixed": "#4d4c00",
+              "secondary-fixed": "#2ff801",
+              "tertiary-container": "#f6f200",
+              "inverse-primary": "#9a00d0",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-secondary": "#0b5800",
+              "surface-dim": "#1a0425",
+              "surface-bright": "#411c51",
+              "surface": "#1a0425",
+              "outline": "#896b93",
+              "on-primary-container": "#3d0055",
+              "on-background": "#f9dcff",
+              "error": "#ff6e84",
+              "background": "#1a0425",
+              "on-secondary-container": "#e7ffd9",
+              "surface-container-highest": "#391648",
+              "secondary-container": "#106e00",
+              "inverse-surface": "#fff7fb",
+              "on-surface": "#f9dcff",
+              "surface-container-lowest": "#000000",
+              "surface-tint": "#df8eff",
+              "on-primary-fixed": "#000000",
+              "on-secondary-fixed-variant": "#0d6200",
+              "on-primary": "#4f006d",
+              "surface-container-low": "#21072d",
+              "on-error-container": "#ffb2b9",
+              "tertiary-fixed": "#fffb00",
+              "outline-variant": "#593e63",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "error-container": "#a70138",
+              "surface-variant": "#391648",
+              "primary-dim": "#bb00fc",
+              "error-dim": "#d73357",
+              "secondary-dim": "#2be800",
+              "surface-container-high": "#31113f",
+              "on-primary-fixed-variant": "#4b0068"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(41, 12, 54, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 20px rgba(223, 142, 255, 0.2);
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 15px rgba(47, 248, 1, 0.3);
+        }
+        /* Custom scrollbar for a cleaner editorial look */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #1a0425; }
+        ::-webkit-scrollbar-thumb { background: #391648; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-container min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_48px_0_rgba(223,142,255,0.1)]">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Epilogue'] font-bold text-2xl tracking-tight text-[#df8eff]">Edit Profile</h1>
+<button class="text-[#df8eff] font-['Epilogue'] font-bold text-lg hover:scale-105 transition-transform duration-200 active:scale-95 transition-all">
+                Save
+            </button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Profile Photo Header -->
+<section class="flex flex-col items-center justify-center space-y-6">
+<div class="relative group">
+<div class="w-40 h-40 rounded-full p-1 bg-gradient-to-tr from-secondary to-primary neon-glow-primary overflow-hidden">
+<div class="w-full h-full rounded-full overflow-hidden bg-surface-container">
+<img alt="Alex Rivera" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Young trendy male profile headshot portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj3PihA-BmmDzbSyzShIkzrqkXV73Qvx6Vp8_5EkM4YDazTpfjay6wnbmV0RZHSX1OScVETSglP02mI_0dV9VFBFJKIimW3WPNheQQWk69mj1UUd1xOq188aOKUenYg8h1nYRATIk-KaecujZtv-fx7VPeuErZJITV0cn7FIi-5cnWY2Tz7ifNnBXYFhtIocMVd2Dtge0vbkKqAAnpylb5uj3feZOMmgbFER0e72D9HUxjUVmjR07auVtadGJdKcXTtfu0gotF0w"/>
+</div>
+</div>
+<button class="absolute bottom-1 right-1 bg-primary text-on-primary-container p-3 rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all border-4 border-background">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</button>
+</div>
+<div class="text-center">
+<h2 class="font-headline font-black text-3xl italic tracking-tighter text-on-surface">ALEX RIVERA</h2>
+<p class="text-primary/70 font-label text-sm uppercase tracking-widest mt-1">@alex_vibe_99</p>
+</div>
+</section>
+<!-- Personal Info Fields -->
+<section class="space-y-6">
+<div class="space-y-1">
+<label class="text-xs font-bold text-primary/50 uppercase tracking-[0.2em] ml-4">Display Name</label>
+<div class="bg-surface-container-low rounded-xl p-4 focus-within:ring-1 focus-within:ring-primary/30 transition-all border border-outline-variant/10">
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface font-semibold text-lg placeholder-on-surface-variant/30" type="text" value="Alex Rivera"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-primary/50 uppercase tracking-[0.2em] ml-4">Bio</label>
+<div class="bg-surface-container-low rounded-xl p-4 focus-within:ring-1 focus-within:ring-primary/30 transition-all border border-outline-variant/10">
+<textarea class="bg-transparent border-none focus:ring-0 w-full text-on-surface font-medium leading-relaxed placeholder-on-surface-variant/30" placeholder="Tell the world your pulse..." rows="3">Living between code and sets. 🏋️‍♂️💻 Seeking partners for late-night hackathons or early morning deadlifts.</textarea>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-primary/50 uppercase tracking-[0.2em] ml-4">Location</label>
+<div class="bg-surface-container-low rounded-xl p-4 flex items-center space-x-3 focus-within:ring-1 focus-within:ring-primary/30 transition-all border border-outline-variant/10">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface font-semibold text-lg" type="text" value="Austin, TX"/>
+</div>
+</div>
+</section>
+<!-- Interest Selection (Bento Style Grid) -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-headline font-extrabold text-2xl tracking-tight">YOUR PASSIONS</h3>
+<span class="text-secondary text-xs font-bold uppercase tracking-widest bg-secondary/10 px-3 py-1 rounded-full">3 Selected</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Gym (Active) -->
+<button class="bg-primary text-on-primary-container p-6 rounded-xl flex flex-col justify-between aspect-square text-left transition-all hover:scale-[1.02] neon-glow-primary">
+<span class="material-symbols-outlined text-4xl" data-icon="fitness_center" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<div>
+<p class="font-black italic text-xl">GYM</p>
+<p class="text-xs font-bold opacity-70">DAILY GRIND</p>
+</div>
+</button>
+<!-- Coding (Active) -->
+<button class="bg-surface-container-high text-primary p-6 rounded-xl flex flex-col justify-between aspect-square text-left transition-all border border-primary/20 hover:border-primary">
+<span class="material-symbols-outlined text-4xl text-secondary" data-icon="terminal">terminal</span>
+<div>
+<p class="font-black italic text-xl text-on-surface">CODING</p>
+<p class="text-xs font-bold text-on-surface-variant/60">NEURAL NETS</p>
+</div>
+</button>
+<!-- Tennis (Inactive) -->
+<button class="bg-surface-container-low text-on-surface-variant p-6 rounded-xl flex flex-col justify-between aspect-square text-left transition-all hover:bg-surface-container border border-outline-variant/10">
+<span class="material-symbols-outlined text-4xl" data-icon="sports_tennis">sports_tennis</span>
+<div>
+<p class="font-black italic text-xl text-on-surface/40">TENNIS</p>
+<p class="text-xs font-bold opacity-30">COURT SIDE</p>
+</div>
+</button>
+<!-- Gaming (Active) -->
+<button class="bg-surface-container-high text-primary p-6 rounded-xl flex flex-col justify-between aspect-square text-left transition-all border border-primary/20 hover:border-primary">
+<span class="material-symbols-outlined text-4xl" data-icon="sports_esports" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+<div>
+<p class="font-black italic text-xl text-on-surface">GAMING</p>
+<p class="text-xs font-bold text-on-surface-variant/60">LVL 99</p>
+</div>
+</button>
+</div>
+</section>
+<!-- Social Links -->
+<section class="space-y-4">
+<h3 class="font-headline font-extrabold text-2xl tracking-tight">SOCIAL PULSE</h3>
+<div class="space-y-3">
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between border border-outline-variant/10">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="photo_camera">photo_camera</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Instagram</p>
+<p class="text-xs text-on-surface-variant/60">@alex_rivera_vibe</p>
+</div>
+</div>
+<button class="text-error font-bold text-xs uppercase tracking-widest">Unlink</button>
+</div>
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between border border-outline-variant/10 border-dashed">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="add">add</span>
+</div>
+<div>
+<p class="font-bold text-on-surface-variant/60">Connect TikTok</p>
+</div>
+</div>
+<button class="text-secondary font-bold text-xs uppercase tracking-widest">Link</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[3rem] bg-[#1a0425]/40 backdrop-blur-xl border-t border-[#593e63]/15 shadow-[0_-8px_32px_rgba(223,142,255,0.05)]">
+<div class="flex justify-around items-center px-8 py-4 w-full">
+<button class="flex items-center justify-center text-[#df8eff]/50 p-3 hover:text-[#2ff801] transition-colors active:scale-110 duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl" data-icon="home">home</span>
+</button>
+<button class="flex items-center justify-center text-[#df8eff]/50 p-3 hover:text-[#2ff801] transition-colors active:scale-110 duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl" data-icon="search">search</span>
+</button>
+<button class="flex items-center justify-center text-[#df8eff]/50 p-3 hover:text-[#2ff801] transition-colors active:scale-110 duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl" data-icon="add_circle">add_circle</span>
+</button>
+<button class="flex items-center justify-center text-[#df8eff]/50 p-3 hover:text-[#2ff801] transition-colors active:scale-110 duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl" data-icon="notifications">notifications</span>
+</button>
+<button class="flex items-center justify-center bg-[#df8eff] text-[#1a0425] rounded-full p-3 shadow-[0_0_15px_rgba(223,142,255,0.5)] active:scale-110 duration-300 ease-out">
+<span class="material-symbols-outlined text-2xl" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</div>
+</nav>
+</body></html>

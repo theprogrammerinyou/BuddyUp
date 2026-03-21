@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "BuddyUp",
+    "slug": "buddyup-stitch-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "buddyup",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a0425"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.buddyup.stitch",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "BuddyUp uses your location to show nearby friends and activities.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "BuddyUp uses your location to show nearby friends and activities."
+      }
+    },
+    "android": {
+      "package": "com.buddyup.stitch",
+      "adaptiveIcon": {
+        "backgroundColor": "#1a0425",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "YOUR_EAS_PROJECT_ID"
+      }
+    }
+  }
+}

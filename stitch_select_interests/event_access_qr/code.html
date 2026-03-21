@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#4d4c00",
+              "on-error": "#490013",
+              "inverse-surface": "#fff7fb",
+              "surface-container-high": "#31113f",
+              "secondary-fixed": "#2ff801",
+              "secondary-fixed-dim": "#2be800",
+              "on-surface": "#f9dcff",
+              "primary-dim": "#bb00fc",
+              "outline": "#896b93",
+              "tertiary-dim": "#f0ec00",
+              "on-tertiary": "#646200",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-tertiary-container": "#5b5900",
+              "surface-container-highest": "#391648",
+              "surface-container-low": "#21072d",
+              "on-primary-fixed": "#000000",
+              "on-primary": "#4f006d",
+              "surface-container": "#290c36",
+              "on-secondary": "#0b5800",
+              "on-background": "#f9dcff",
+              "surface-tint": "#df8eff",
+              "primary-fixed": "#d878ff",
+              "inverse-on-surface": "#674b71",
+              "surface-variant": "#391648",
+              "error": "#ff6e84",
+              "primary-container": "#d878ff",
+              "background": "#1a0425",
+              "tertiary-container": "#f6f200",
+              "tertiary": "#fffcca",
+              "inverse-primary": "#9a00d0",
+              "outline-variant": "#593e63",
+              "on-secondary-container": "#e7ffd9",
+              "surface": "#1a0425",
+              "primary-fixed-dim": "#d061ff",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "secondary": "#2ff801",
+              "surface-container-lowest": "#000000",
+              "secondary-container": "#106e00",
+              "on-primary-container": "#3d0055",
+              "tertiary-fixed": "#fffb00",
+              "error-dim": "#d73357",
+              "surface-bright": "#411c51",
+              "surface-dim": "#1a0425",
+              "on-secondary-fixed": "#064200",
+              "on-surface-variant": "#c1a0cb",
+              "on-primary-fixed-variant": "#4b0068",
+              "primary": "#df8eff",
+              "error-container": "#a70138",
+              "on-secondary-fixed-variant": "#0d6200",
+              "on-error-container": "#ffb2b9",
+              "secondary-dim": "#2be800"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .qr-glow {
+            box-shadow: 0 0 40px 0 rgba(223, 142, 255, 0.3);
+        }
+        .scan-line {
+            background: linear-gradient(to bottom, transparent, #df8eff, transparent);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_48px_0_rgba(223,142,255,0.1)]">
+<div class="flex items-center justify-between px-6 h-20">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-all text-[#df8eff] hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Epilogue'] font-bold text-2xl tracking-tight text-[#df8eff]">Event Access</h1>
+</div>
+<button class="active:scale-95 transition-all text-[#df8eff] hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</header>
+<main class="pt-28 pb-32 px-6 flex flex-col items-center max-w-md mx-auto">
+<!-- Hero Header -->
+<div class="text-center mb-10 w-full">
+<h2 class="font-headline font-black text-4xl text-white mb-3 tracking-tighter drop-shadow-[0_0_15px_rgba(223,142,255,0.4)]">
+                Code &amp; Coffee
+            </h2>
+<div class="flex flex-col gap-1 opacity-80">
+<p class="font-label uppercase tracking-[0.2em] text-[10px] text-secondary font-bold">Confirmed Ticket</p>
+<p class="text-on-surface-variant font-medium">Sat, Nov 12 • 10:00 AM</p>
+<div class="flex items-center justify-center gap-1.5 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span>Capital One Cafe</span>
+</div>
+</div>
+</div>
+<!-- QR Code Section -->
+<div class="relative group mb-12">
+<!-- Animated Frame -->
+<div class="absolute -inset-4 border-2 border-primary/30 rounded-xl"></div>
+<div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-primary rounded-tl-lg"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-primary rounded-tr-lg"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-primary rounded-bl-lg"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-primary rounded-br-lg"></div>
+<!-- Central QR Wrapper -->
+<div class="bg-white p-6 rounded-lg qr-glow relative overflow-hidden">
+<img alt="Event Access QR Code" class="w-56 h-56 grayscale contrast-125" data-alt="A high contrast black and white QR code for event entry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-cOqZWX8yH2ogVJTVypSEMQp-0fSK5QbKROJ8Vz4zODZPfzwNEBuPD0OTDxy1ptjbATChOZJzfq3458GFd7GVY38pWwkOe4z3PrdbYNzi7unKQFRBVOGh65t8cfkfgQDCO9aglmkyZQwbBWrnXp8aT96-VEGa0udW1V1LiUYCuzEWiafl7zRmJrTSLV-foYjK-o2u2GRGgIvzTWnf3CYeTmeiSedF1GafIrRMnpyl0Y6r1F5P56kGfTkZePtdYq9MrmXSAf9vWA"/>
+<!-- Scanning Effect Overlay -->
+<div class="absolute inset-x-0 h-1 bg-primary/40 scan-line top-1/2"></div>
+</div>
+</div>
+<!-- Host Info Card (Glassmorphism) -->
+<div class="w-full bg-surface-variant/40 backdrop-blur-xl rounded-lg p-5 border border-outline-variant/15 mb-8 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Sasha Vane profile picture" class="w-12 h-12 rounded-full object-cover border-2 border-primary" data-alt="A modern portrait of a female event organizer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu8YxAxUd2e0TTOi7kzjOsBExEC4tOpNG2AI91N5XXMDxWP5-K39SuS5Q_I1sz-HXQd3ZF57bkY4tS_l1zuuv8_y6RlkT811fJ7aS89uFPkUeG_M165omypboRnNFv0E713YCWDNPI51mdsNOMplVJ7YpslRBxY3N7zHijW6N2HsELsa4AfLM5VLgaYIgMAq-FqqOxZqeVjWM-m917b0RtOjk5q6VIHb5e_nKYDQn9OcgBqn9cMdO_jG-mT3LcUHSGh5BK8nM2rQ"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary-fixed p-0.5 rounded-full">
+<span class="material-symbols-outlined text-[12px] font-bold" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-widest mb-0.5">Organized By</p>
+<p class="font-bold text-lg text-white">Sasha Vane</p>
+</div>
+</div>
+<div class="px-3 py-1 bg-secondary/10 border border-secondary/20 rounded-full">
+<span class="text-secondary text-[10px] font-black uppercase tracking-tighter">Verified Host</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="w-full flex flex-col gap-4">
+<button class="w-full h-14 bg-secondary text-on-secondary-fixed font-bold rounded-full flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                Share Access
+            </button>
+<button class="w-full h-14 border border-primary/40 text-primary font-bold rounded-full flex items-center justify-center gap-2 hover:bg-primary/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="calendar_add_on">calendar_add_on</span>
+                Add to Calendar
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl border-t border-[#593e63]/15 shadow-[0_-8px_48px_0_rgba(223,142,255,0.1)] rounded-t-[3rem] pb-8 pt-4 px-4">
+<div class="flex justify-around items-center">
+<!-- Explore -->
+<a class="flex flex-col items-center justify-center text-[#df8eff]/50 px-5 py-2 hover:text-[#df8eff] transition-colors active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] font-medium text-[10px] uppercase tracking-widest">Explore</span>
+</a>
+<!-- Activity (Active) -->
+<a class="flex flex-col items-center justify-center text-[#2ff801] bg-[#391648] rounded-full px-5 py-2 active:scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="confirmation_number" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+<span class="font-['Plus_Jakarta_Sans'] font-medium text-[10px] uppercase tracking-widest">Activity</span>
+</a>
+<!-- Messages -->
+<a class="flex flex-col items-center justify-center text-[#df8eff]/50 px-5 py-2 hover:text-[#df8eff] transition-colors active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] font-medium text-[10px] uppercase tracking-widest">Messages</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-[#df8eff]/50 px-5 py-2 hover:text-[#df8eff] transition-colors active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] font-medium text-[10px] uppercase tracking-widest">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

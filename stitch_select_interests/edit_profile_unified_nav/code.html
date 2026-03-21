@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#290c36",
+              "primary-fixed": "#d878ff",
+              "secondary-dim": "#2be800",
+              "surface-container-lowest": "#000000",
+              "tertiary-container": "#f6f200",
+              "surface-variant": "#391648",
+              "tertiary-fixed": "#fffb00",
+              "surface-dim": "#1a0425",
+              "surface-tint": "#df8eff",
+              "surface-container-low": "#21072d",
+              "error-dim": "#d73357",
+              "on-secondary-fixed": "#064200",
+              "primary": "#df8eff",
+              "surface-bright": "#411c51",
+              "on-secondary-fixed-variant": "#0d6200",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "secondary": "#2ff801",
+              "secondary-fixed-dim": "#2be800",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-secondary": "#0b5800",
+              "on-primary-fixed-variant": "#4b0068",
+              "primary-fixed-dim": "#d061ff",
+              "tertiary-dim": "#f0ec00",
+              "surface": "#1a0425",
+              "primary-container": "#d878ff",
+              "inverse-on-surface": "#674b71",
+              "outline": "#896b93",
+              "on-primary-fixed": "#000000",
+              "on-surface-variant": "#c1a0cb",
+              "on-surface": "#f9dcff",
+              "inverse-surface": "#fff7fb",
+              "on-tertiary-fixed": "#4d4c00",
+              "outline-variant": "#593e63",
+              "surface-container-highest": "#391648",
+              "on-tertiary": "#646200",
+              "on-secondary-container": "#e7ffd9",
+              "on-background": "#f9dcff",
+              "primary-dim": "#bb00fc",
+              "on-error": "#490013",
+              "on-tertiary-container": "#5b5900",
+              "secondary-fixed": "#2ff801",
+              "on-primary": "#4f006d",
+              "error-container": "#a70138",
+              "tertiary": "#fffcca",
+              "secondary-container": "#106e00",
+              "inverse-primary": "#9a00d0",
+              "on-primary-container": "#3d0055",
+              "error": "#ff6e84",
+              "surface-container-high": "#31113f",
+              "on-error-container": "#ffb2b9",
+              "background": "#1a0425"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .story-ring {
+            background: conic-gradient(from 0deg, #2ff801, #df8eff, #2ff801);
+            padding: 4px;
+        }
+        .glass-panel {
+            background: rgba(57, 22, 72, 0.4);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_48px_rgba(223,142,255,0.1)] flex justify-between items-center px-6 h-20">
+<div class="flex items-center gap-3 active:scale-95 transition-transform cursor-pointer">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9UXWegJtf8G6hbj1D6nL6N6u1v-ebyJp8UDpuZSX7CdErnWIJZ1CKkmiWOLrBbMZ4UCruTJnW9D42sTli89-0Nq9-Xi3C3uqqJbw1OLgwc3h43TNoOClj1zcStZQ3KUFWK17UAFsoGPbYoB5y0-aNEsNcZfJxJd8d1MnK1okJj-ltDi-kJA3srkcn47Ck7JQiSJHjtS4Nu1hQT4--RZnMeNbF5w4M6MRNdsUPbMgjl_H6fLeEbZQKG2HgeaPj4yM_ej1Ek6SIhA"/>
+</div>
+</div>
+<h1 class="font-['Epilogue'] font-black tracking-tighter uppercase text-2xl italic text-[#df8eff] drop-shadow-[0_0_8px_rgba(223,142,255,0.8)]">PULSE</h1>
+<div class="flex items-center gap-4">
+<button class="text-white/70 hover:scale-105 hover:text-[#2ff801] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Large Avatar Header -->
+<section class="relative flex flex-col items-center py-8">
+<div class="relative">
+<div class="story-ring rounded-full shadow-[0_0_30px_rgba(47,248,1,0.3)]">
+<div class="w-32 h-32 rounded-full border-4 border-surface overflow-hidden">
+<img alt="Edit profile avatar" class="w-full h-full object-cover" data-alt="Portrait of a person with neon lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPBIbpbBHGTTFotXoe8MzUVNXwoTJl6h_yAbAIiDKLVmtYKNscYoUQvsepfo7bh4J-3hLxe7-hzdZbfFOTtWkIrqn-BloUbUZPx9lX1rXCLceOSEnYAWX_BLh1Yc5UFmfRWiEz_wOgfR5cCfF08-CJqrTAnpOwSZWnBEegiRBjFvnDh4SgG8RTw8rdOi153wsn-HR-uoRui7EX8n2KtEol4XotRrxuYfr7BvjAkSon4KZ2r-Y9tpJubFSNscBKjOuTbgQ9LQjkSA"/>
+</div>
+</div>
+<button class="absolute bottom-0 right-0 bg-secondary text-on-secondary p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl" data-icon="photo_camera">photo_camera</span>
+</button>
+</div>
+<div class="mt-6 text-center">
+<h2 class="font-headline text-3xl font-black text-on-surface tracking-tight">Edit Profile</h2>
+<p class="text-on-surface-variant font-medium mt-1">@neon_drifter</p>
+</div>
+</section>
+<!-- Glassmorphic Fields -->
+<section class="space-y-6">
+<div class="space-y-2">
+<label class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-primary ml-1">Display Name</label>
+<div class="glass-panel p-5 rounded-2xl border border-outline-variant/15 flex items-center gap-4 focus-within:shadow-[0_0_15px_rgba(223,142,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+<input class="bg-transparent border-none p-0 w-full text-lg font-semibold focus:ring-0 placeholder:text-on-surface-variant/50" type="text" value="Alex Rivera"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-primary ml-1">Bio</label>
+<div class="glass-panel p-5 rounded-2xl border border-outline-variant/15 flex gap-4 focus-within:shadow-[0_0_15px_rgba(223,142,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mt-1" data-icon="edit_note">edit_note</span>
+<textarea class="bg-transparent border-none p-0 w-full text-lg font-medium focus:ring-0 resize-none" rows="3">Chasing lights and digital dreams. Night owl by nature, designer by choice. 🌌</textarea>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-primary ml-1">Location</label>
+<div class="glass-panel p-5 rounded-2xl border border-outline-variant/15 flex items-center gap-4 focus-within:shadow-[0_0_15px_rgba(223,142,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="location_on">location_on</span>
+<input class="bg-transparent border-none p-0 w-full text-lg font-semibold focus:ring-0" type="text" value="Neo Tokyo, JP"/>
+</div>
+</div>
+</section>
+<!-- Interactive Passions Grid -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<label class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-primary ml-1">Passions</label>
+<span class="text-[10px] font-bold text-secondary-dim uppercase tracking-widest">3/5 Selected</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<div class="p-4 rounded-2xl bg-surface-variant border border-primary/20 flex flex-col items-center gap-2 hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" data-icon="brush" style="font-variation-settings: 'FILL' 1;">brush</span>
+<span class="text-xs font-bold tracking-widest uppercase">Digital Art</span>
+</div>
+<div class="p-4 rounded-2xl bg-primary text-on-primary flex flex-col items-center gap-2 shadow-[0_0_20px_rgba(223,142,255,0.4)] cursor-pointer">
+<span class="material-symbols-outlined" data-icon="music_note" style="font-variation-settings: 'FILL' 1;">music_note</span>
+<span class="text-xs font-bold tracking-widest uppercase">Synthwave</span>
+</div>
+<div class="p-4 rounded-2xl bg-surface-variant border border-primary/20 flex flex-col items-center gap-2 hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" data-icon="camera_enhance">camera_enhance</span>
+<span class="text-xs font-bold tracking-widest uppercase">Photography</span>
+</div>
+<div class="p-4 rounded-2xl bg-primary text-on-primary flex flex-col items-center gap-2 shadow-[0_0_20px_rgba(223,142,255,0.4)] cursor-pointer">
+<span class="material-symbols-outlined" data-icon="sports_esports" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+<span class="text-xs font-bold tracking-widest uppercase">Gaming</span>
+</div>
+<div class="p-4 rounded-2xl bg-primary text-on-primary flex flex-col items-center gap-2 shadow-[0_0_20px_rgba(223,142,255,0.4)] cursor-pointer">
+<span class="material-symbols-outlined" data-icon="movie" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="text-xs font-bold tracking-widest uppercase">Sci-Fi</span>
+</div>
+<div class="p-4 rounded-2xl bg-surface-variant border border-dashed border-outline-variant/30 flex flex-col items-center gap-2 hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:rotate-90 transition-transform" data-icon="add">add</span>
+<span class="text-xs font-bold tracking-widest uppercase text-on-surface-variant">Add More</span>
+</div>
+</div>
+</section>
+<!-- Social Links -->
+<section class="space-y-6">
+<label class="font-headline text-xs font-bold uppercase tracking-[0.2em] text-primary ml-1">Connected Accounts</label>
+<div class="space-y-3">
+<div class="glass-panel p-4 rounded-2xl border border-outline-variant/15 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="alternate_email">alternate_email</span>
+</div>
+<div>
+<p class="text-sm font-bold uppercase tracking-widest">Instagram</p>
+<p class="text-xs text-on-surface-variant">@alex_lights</p>
+</div>
+</div>
+<button class="text-xs font-black text-secondary tracking-widest uppercase">Linked</button>
+</div>
+<div class="glass-panel p-4 rounded-2xl border border-outline-variant/15 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="link">link</span>
+</div>
+<div>
+<p class="text-sm font-bold uppercase tracking-widest">TikTok</p>
+<p class="text-xs text-on-surface-variant">Not connected</p>
+</div>
+</div>
+<button class="text-xs font-black text-primary tracking-widest uppercase">Connect</button>
+</div>
+</div>
+</section>
+<button class="w-full bg-secondary py-5 rounded-full font-headline font-black text-on-secondary-fixed uppercase tracking-[0.3em] shadow-[0_10px_40px_rgba(47,248,1,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
+            Save Changes
+        </button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#290c36]/40 backdrop-blur-2xl rounded-t-[3rem] shadow-[0_-8px_32px_rgba(26,4,37,0.5)] flex justify-around items-center h-24 px-4 pb-4">
+<div class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Activity</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#2ff801] drop-shadow-[0_0_10px_rgba(47,248,1,0.6)] bg-[#391648]/60 rounded-full px-6 py-2 active:scale-110">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

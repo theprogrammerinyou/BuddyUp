@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Code &amp; Coffee - Activity Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #1a0425;
+            color: #f9dcff;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#490013",
+              "surface-container-lowest": "#000000",
+              "on-secondary-container": "#e7ffd9",
+              "primary-container": "#d878ff",
+              "surface-bright": "#411c51",
+              "primary": "#df8eff",
+              "on-primary": "#4f006d",
+              "background": "#1a0425",
+              "on-error-container": "#ffb2b9",
+              "inverse-on-surface": "#674b71",
+              "secondary-container": "#106e00",
+              "primary-fixed": "#d878ff",
+              "on-primary-fixed-variant": "#4b0068",
+              "outline": "#896b93",
+              "on-tertiary-container": "#5b5900",
+              "on-secondary-fixed-variant": "#0d6200",
+              "secondary-dim": "#2be800",
+              "on-background": "#f9dcff",
+              "error-dim": "#d73357",
+              "surface-container": "#290c36",
+              "secondary-fixed-dim": "#2be800",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "tertiary": "#fffcca",
+              "surface-container-high": "#31113f",
+              "tertiary-fixed": "#fffb00",
+              "on-tertiary-fixed": "#4d4c00",
+              "on-primary-fixed": "#000000",
+              "surface-tint": "#df8eff",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-primary-container": "#3d0055",
+              "tertiary-dim": "#f0ec00",
+              "on-secondary-fixed": "#064200",
+              "surface-container-low": "#21072d",
+              "tertiary-container": "#f6f200",
+              "secondary": "#2ff801",
+              "outline-variant": "#593e63",
+              "inverse-surface": "#fff7fb",
+              "surface": "#1a0425",
+              "surface-variant": "#391648",
+              "secondary-fixed": "#2ff801",
+              "inverse-primary": "#9a00d0",
+              "primary-fixed-dim": "#d061ff",
+              "error-container": "#a70138",
+              "surface-container-highest": "#391648",
+              "on-tertiary": "#646200",
+              "on-surface-variant": "#c1a0cb",
+              "error": "#ff6e84",
+              "surface-dim": "#1a0425",
+              "primary-dim": "#bb00fc",
+              "on-secondary": "#0b5800",
+              "on-surface": "#f9dcff"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_20px_rgba(223,142,255,0.1)]">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-secondary p-0.5">
+<img alt="User Profile" class="w-full h-auto rounded-full" data-alt="User profile avatar with story ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqcT0PYaSxOGIB8Bq9SSTGnmhcHTFTw0VfkblWBw2bWiE9RqWHcJpCKuep1Wk8a1vd-sRbnjmjysEn3GqZMgevI_PpNWQaWx7J941TVQfnq5IsN_I1Btrkh_amlzKmB-24UOkxfJVjOpcG8S_c7vFHrg624izXGqfK215dFpFYYaDLlAw4hSTCO8vSKkKnUYEOdZMymk_InScI75ReaAhsmtyfpd3FZickI1tAwW0dPmVunPKDBHqzHnCAVNKdn3HG627Kwq4q5A"/>
+</div>
+</div>
+<h1 class="font-['Epilogue'] font-black uppercase tracking-tighter text-2xl text-[#df8eff] italic">NEON</h1>
+<div class="flex items-center">
+<button class="hover:scale-105 transition-transform active:scale-95 transition-all duration-150 text-[#df8eff]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-16 pb-32">
+<!-- Hero Section -->
+<section class="relative w-full h-[397px] overflow-hidden">
+<img alt="Code and Coffee" class="w-full h-full object-cover" data-alt="Modern workspace with coffee and laptop setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRdxvf7k9yV7aoLVLw5jK0myT1jp0yuNtdxcP34gXaPTSgkBxo3rxhhayiHEgyXmElg7TanBKRF-od3Mah-9H7mFHKv97D2kigUQBGbArvHvNDJuXRe_oXCotJ_dcxPS88syZHRqJA6iI3amZgLhyec7uGtRRqImTEc_xx0CGA3OzRdsFQ_CHe5ifqsAe9-wzcF90jkRiacA7GlopvBvm9OLYPw_tDjJvcKI49i9d23V5KJjPf03Ykyv9zberz1rawayIeRWkjLw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary/20 text-secondary rounded-full border border-secondary/30 mb-4 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-xs font-bold tracking-widest uppercase">Live Session</span>
+</div>
+<h2 class="font-headline font-black text-5xl md:text-7xl tracking-tighter text-on-surface leading-none mb-4">
+                    CODE &amp; <span class="text-primary italic">COFFEE</span>
+</h2>
+</div>
+</section>
+<!-- Details Grid -->
+<section class="px-6 -mt-4 relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Main Info Card -->
+<div class="md:col-span-2 space-y-8">
+<div class="bg-surface-container rounded-lg p-8 shadow-2xl">
+<div class="flex flex-wrap gap-12">
+<div class="flex flex-col gap-1">
+<span class="text-primary/60 text-xs font-bold uppercase tracking-widest">Location</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<span class="text-lg font-bold">The Midnight Brew, SOHO</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-primary/60 text-xs font-bold uppercase tracking-widest">Time</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="schedule">schedule</span>
+<span class="text-lg font-bold">20:00 - 23:30</span>
+</div>
+</div>
+</div>
+<div class="mt-10">
+<h3 class="font-headline text-xl font-bold mb-4">The Vibe</h3>
+<p class="text-on-surface-variant leading-relaxed body-lg">
+                                Late-night deep work session for the digital night owls. Bring your latest project, grab a double-shot espresso, and vibe with the city's best developers. No formal presentations, just pure focused flow and electric conversations.
+                            </p>
+</div>
+</div>
+<!-- Participants Section -->
+<div class="bg-surface-container rounded-lg p-8">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline text-2xl font-black uppercase tracking-tight">Joined Crew</h3>
+<p class="text-primary/60 font-bold text-sm uppercase tracking-widest">12 Members Active</p>
+</div>
+<button class="text-primary font-bold hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
+<!-- Participant Avatars -->
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full border-2 border-primary/20 p-1 group-hover:border-primary transition-colors">
+<img class="w-full h-full rounded-full object-cover" data-alt="Avatar of participant Alex" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4-qhT3k9KpWvhFMJyrGK-BS1lwe0pnIh_N1WvxLETKikUSCmfaZ3qq-pE0xVhh8Pjo1VL_0KhqMjOz9DN8gnW4teGQTniBLF-lKFoXPGdpU2AICJCEDC0UO6224BJD93BUONo3g-qD3dJw2vMoWKchtAJCi7nC5yT89XBh3ToZ-UdVEZzLuMYD1K6-e-pET3smBfrAPZpLZdknjcA_Y3NymKVagWGbKQ0l962Fko6Umk7kWdU1OnSbR35OEAo4lENAbOKuxsEUw"/>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Alex</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full border-2 border-secondary/20 p-1 group-hover:border-secondary transition-colors">
+<img class="w-full h-full rounded-full object-cover" data-alt="Avatar of participant Sarah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJCMdrtE-Z4FW-W1dyywDYy63vyjMCuMLTdlNKdEPEPebpmYSFtLlJofm9fpshfTXp6bKsIQulsNhuHwxhhnDZga1XGzcTRe3SlZyHlgB6oOFW_3J-NenJDPfALMM2gcDvVo3a2dxu8HHDZ_O0zFBEAN1oLTN-oc07W9Rgd6X-c76WQE8jJn0yNtTR9ucIsrdvdSGLm-9QbMsYmJIm5poVaQvAKTYDvV95F3a81HqZp-czxRzreQkok-mr55bfwgWMr3OqjJMT5A"/>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Sarah</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full border-2 border-primary/20 p-1 group-hover:border-primary transition-colors">
+<img class="w-full h-full rounded-full object-cover" data-alt="Avatar of participant Mike" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy-txrPETJfDn_BlN9I6jIg0r58vzVhmsDDFiXR7L9qLwTvIIAb9nSf0br38mq9Sxq9dQCYIohFWT0o_zuR6TA5-t2IXt0NWdgRk2hPzYa9aHmUN9WUonzkZA2LhNlPzfoVyAujQEgKiDWYn2DnABpSfcAH6QL3BzuWBLpXo-OQZkWXyctMtDFFhGu1eBy327MQhq4lkuUsHmATTO1WcagM2aobXFVeOyvQnrI-jFWgfqcYNv-DjL1KkBIhlvXE7Q9AktW2bVGoQ"/>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Mike</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full border-2 border-primary/20 p-1 group-hover:border-primary transition-colors">
+<img class="w-full h-full rounded-full object-cover" data-alt="Avatar of participant Elena" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG3JVyWuQqyGst_aXH-b23LpqFQbtYJGXGWsqPBib43H4tGz7BsgoHThjRaznfR_rb1o9s1U-YxPuufXonJDyW-TQ7-3Bk5zEpNbRtFAFGxNjcwU2uJXN900W-bPE1U_9VPe9Fjt74HAdEUy59QmJHZqfvDw2PbxALEyp7NcnXA444uCoTIguDAyXU4hxv1Wxm5wATM4-VqdPMc-n2n4XiOYrRpXWIypvqYIwG5X8UY0u_k8TFGNNpQka9-R0opjUfL7bAxrV2dA"/>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Elena</span>
+</div>
+<div class="flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-14 h-14 rounded-full border-2 border-secondary/20 p-1 group-hover:border-secondary transition-colors">
+<img class="w-full h-full rounded-full object-cover" data-alt="Avatar of participant Javi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMmYMVDi-mN2S_fCBbK_zcvPO5HPMjqwdm_LBf25smu3zJDDBfHcY2XY_KCrdkEhA5rdJcnDefyHmyYStfKh48bbuJsink5qPob79NE6xnoukovzRqN01HyTYCF8WM39VBNnF59Op4avqT-LDzGuO6ThTyN-48d9KeaT0sr1EgHkOSIFr0XWzFLBTTGikW7bF6EB8uplxVU0jA7dqpZlpvVyfLUvE7YQyzy5ekYCSvdbeG3CDCYxuWSPFujFegmHHGXZp55tZr6A"/>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Javi</span>
+</div>
+<div class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-surface-container-highest border-2 border-outline-variant/10 text-primary font-bold">
+                                +7
+                            </div>
+</div>
+</div>
+</div>
+<!-- Side Action Bar -->
+<div class="space-y-6">
+<div class="bg-surface-container-high rounded-lg p-6 flex flex-col items-center text-center gap-6 border-t border-white/5">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="terminal">terminal</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-xl">Ready to grind?</h4>
+<p class="text-sm text-on-surface-variant mt-2">Only 3 spots left for tonight's session at the cafe.</p>
+</div>
+<button class="w-full py-4 bg-secondary text-on-secondary-fixed font-black uppercase tracking-widest rounded-full hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(47,248,1,0.3)]">
+                            Join Session
+                        </button>
+</div>
+<div class="bg-surface-container rounded-lg overflow-hidden h-48 relative">
+<img class="w-full h-full object-cover opacity-40 grayscale" data-alt="Map showing SOHO district" data-location="London" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8XX0JrwJJK7tbrxlSjDBfTg1IloreDbKVyWLJ5n8JlYm2CFUwBLS_G44U7XNpYsXYCdVgUprbj9hXlq9przIn0yUsyALGwcV3QEvjd-P4MyFM3eUwu2Bbqev4ZAblFIySC2tN06Lfsx_pE2Zahyzct1A05LoifF8K5NT5dTnhpzJd1od1xM14BtHr-_ZXTAMV_HP2Wsy3B_DjDP-jQPt4rmyRSPo6YjSS3TCtSjGunV5FQFgdl5IaVTZwEHqWI_yVnZo8SJS7Hg"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="location_pin" style="font-variation-settings: 'FILL' 1;">location_pin</span>
+</div>
+<div class="absolute bottom-3 left-3 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                            Open in Maps
+                        </div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[3rem] bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_-10px_40px_rgba(26,4,37,0.8)]">
+<div class="flex justify-around items-center pt-3 pb-6 px-4 w-full">
+<a class="flex flex-col items-center justify-center text-[#df8eff]/40 hover:text-[#df8eff] transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#2ff801] bg-[#391648] rounded-full px-4 py-1 animate-pulse" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="bolt">bolt</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Activity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#df8eff]/40 hover:text-[#df8eff] transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#df8eff]/40 hover:text-[#df8eff] transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

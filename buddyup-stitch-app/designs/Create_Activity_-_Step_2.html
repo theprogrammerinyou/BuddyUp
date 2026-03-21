@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-dim": "#bb00fc",
+              "surface-container-high": "#31113f",
+              "error": "#ff6e84",
+              "secondary-container": "#106e00",
+              "on-tertiary": "#646200",
+              "inverse-primary": "#9a00d0",
+              "tertiary": "#fffcca",
+              "on-tertiary-fixed": "#4d4c00",
+              "on-error-container": "#ffb2b9",
+              "tertiary-container": "#f6f200",
+              "surface-container-lowest": "#000000",
+              "primary-container": "#d878ff",
+              "tertiary-fixed": "#fffb00",
+              "primary": "#df8eff",
+              "on-secondary-fixed-variant": "#0d6200",
+              "secondary-fixed": "#2ff801",
+              "surface-container-low": "#21072d",
+              "on-primary": "#4f006d",
+              "on-background": "#f9dcff",
+              "outline": "#896b93",
+              "on-primary-container": "#3d0055",
+              "on-secondary-fixed": "#064200",
+              "surface-tint": "#df8eff",
+              "outline-variant": "#593e63",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "on-primary-fixed-variant": "#4b0068",
+              "surface-container-highest": "#391648",
+              "error-container": "#a70138",
+              "tertiary-fixed-dim": "#f0ec00",
+              "surface-container": "#290c36",
+              "on-secondary-container": "#e7ffd9",
+              "inverse-surface": "#fff7fb",
+              "surface": "#1a0425",
+              "on-tertiary-container": "#5b5900",
+              "on-error": "#490013",
+              "on-surface-variant": "#c1a0cb",
+              "inverse-on-surface": "#674b71",
+              "secondary-dim": "#2be800",
+              "background": "#1a0425",
+              "tertiary-dim": "#f0ec00",
+              "on-secondary": "#0b5800",
+              "secondary-fixed-dim": "#2be800",
+              "secondary": "#2ff801",
+              "primary-fixed": "#d878ff",
+              "on-surface": "#f9dcff",
+              "surface-bright": "#411c51",
+              "primary-fixed-dim": "#d061ff",
+              "surface-variant": "#391648",
+              "on-primary-fixed": "#000000",
+              "surface-dim": "#1a0425",
+              "error-dim": "#d73357"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-input {
+            background: rgba(57, 22, 72, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(72%) sepia(87%) saturate(326%) hue-rotate(222deg) brightness(103%) contrast(101%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen selection:bg-secondary selection:text-on-secondary">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_48px_0_rgba(223,142,255,0.1)]">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="text-[#df8eff] font-['Epilogue'] font-bold text-2xl tracking-tight">Create Activity</h1>
+</div>
+<div class="text-[#df8eff]/60 font-label text-xs tracking-widest uppercase">Step 2 of 3</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-10">
+<!-- Hero Section Header -->
+<section class="space-y-2">
+<span class="text-secondary font-label text-xs font-bold tracking-[0.2em] uppercase">Activity Details</span>
+<h2 class="font-headline text-4xl md:text-5xl font-black italic tracking-tighter text-primary">
+                SET THE VIBE
+            </h2>
+</section>
+<!-- Form Canvas -->
+<div class="space-y-8">
+<!-- Activity Title -->
+<div class="group">
+<label class="block font-label text-xs font-bold text-primary/70 mb-3 tracking-widest uppercase">Activity Title</label>
+<input class="w-full glass-input border-none rounded-lg p-5 text-xl font-headline placeholder:text-outline-variant/50 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="What's the plan?" type="text"/>
+</div>
+<!-- Description -->
+<div class="group">
+<label class="block font-label text-xs font-bold text-primary/70 mb-3 tracking-widest uppercase">Description</label>
+<textarea class="w-full glass-input border-none rounded-lg p-5 text-lg font-body placeholder:text-outline-variant/50 focus:ring-2 focus:ring-primary/50 transition-all outline-none resize-none" placeholder="Tell the circle more about this mission..." rows="4"></textarea>
+</div>
+<!-- Date & Time Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="group">
+<label class="block font-label text-xs font-bold text-primary/70 mb-3 tracking-widest uppercase">Date &amp; Time</label>
+<div class="relative">
+<input class="w-full glass-input border-none rounded-lg p-5 font-body text-primary focus:ring-2 focus:ring-primary/50 transition-all outline-none appearance-none" type="datetime-local"/>
+</div>
+</div>
+<div class="group">
+<label class="block font-label text-xs font-bold text-primary/70 mb-3 tracking-widest uppercase">Privacy</label>
+<div class="flex items-center gap-2 p-2 glass-input rounded-full">
+<button class="flex-1 py-3 px-4 rounded-full bg-primary text-on-primary font-bold text-sm transition-all shadow-[0_0_20px_rgba(223,142,255,0.3)]">Public</button>
+<button class="flex-1 py-3 px-4 rounded-full text-primary/50 font-bold text-sm hover:text-primary transition-all">Private</button>
+</div>
+</div>
+</div>
+<!-- Location with Map Preview -->
+<div class="space-y-4">
+<div class="group">
+<label class="block font-label text-xs font-bold text-primary/70 mb-3 tracking-widest uppercase">Location</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-primary" data-icon="location_on">location_on</span>
+<input class="w-full glass-input border-none rounded-t-lg p-5 pl-14 font-body text-on-background placeholder:text-outline-variant/50 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="Search a venue or address" type="text"/>
+</div>
+<!-- Map Preview Bento -->
+<div class="relative h-48 w-full overflow-hidden rounded-b-lg border-t border-outline-variant/10">
+<img class="w-full h-full object-cover grayscale brightness-50 contrast-125" data-alt="Stylized neon dark themed city map view" data-location="Tokyo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW0cAI298kDMdev2l2CQO8f-4kFvaITqUTrK_8oF6DlVl3yxlqJytkI_3oHJzgwTwupWrccUxuhxnFLf6LvfuonrprpndroompURP4gZlkNNwyoz3eFZKHzwKAd2FHYyeXVMlOY4gKAKay_4u0OnYr3vKMgq5fTcYaMv1M2wDWJbZFVfHJdGMrzDJl0wOVjQ3uByF5_dqc6Uq-muq3lD7GlJ01XlUhyHejzUUhGJQlL55vaGptnBngSE8_ZZLpNwxlnE0LPZIFYw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center shadow-[0_0_30px_#2ff801] animate-pulse">
+<span class="material-symbols-outlined text-on-secondary" data-icon="explore">explore</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Post Action Section -->
+<div class="pt-6">
+<button class="w-full bg-secondary py-6 rounded-full flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_40px_rgba(47,248,1,0.25)] group">
+<span class="font-headline text-on-secondary font-black text-xl tracking-tighter uppercase italic">Post Activity</span>
+<span class="material-symbols-outlined text-on-secondary text-2xl group-hover:translate-x-1 transition-transform" data-icon="rocket_launch">rocket_launch</span>
+</button>
+<p class="text-center mt-6 text-outline-variant text-sm font-label">
+                By posting, you agree to our <a class="text-primary hover:underline" href="#">Circle Guidelines</a>
+</p>
+</div>
+</main>
+<!-- Navigation Shell Suppressed for Task-Focused Flow as per Semantic Shell Mandate -->
+<!-- BottomNavBar would be here but is hidden for Focused Journey -->
+</body></html>

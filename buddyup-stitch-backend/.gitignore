@@ -1,0 +1,15 @@
+# Database
+buddyup.db
+buddyup.db-shm
+buddyup.db-wal
+
+# Build output
+/api
+/migrate
+
+# Environment
+.env
+.env.local
+
+# macOS
+.DS_Store

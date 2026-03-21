@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PULSE - Event Check-In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#290c36",
+              "primary-fixed": "#d878ff",
+              "secondary-dim": "#2be800",
+              "surface-container-lowest": "#000000",
+              "tertiary-container": "#f6f200",
+              "surface-variant": "#391648",
+              "tertiary-fixed": "#fffb00",
+              "surface-dim": "#1a0425",
+              "surface-tint": "#df8eff",
+              "surface-container-low": "#21072d",
+              "error-dim": "#d73357",
+              "on-secondary-fixed": "#064200",
+              "primary": "#df8eff",
+              "surface-bright": "#411c51",
+              "on-secondary-fixed-variant": "#0d6200",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "secondary": "#2ff801",
+              "secondary-fixed-dim": "#2be800",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-secondary": "#0b5800",
+              "on-primary-fixed-variant": "#4b0068",
+              "primary-fixed-dim": "#d061ff",
+              "tertiary-dim": "#f0ec00",
+              "surface": "#1a0425",
+              "primary-container": "#d878ff",
+              "inverse-on-surface": "#674b71",
+              "outline": "#896b93",
+              "on-primary-fixed": "#000000",
+              "on-surface-variant": "#c1a0cb",
+              "on-surface": "#f9dcff",
+              "inverse-surface": "#fff7fb",
+              "on-tertiary-fixed": "#4d4c00",
+              "outline-variant": "#593e63",
+              "surface-container-highest": "#391648",
+              "on-tertiary": "#646200",
+              "on-secondary-container": "#e7ffd9",
+              "on-background": "#f9dcff",
+              "primary-dim": "#bb00fc",
+              "on-error": "#490013",
+              "on-tertiary-container": "#5b5900",
+              "secondary-fixed": "#2ff801",
+              "on-primary": "#4f006d",
+              "error-container": "#a70138",
+              "tertiary": "#fffcca",
+              "secondary-container": "#106e00",
+              "inverse-primary": "#9a00d0",
+              "on-primary-container": "#3d0055",
+              "error": "#ff6e84",
+              "surface-container-high": "#31113f",
+              "on-error-container": "#ffb2b9",
+              "background": "#1a0425"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .qr-glow {
+            box-shadow: 0 0 60px -10px rgba(223, 142, 255, 0.4);
+        }
+        .scan-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2ff801, transparent);
+            box-shadow: 0 0 15px #2ff801;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scan 3s ease-in-out infinite;
+        }
+        @keyframes scan {
+            0%, 100% { top: 0%; }
+            50% { top: 100%; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl flex justify-between items-center px-6 h-20 shadow-[0_0_48px_rgba(223,142,255,0.1)]">
+<div class="flex items-center gap-3 active:scale-95 transition-transform">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-secondary to-primary p-[2px]">
+<img alt="User profile" class="w-full h-full rounded-full object-cover border-2 border-surface" data-alt="User profile avatar with neon ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6c0NjC0gByGMs_6NT-I68a0bQARV9EfYQRrCPTkEpbZuTkXsqv_bpPmOHzqV-TI97o3kZ_t1xHB0ky6OmvoP8p-NfdYkyxzbh6-fg89o-RD67QimgmeyUx-l-QAHP3X-5Bouym77Wh6UYmwcIeyfhbYPYfRaOsD9NNur4TQv7b1qRWtnjj8W5fc5y9QrK3MJEjGh4htF32ny9ADSA7HraqW-bq4i5BXmFJQpcbx7Q1Jh0fLGuO0NVTGp_CIttZbHbwnjU7dICTQ"/>
+</div>
+</div>
+<h1 class="text-2xl font-black italic text-[#df8eff] drop-shadow-[0_0_8px_rgba(223,142,255,0.8)] font-headline tracking-tighter uppercase">PULSE</h1>
+<button class="text-white/70 hover:scale-105 hover:text-[#2ff801] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<main class="pt-28 pb-32 px-6 flex flex-col items-center max-w-lg mx-auto">
+<!-- Event Summary Header -->
+<section class="w-full mb-12 text-center">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border border-outline-variant/15 mb-4">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-secondary font-label text-[10px] font-bold tracking-[0.2em] uppercase">Active Entry</span>
+</div>
+<h2 class="text-4xl font-headline font-black tracking-tight mb-2 text-on-surface">Code &amp; Coffee</h2>
+<p class="text-on-surface-variant font-medium">Tomorrow, 09:00 AM • Neon District Hub</p>
+</section>
+<!-- Central Glowing QR Code Area -->
+<section class="relative group mb-12">
+<div class="absolute -inset-8 bg-primary/10 blur-[100px] rounded-full opacity-50"></div>
+<div class="relative w-72 h-72 p-6 rounded-xl bg-surface-container-highest border border-outline-variant/20 qr-glow overflow-hidden">
+<!-- Scan Animation Line -->
+<div class="scan-line z-10"></div>
+<!-- QR Placeholder with Design -->
+<div class="w-full h-full bg-surface-container-lowest rounded-lg p-4 flex items-center justify-center relative">
+<img alt="Event QR Code" class="w-full h-full opacity-90 mix-blend-screen" data-alt="Modern neon purple QR code on black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD8JvAZzWmOwQ7Tzjy3UpfesDv6MDmZ6Yvgx3WpbTghmETsjXG5qIdDD7Os5-zSpC-MAYRRtBuDRyGRzOAP-5yMvL3DLi-PDhxuXRMhWaHdMqeaDMAWFkOeAX0FD8FTqiKTw2P5AOs8Hqsy7L2U6_4SbFSEUeBmFqsUnAC_NYSaab8YJcfjUYA5nmA7C_dy7CKY5uqxXYdvjs4lz9FHYZldsUc77titzFf3FcM54FA9yE2gVU791_0F_TQ5uCzzF2CnUnZ1uZo9w"/>
+<!-- Decorative Corners -->
+<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary rounded-tl-lg"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-primary rounded-tr-lg"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-primary rounded-bl-lg"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary rounded-br-lg"></div>
+</div>
+</div>
+<p class="mt-8 text-center text-xs font-label tracking-widest text-on-surface-variant uppercase opacity-60">ID: PLS-882-X90</p>
+</section>
+<!-- Quick Action Buttons -->
+<section class="w-full grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center justify-center gap-3 p-6 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors group active:scale-95">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined" data-icon="calendar_add_on">calendar_add_on</span>
+</div>
+<span class="text-sm font-bold tracking-tight">Add to Calendar</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-6 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors group active:scale-95">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-all">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+</div>
+<span class="text-sm font-bold tracking-tight">Share Access</span>
+</button>
+</section>
+<!-- Event Details Mini Card -->
+<section class="w-full mt-6 p-6 rounded-lg bg-surface-container-low border border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline text-lg font-bold">Venue Details</h3>
+<span class="material-symbols-outlined text-primary" data-icon="map">map</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mt-0.5" data-icon="location_on">location_on</span>
+<div>
+<p class="text-sm font-semibold">404 Cyber Lane, Sector 7</p>
+<p class="text-xs text-on-surface-variant">Entrance B, 3rd Floor</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="group">group</span>
+<p class="text-sm font-semibold">12 Friends attending</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[3rem] bg-[#290c36]/40 backdrop-blur-2xl flex justify-around items-center h-24 px-4 pb-4 shadow-[0_-8px_32px_rgba(26,4,37,0.5)]">
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#2ff801] drop-shadow-[0_0_10px_rgba(47,248,1,0.6)] bg-[#391648]/60 rounded-full px-6 py-2 active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Activity</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Activity Details - Leg Day @ The Grid</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#411c51",
+            "primary-container": "#d878ff",
+            "on-primary-fixed": "#000000",
+            "tertiary-fixed-dim": "#f0ec00",
+            "error-container": "#a70138",
+            "secondary-fixed-dim": "#2be800",
+            "tertiary-container": "#f6f200",
+            "on-error-container": "#ffb2b9",
+            "on-background": "#f9dcff",
+            "inverse-primary": "#9a00d0",
+            "on-tertiary-fixed": "#4d4c00",
+            "tertiary-dim": "#f0ec00",
+            "outline-variant": "#593e63",
+            "primary-fixed-dim": "#d061ff",
+            "tertiary-fixed": "#fffb00",
+            "surface-tint": "#df8eff",
+            "on-secondary-fixed-variant": "#0d6200",
+            "on-tertiary": "#646200",
+            "on-tertiary-fixed-variant": "#6b6900",
+            "on-tertiary-container": "#5b5900",
+            "inverse-surface": "#fff7fb",
+            "on-surface": "#f9dcff",
+            "surface-container-low": "#21072d",
+            "outline": "#896b93",
+            "surface-container-highest": "#391648",
+            "surface-dim": "#1a0425",
+            "surface-variant": "#391648",
+            "surface-container-lowest": "#000000",
+            "tertiary": "#fffcca",
+            "primary-fixed": "#d878ff",
+            "on-primary-container": "#3d0055",
+            "secondary": "#2ff801",
+            "on-surface-variant": "#c1a0cb",
+            "on-secondary-fixed": "#064200",
+            "surface-container-high": "#31113f",
+            "secondary-fixed": "#2ff801",
+            "on-secondary-container": "#e7ffd9",
+            "secondary-dim": "#2be800",
+            "primary": "#df8eff",
+            "primary-dim": "#bb00fc",
+            "on-secondary": "#0b5800",
+            "on-primary-fixed-variant": "#4b0068",
+            "background": "#1a0425",
+            "surface-container": "#290c36",
+            "surface": "#1a0425",
+            "secondary-container": "#106e00",
+            "inverse-on-surface": "#674b71",
+            "error": "#ff6e84",
+            "on-primary": "#4f006d",
+            "on-error": "#490013",
+            "error-dim": "#d73357"
+          },
+          fontFamily: {
+            "headline": ["Epilogue"],
+            "body": ["Plus Jakarta Sans"],
+            "label": ["Plus Jakarta Sans"]
+          },
+          borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+    .glass-panel {
+      background: rgba(26, 4, 37, 0.4);
+      backdrop-filter: blur(20px);
+    }
+    .neon-glow-primary {
+      box-shadow: 0 0 20px rgba(223, 142, 255, 0.3);
+    }
+    .neon-glow-secondary {
+      box-shadow: 0 0 15px rgba(47, 248, 1, 0.4);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30 min-h-screen pb-32">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl flex justify-between items-center px-6 h-20 w-full shadow-[0_0_48px_0_rgba(223,142,255,0.1)]">
+<div class="flex items-center gap-4">
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">arrow_back</span>
+</button>
+<h1 class="font-['Epilogue'] font-bold text-2xl tracking-tight text-[#df8eff]">Activity Details</h1>
+</div>
+<button class="text-[#df8eff] hover:scale-105 transition-transform duration-200 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">more_vert</span>
+</button>
+</header>
+<main class="pt-20">
+<!-- Hero Image Area -->
+<section class="relative h-[397px] w-full overflow-hidden">
+<img alt="High energy gym with neon purple lighting" class="w-full h-full object-cover" data-alt="Dark high energy gym with purple neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALENgQVbSca9sM75xkAb8vUweffYbnVuxRkU2uDkPCJt7w5CZScWtLfi9smWU2_NPI0sJFiEtdC5PNYzpUEaFyCAXNYh2fUQPgWPZiCGqzGEhxryCrKNSFoPxAOAW3chlYrSV6xij-KGuTpixwSdvKcJ2PeVoKYYrj18J_Io881tNc_0QXAON8OEK_ldOxBk1EjO18vcx0XWQibF9TK3OTBQKl7cUjJXsot9AZsQtwkozBZmH8890Rlz-5k7UdKX_ACV1C6BOb7w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<!-- Host Floating Card -->
+<div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+<div class="flex items-center gap-4 group">
+<div class="p-1 rounded-full bg-gradient-to-tr from-secondary to-primary">
+<img alt="Alex Rivera" class="w-16 h-16 rounded-full object-cover border-2 border-background" data-alt="Portrait of Alex Rivera professional fitness coach" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANLrqEWd_Vww44kQcxSaGSuGCNvSkSt0NxyWGhQo5sZgP-jS92epNkJCfVZj6gPEql4qF0HMcOPnWEqtrBGPBb_UpHcngXpIliXxc6WLqcoRlCKKU13ppepqu4iit9cjVdMWHTabU8kdNY0X3UJlj9M4k8A5xTSCTtiL_1yq4v2rPt4rW4tzIos_0Z0VgHu5pfzNxCkDNDnCYJYLbVXkFaIbLRyRHzsiw5NSGTMCXJDuHzoavwxBbOPkerJtnByUYxccg85iswNw"/>
+</div>
+<div>
+<span class="text-secondary font-bold text-xs uppercase tracking-widest block mb-1">Session Host</span>
+<h3 class="font-headline text-xl font-extrabold text-white">Alex Rivera</h3>
+</div>
+</div>
+<button class="bg-surface-container-highest/60 backdrop-blur-md px-6 py-3 rounded-full border border-outline-variant/20 hover:scale-105 transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-bold text-sm tracking-wide">SAY HI</span>
+</button>
+</div>
+</section>
+<!-- Content Content -->
+<div class="px-6 -mt-4 relative z-10">
+<div class="bg-surface-container rounded-t-xl p-8 shadow-2xl">
+<!-- Title & Category -->
+<div class="mb-8">
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Strength</span>
+<span class="bg-secondary/20 text-secondary px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Expert</span>
+</div>
+<h2 class="font-headline text-4xl md:text-5xl font-black text-white leading-none tracking-tighter mb-4">
+            Leg Day @ <br/><span class="text-primary italic">The Grid</span>
+</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-md">
+            Join me for a high-intensity leg session focusing on squats and deadlifts. Looking for a partner to push limits.
+          </p>
+</div>
+<!-- Info Grid (Asymmetric) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+<div class="bg-surface-container-high p-6 rounded-lg flex items-start gap-4">
+<div class="bg-primary/10 p-3 rounded-2xl">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Date &amp; Time</p>
+<p class="text-white font-bold">Tonight, 9:00 PM</p>
+<p class="text-on-surface-variant text-sm">Ends at 11:00 PM</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-lg flex items-start gap-4">
+<div class="bg-secondary/10 p-3 rounded-2xl">
+<span class="material-symbols-outlined text-secondary">distance</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Distance</p>
+<p class="text-white font-bold">The Grid Fitness</p>
+<p class="text-on-surface-variant text-sm">0.8 miles away</p>
+</div>
+</div>
+</div>
+<!-- Map Section -->
+<div class="mb-10 group overflow-hidden rounded-lg relative">
+<div class="absolute inset-0 bg-primary/10 pointer-events-none z-10"></div>
+<img alt="Dark mode map of the grid fitness area" class="w-full h-48 object-cover grayscale invert brightness-50 contrast-125 transition-transform duration-700 group-hover:scale-110" data-alt="Stylized dark neon map of downtown fitness center" data-location="The Grid Fitness" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMwGWJDZkmOeCMJ06t-u1d-cRevJ4ARBcO3q5Mw03fbkc3JE9GAHaFBgn0qGhbWgsgC3lsF1qHuRYZw2bWoWrTh01iuxmhKnXL4IMebITAS8ZXzC8x_pLTXZGaefpQEBNWkXEZe2MjrIKVi5T05YMMohOweDgKbpYZP3W0A5jyWHtZGTQK8eGKvhEjpUBGowmxnq-3zFHSfTkU6HocIhb98o9QpOxZiK3YBhxilkfd-2ler9foHBvErtI66CTMyD1FqnYwNwfU-w"/>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+<div class="relative">
+<span class="material-symbols-outlined text-secondary text-5xl drop-shadow-[0_0_15px_rgba(47,248,1,0.8)]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div class="absolute inset-0 bg-secondary rounded-full animate-ping opacity-20"></div>
+</div>
+</div>
+</div>
+<!-- Participants -->
+<div class="mb-12">
+<h4 class="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant mb-6">Confirmed Squad</h4>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-3">
+<div class="w-12 h-12 rounded-full border-2 border-surface-container ring-2 ring-secondary overflow-hidden">
+<img alt="Alex R." class="w-full h-full object-cover" data-alt="Portrait of Alex R." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBojTNlhMM4fU966UjgIBml2KJo-hrJPaX2akCzT_Jr6IDNMpgEV4_GTWaYTPjZjc-k6vMFckq_2ofeIEkVCFxseCJBqGqBLs3C7Ino0vQy8PQePlGyk0uE9FKPpU-DaxRIgtS4gCJkxRN19VURn2mnQBSdUr_6WbeU-gJtxFWKwyK1KttMtxg0lffXOppdt2Q9rGV5MfdSJl_6WWpHF4GKX6kMFb1IxbjYfVmHCHhpAd0zpgN7g3izrDdo6q9Nedii32rPJ-CLdw"/>
+</div>
+<div class="w-12 h-12 rounded-full border-2 border-surface-container ring-2 ring-primary overflow-hidden">
+<img alt="Joined user 1" class="w-full h-full object-cover" data-alt="Portrait of a session member" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATEtmK6IjyDplgrqtM71l1jsxg_xCf3fbQZPWQIDR2qsQf1nHwnYbvW0skm3w3d3IOsOKNlp2pLtYXuUmE2c5nEbuvC_1JXUzRpvxxG9vGDUwviQ7o7mP1wQT86WKRdmdadz49yMMca3rBaPRbU5Xro1X4dUMOA9y0S-MqKhU7TGZ2-pcsvpVS-G3WPS2Qb7mbNzYo3JcPnHM0zQb7PTsyJ81Oa3fYuKGlQm2vo12r1ASN-j84GyEVUEs-KMeT-CRVEuaJkrBJ9g"/>
+</div>
+<div class="w-12 h-12 rounded-full border-2 border-surface-container ring-2 ring-primary overflow-hidden">
+<img alt="Joined user 2" class="w-full h-full object-cover" data-alt="Portrait of a session member" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRW7lg8bUFR_wwaVi7otUcQNS3otvd_8gDXulvqfgvRLgvTivVfWHWHdmSUhbA3V1Oqp5_XdvVk8gYifQ8xg_QfNhd27HUvqZHF1Hj63akSqjef_q-Bvth0XbxC-vWV7dDoeeOx2Z1MMhgPI2AYLs05WeKYOxIk_4x9dxu7-sD-iw1rrlzfoUs7RYOm4aVLKn3gDX7211dne3ZqBux9nyk58b9nkclrulqYb_TVHJcAFrLeiyvRbuPv442NUjGXm7sx03--n9j4g"/>
+</div>
+</div>
+<div>
+<p class="text-white font-bold text-sm">Alex R. <span class="text-on-surface-variant font-normal">&amp; 2 others joined</span></p>
+<div class="flex gap-1 mt-1">
+<div class="h-1 w-8 bg-secondary rounded-full"></div>
+<div class="h-1 w-4 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full py-6 rounded-full bg-secondary text-on-secondary-fixed font-headline text-xl font-black tracking-widest hover:scale-[1.02] transition-all active:scale-95 shadow-[0_0_30px_rgba(47,248,1,0.3)]">
+          JOIN SESSION
+        </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="fixed bottom-0 w-full rounded-t-[3rem] z-50 bg-[#1a0425]/40 backdrop-blur-xl flex justify-around items-center h-24 px-8 pb-4 shadow-[0_-8px_32px_0_rgba(223,142,255,0.15)]">
+<div class="flex flex-col items-center justify-center text-[#df8eff]/50 hover:text-[#df8eff] transition-colors active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#2ff801] drop-shadow-[0_0_8px_rgba(47,248,1,0.5)] active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest">Matches</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#df8eff]/50 hover:text-[#df8eff] transition-colors active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#df8eff]/50 hover:text-[#df8eff] transition-colors active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold uppercase tracking-widest">Profile</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#290c36",
+              "primary-fixed": "#d878ff",
+              "secondary-dim": "#2be800",
+              "surface-container-lowest": "#000000",
+              "tertiary-container": "#f6f200",
+              "surface-variant": "#391648",
+              "tertiary-fixed": "#fffb00",
+              "surface-dim": "#1a0425",
+              "surface-tint": "#df8eff",
+              "surface-container-low": "#21072d",
+              "error-dim": "#d73357",
+              "on-secondary-fixed": "#064200",
+              "primary": "#df8eff",
+              "surface-bright": "#411c51",
+              "on-secondary-fixed-variant": "#0d6200",
+              "on-tertiary-fixed-variant": "#6b6900",
+              "secondary": "#2ff801",
+              "secondary-fixed-dim": "#2be800",
+              "tertiary-fixed-dim": "#f0ec00",
+              "on-secondary": "#0b5800",
+              "on-primary-fixed-variant": "#4b0068",
+              "primary-fixed-dim": "#d061ff",
+              "tertiary-dim": "#f0ec00",
+              "surface": "#1a0425",
+              "primary-container": "#d878ff",
+              "inverse-on-surface": "#674b71",
+              "outline": "#896b93",
+              "on-primary-fixed": "#000000",
+              "on-surface-variant": "#c1a0cb",
+              "on-surface": "#f9dcff",
+              "inverse-surface": "#fff7fb",
+              "on-tertiary-fixed": "#4d4c00",
+              "outline-variant": "#593e63",
+              "surface-container-highest": "#391648",
+              "on-tertiary": "#646200",
+              "on-secondary-container": "#e7ffd9",
+              "on-background": "#f9dcff",
+              "primary-dim": "#bb00fc",
+              "on-error": "#490013",
+              "on-tertiary-container": "#5b5900",
+              "secondary-fixed": "#2ff801",
+              "on-primary": "#4f006d",
+              "error-container": "#a70138",
+              "tertiary": "#fffcca",
+              "secondary-container": "#106e00",
+              "inverse-primary": "#9a00d0",
+              "on-primary-container": "#3d0055",
+              "error": "#ff6e84",
+              "surface-container-high": "#31113f",
+              "on-error-container": "#ffb2b9",
+              "background": "#1a0425"
+            },
+            fontFamily: {
+              "headline": ["Epilogue"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .neon-glow-primary { filter: drop-shadow(0 0 8px rgba(223,142,255,0.5)); }
+        .neon-glow-secondary { filter: drop-shadow(0 0 8px rgba(47,248,1,0.5)); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl shadow-[0_0_48px_rgba(223,142,255,0.1)] flex justify-between items-center px-6 h-20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-secondary p-0.5">
+<img alt="User profile" class="w-full h-full rounded-full object-cover" data-alt="Close up of a young male user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf7szLYBHwPUWCPAw0a92UUePMKwkeuoZDKEhwPUkBQ0IPLIRa6RCs81B0nj6lGA7t9EC--qW8LCZHMRv8l4Mz3n8j1A1ZvuK0DAV4vA6XRGepdFY84jNiovOCY-5COoqflQbVhTQgOMCxeW4Ir1LlZZOIwGjEI5jXTwGmwHn0sRzCLalQ-cGU_0p5ojIjW6Pdi2SsFGAreoWyreFiRtPLjaPZcsOkfX64uqnzmG9uNNuUwExaY7RmHu8iHdFKfkYBttKafckzcg"/>
+</div>
+<h1 class="text-2xl font-black italic text-[#df8eff] drop-shadow-[0_0_8px_rgba(223,142,255,0.8)] font-headline tracking-tighter uppercase">PULSE</h1>
+</div>
+<button class="text-white/70 hover:scale-105 hover:text-[#2ff801] transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-10">
+<!-- Search Section -->
+<section class="relative group">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary opacity-20 group-focus-within:opacity-40 rounded-full blur transition duration-300"></div>
+<div class="relative flex items-center bg-surface-container-lowest rounded-full px-6 py-4">
+<span class="material-symbols-outlined text-primary mr-3" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-lg w-full placeholder:text-white/20 text-on-surface" placeholder="Find your tribe..." type="text"/>
+<span class="material-symbols-outlined text-white/30" data-icon="tune">tune</span>
+</div>
+</section>
+<!-- Vibe Matches - Horizontal Bento-ish -->
+<section>
+<div class="flex items-baseline justify-between mb-6">
+<h2 class="font-headline text-2xl font-black tracking-tight uppercase">Vibe Matches</h2>
+<span class="text-secondary font-bold text-xs tracking-widest uppercase">Live Now</span>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 -mx-6 px-6">
+<!-- Match 1 -->
+<div class="flex-none w-64 h-80 relative rounded-xl overflow-hidden group">
+<img alt="Vibe Match" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110" data-alt="Stylishly dressed person posing in urban environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnvxC1kvpRm-UM0R4PLuB2OMKGgArElGkKysRFlyzDp12t3NrjVtSvdCjo7gtnRANZTjbvtEM1-RN0xnen8L3AoFyDCwDwx3tPkQ2BrkTVld7sKwyT-BxfNJyRCZ_t9pFvtISE_Y3iZU9TP-gyATZOzuApaEsfVnFCTECTIENu_L_lvOuepO9VLLyydyjZfeAkWATnS8ItymMf01P0dkysnZeaAre57678ubcvPnM5jbBT3Um2cN719Bz2VZPoF2nr_O6Ttr7whg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 space-y-2">
+<div class="flex gap-2">
+<span class="bg-secondary/20 backdrop-blur-md border border-secondary/40 text-secondary px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Techno</span>
+<span class="bg-primary/20 backdrop-blur-md border border-primary/40 text-primary px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Night Owl</span>
+</div>
+<p class="font-headline text-lg font-bold">Aria, 22</p>
+</div>
+</div>
+<!-- Match 2 -->
+<div class="flex-none w-64 h-80 relative rounded-xl overflow-hidden group">
+<img alt="Vibe Match" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110" data-alt="Young person with vibrant aesthetic and neon lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOcK6IV_0Yh53dTbivOp-C8GOBYEWwO2hM3cBTZjemMVWI8T2RByEGv_z003VQv72FAtQdBKdLnA-gquxm9wjFMGCpiLeVcBPh55PypId_ZnuPXuDn4jPpQ1WQvseAZ4tacOEr9YWaVMjzZJMMx3g-YSchf27O0o62d9TBkvN11oHGaKHtuHFoALcofs4FjgKPdTmlFmsOWgPDH40j5IQ1LdnHbePiHWBXqplIm9_ZisdgJvLzxalNAQPNBAQb4oeDbI6JQQjwOg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 space-y-2">
+<div class="flex gap-2">
+<span class="bg-secondary/20 backdrop-blur-md border border-secondary/40 text-secondary px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Gamer</span>
+<span class="bg-primary/20 backdrop-blur-md border border-primary/40 text-primary px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Digital Art</span>
+</div>
+<p class="font-headline text-lg font-bold">Kai, 24</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Your Circle CTA -->
+<section class="bg-surface-container rounded-lg p-8 relative overflow-hidden group">
+<div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-primary/20 blur-3xl rounded-full transition-transform group-hover:scale-150"></div>
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="contacts" style="font-variation-settings: 'FILL' 1;">contacts</span>
+</div>
+<div>
+<h3 class="font-headline text-xl font-bold">Sync Your Circle</h3>
+<p class="text-on-surface-variant text-sm">Find who's already on Pulse</p>
+</div>
+</div>
+<button class="w-full bg-primary py-4 rounded-full font-bold text-on-primary hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(216,120,255,0.3)]">
+                    Connect Contacts
+                </button>
+</div>
+</section>
+<!-- People You May Know -->
+<section class="space-y-6">
+<h2 class="font-headline text-2xl font-black tracking-tight uppercase">People You May Know</h2>
+<div class="space-y-2">
+<!-- Friend Row 1 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Friend" class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a young person smiling at the camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr_Nl0-fX1no3rrM9tqBLktUIaSq5NQ1P5pd-UMnGQrOw2M83og9EdZuRgD2mpsOsXYuBaeHVqJmiEDnwd655SWW00QWRGiRglWRvnoT1mCB2bggRBKK1p4MUL_SltFusKss5Id8xLNQwr16cJxSrOOssNiv9oxH82knuxYuoNymhUjED4fBqFR9nJNjkjATOU1boEcBjQuNDLbVY3IjjoXCBiJ7l77cfZrBwYkJV57w_fo_YfZUaVwAbkA9-GlP-t-oByFf0blQ"/>
+<div class="absolute -top-1 -right-1 w-5 h-5 bg-error rounded-full flex items-center justify-center ring-2 ring-surface-container-high">
+<span class="text-[10px] font-bold text-on-error">1</span>
+</div>
+</div>
+<div>
+<p class="font-bold">Lila Thorne</p>
+<p class="text-xs text-on-surface-variant">Shared: 12 Mutuals</p>
+</div>
+</div>
+<button class="bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:scale-110">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</button>
+</div>
+<!-- Friend Row 2 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Friend" class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a male with modern fashion sense" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4a0EKNDKEok6CJRHW6Nou7uKCWV1ekgY42MMBD611IRsuIS-9HDiyp1VcT-eMpaIk22akT8ZYZJQ1aeN3UN5-Wy8aFaGgJBRWeVz5IPuyq25XE-9bENyFDW0-arswPe0GrMwIrpgB6w4MVsDTgf-Pjkds7PqkAJdXB3L58-8Lm1FJ9gTE2FMbOiXVmDPSE9SyvFsU7Sg7sQi9YkMErUjnsqJORoxc5GqNTuCEMHo6rExOJugNt6-cyQx8KIpODsbPzmFD0BdfbQ"/>
+</div>
+<div>
+<p class="font-bold">Zion Reed</p>
+<p class="text-xs text-on-surface-variant">Shared: 3 Mutuals</p>
+</div>
+</div>
+<button class="bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:scale-110">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</button>
+</div>
+<!-- Friend Row 3 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Friend" class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a young woman with a trendy look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3PlZ6nI1m1ihz-Np2IuPEQKng_TIlZOSqq7zBuzgtgY2NCpkjVe4d-eXLv1NkODfjv-9ppKqnzGckH0zwRvNhLiEGQSOEZrUse-p8mbELcaXrEgEFjyv36dObsbU9vAl-luf6AuqxcZDz-023A80hBXp5778omi2f8RKJrcoNDIKR0c-biSOugyigF9bSSCkLIt1rnqNTczWf07dk9G2p9sQWFOQRk3PVtjJOP2JPXkwsGlNapVEx22dsimYaGDET4fjM1QBtJQ"/>
+</div>
+<div>
+<p class="font-bold">Mila Sun</p>
+<p class="text-xs text-on-surface-variant">From: Your Contacts</p>
+</div>
+</div>
+<button class="bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:scale-110">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-[3rem] bg-[#290c36]/40 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(26,4,37,0.5)] flex justify-around items-center h-24 px-4 pb-4 border-none">
+<!-- Explore (Active) -->
+<a class="flex flex-col items-center justify-center text-[#2ff801] drop-shadow-[0_0_10px_rgba(47,248,1,0.6)] bg-[#391648]/60 rounded-full px-6 py-2 transition-transform active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Explore</span>
+</a>
+<!-- Activity -->
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Activity</span>
+</a>
+<!-- Messages -->
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Messages</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-white/40 hover:text-[#df8eff] transition-colors duration-200 active:scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-widest uppercase mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

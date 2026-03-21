@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;900&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#21072d",
+                        "tertiary-dim": "#f0ec00",
+                        "on-secondary-fixed": "#064200",
+                        "on-primary-container": "#3d0055",
+                        "tertiary-fixed-dim": "#f0ec00",
+                        "surface-tint": "#df8eff",
+                        "on-primary-fixed": "#000000",
+                        "on-tertiary-fixed": "#4d4c00",
+                        "tertiary-fixed": "#fffb00",
+                        "primary-fixed-dim": "#d061ff",
+                        "inverse-primary": "#9a00d0",
+                        "surface-variant": "#391648",
+                        "secondary-fixed": "#2ff801",
+                        "surface": "#1a0425",
+                        "inverse-surface": "#fff7fb",
+                        "outline-variant": "#593e63",
+                        "secondary": "#2ff801",
+                        "tertiary-container": "#f6f200",
+                        "surface-dim": "#1a0425",
+                        "error": "#ff6e84",
+                        "on-tertiary": "#646200",
+                        "on-surface-variant": "#c1a0cb",
+                        "surface-container-highest": "#391648",
+                        "error-container": "#a70138",
+                        "on-surface": "#f9dcff",
+                        "on-secondary": "#0b5800",
+                        "primary-dim": "#bb00fc",
+                        "background": "#1a0425",
+                        "on-primary": "#4f006d",
+                        "primary": "#df8eff",
+                        "surface-bright": "#411c51",
+                        "primary-container": "#d878ff",
+                        "on-secondary-container": "#e7ffd9",
+                        "surface-container-lowest": "#000000",
+                        "on-error": "#490013",
+                        "on-primary-fixed-variant": "#4b0068",
+                        "secondary-container": "#106e00",
+                        "primary-fixed": "#d878ff",
+                        "inverse-on-surface": "#674b71",
+                        "on-error-container": "#ffb2b9",
+                        "on-secondary-fixed-variant": "#0d6200",
+                        "on-tertiary-container": "#5b5900",
+                        "outline": "#896b93",
+                        "surface-container-high": "#31113f",
+                        "tertiary": "#fffcca",
+                        "on-tertiary-fixed-variant": "#6b6900",
+                        "secondary-fixed-dim": "#2be800",
+                        "surface-container": "#290c36",
+                        "error-dim": "#d73357",
+                        "secondary-dim": "#2be800",
+                        "on-background": "#f9dcff"
+                    },
+                    fontFamily: {
+                        "headline": ["Epilogue"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(57, 22, 72, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        .text-glow {
+            text-shadow: 0 0 12px rgba(223, 142, 255, 0.6);
+        }
+        .neon-border-gradient {
+            background: linear-gradient(135deg, #2ff801 0%, #df8eff 100%);
+            padding: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#1a0425]/40 backdrop-blur-xl flex justify-between items-center px-6 h-20 w-full shadow-[0_0_48px_0_rgba(223,142,255,0.1)]">
+<div class="flex items-center gap-4">
+<button class="text-[#df8eff] hover:scale-110 transition-transform duration-200 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Epilogue'] font-black uppercase tracking-tighter text-3xl text-[#df8eff]">LEADERBOARD</h1>
+</div>
+<button class="text-[#df8eff] hover:scale-110 transition-transform duration-200 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-24 pb-48 px-6 max-w-2xl mx-auto">
+<!-- Category Filters -->
+<div class="flex gap-3 overflow-x-auto pb-8 no-scrollbar">
+<button class="px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(223,142,255,0.3)]">Overall</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-sm tracking-wide border border-outline-variant/10 hover:bg-surface-variant transition-colors">Gym</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-sm tracking-wide border border-outline-variant/10 hover:bg-surface-variant transition-colors">Coding</button>
+<button class="px-6 py-2.5 rounded-full bg-surface-container text-on-surface-variant font-bold text-sm tracking-wide border border-outline-variant/10 hover:bg-surface-variant transition-colors">Sports</button>
+</div>
+<!-- Top Ranking Podium (Asymmetric Editorial Style) -->
+<section class="relative mb-12 grid grid-cols-3 gap-2 items-end pt-12">
+<!-- Rank 2: Alex -->
+<div class="flex flex-col items-center">
+<div class="relative mb-3">
+<div class="w-16 h-16 rounded-full overflow-hidden neon-border-gradient shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Portrait of Alex a stylish young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjbR_ybh5endFJZhIoRBw24Nq3udMpGIQhPLk2rrWvC-XptWkSzIGfXNyxcwXCxbZvafF3061Vz0w4TZ4IM5VUZsQUtQ0kQ7VT2X_K5fxm0ujmBmsZXegVtOFRkFnQi8yiRWY91r8kSA3HCqvWsgy_gjfcxFUAy14y_eIJIUHTD1MIJFq1gsvXR7IJr7mwmgeY6u8wPASfEqOnmdz_w8RPiG8xfY-uj4_EL7N4vCtfu3U0_S8bkVBJDuiwgPoNjvNIIF4NkBOnZA"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-surface-container-highest text-primary font-black px-2 py-0.5 rounded-md text-xs border border-primary/20">2</div>
+</div>
+<h3 class="font-headline font-bold text-sm text-on-surface">Alex</h3>
+<p class="font-body text-secondary font-extrabold text-[10px] tracking-widest uppercase">2,410 pts</p>
+</div>
+<!-- Rank 1: Luna -->
+<div class="flex flex-col items-center -mt-8">
+<div class="relative mb-4">
+<div class="w-24 h-24 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-secondary to-primary shadow-[0_0_30px_rgba(47,248,1,0.3)]">
+<div class="w-full h-full rounded-full overflow-hidden border-4 border-surface">
+<img class="w-full h-full object-cover" data-alt="Portrait of Luna a vibrant young woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD32U5PwNARdb7rwlyGFDZYzcpohhVYcd2sm6xRXU5OGzz6PQMAC5egnRff2xK6g4W3OFZbOxzGdSS9rWFzreaoCT6ahGTdSssXUlP8xnKwXqY5qy2nrvzCTU9SbSB270aTwOu935eobJUOa51z0LNeo7Osin4TcCpm63YhGD1VRHat7IBB78Ipr_8fyd5HEpWKmHhkjMWRJ3OnpChk1KEKzd0U3XRajJLbhIW_Fsm2y9pay5DtZpVAR6V3-Ee12C0LlifkJAZVyQ"/>
+</div>
+</div>
+<div class="absolute -top-4 left-1/2 -translate-x-1/2">
+<span class="material-symbols-outlined text-tertiary-dim text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+<h3 class="font-headline font-black text-xl text-on-surface tracking-tight">Luna</h3>
+<p class="font-body text-primary font-black text-xs tracking-widest uppercase text-glow">2,450 pts</p>
+</div>
+<!-- Rank 3: Zara -->
+<div class="flex flex-col items-center">
+<div class="relative mb-3">
+<div class="w-16 h-16 rounded-full overflow-hidden neon-border-gradient shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Portrait of Zara a confident looking girl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZiJGs6NuvScaC_GJczQeg36ltiJCU2PrZCHpuGgF21vKpjHua2FHWrRGd8cDGmKzMmjxQmuplA8IUX0b-FfYYrTselMVt7ncxQIrdNon3vu8Gtvqm3swNA-U7zZ-dqpSavGoFym-G8GuDxoOpTVwmTGuWOfJ1dxNYyhUlAwrUHoe0GRyrRyzKcAfW3SOJFwOdcOW5ZQGDgeNwkCcRBcjoIS6w3UbY2zqSaP0LkkyDALxPVPY3ZFLtFwJtzHo4rcvjgfkrUGsbzg"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-surface-container-highest text-primary font-black px-2 py-0.5 rounded-md text-xs border border-primary/20">3</div>
+</div>
+<h3 class="font-headline font-bold text-sm text-on-surface">Zara</h3>
+<p class="font-body text-secondary font-extrabold text-[10px] tracking-widest uppercase">2,385 pts</p>
+</div>
+</section>
+<!-- Leaderboard List -->
+<section class="space-y-4">
+<h2 class="font-headline font-black text-on-surface-variant text-xs uppercase tracking-[0.2em] mb-6">Rising Stars</h2>
+<!-- Rank 4 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface-container border border-outline-variant/5 hover:bg-surface-container-high transition-all">
+<span class="w-6 font-headline font-black text-primary text-lg">4</span>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="User avatar of a young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMCYuFEJnMeP_fdp3rB4ZKPOtNFiig9g-TtH8nvgKROfKKLADdx5j5_4QNEcIo183VxPTXAP0hb0p956KMDI0EBMGzbcYxAWv-BwQqmwTukaubFbMSmPn48L0VDWJcKoEcOVGNcrSNfu37ZIkrxr1LMi2fnhpUZRTNbod82bEb7DR0goDZb47qbG0jLv0b3Gt3kD6NMtDjTo2B78joEBtOofgB8y0u-7Ev0tWr2KSdHirMqgDjjYlHKXjW7PGx9dUKCmFg-CnjzQ"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-bold text-on-surface">Jordan</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider">Active 2h ago</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-black text-on-surface">2,100</p>
+<p class="text-[10px] text-secondary font-bold uppercase tracking-tighter">pts</p>
+</div>
+</div>
+<!-- Rank 5 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface-container border border-outline-variant/5 hover:bg-surface-container-high transition-all">
+<span class="w-6 font-headline font-black text-primary text-lg opacity-80">5</span>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="User avatar of a cool girl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpssft8YijVmcIzfpfLmbleD2tBLJwy7WY1LAflx9_I3BVFu8BGal-GaKHAC_3TznmxsFk_9BniiV5geNEklQsZs0s-eFCiw_GU6P8NSeyoi55K31Wgg7qVOlvO5Z5bUbtYcXSgkZ8lee4mK-DBkC1hbFgIfhsIg0a7yoaQUSOYYYOPsXlol19jm34h0acjZu6i4Ed_lmkOp1Aj6lEpfQTAcZcvRxynM5mDHJ0khxk1_uhw4f5iD1c8i3Und0yDPXnQktRW5L7Ng"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-bold text-on-surface">Miki</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider">Active 15m ago</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-black text-on-surface">1,980</p>
+<p class="text-[10px] text-secondary font-bold uppercase tracking-tighter">pts</p>
+</div>
+</div>
+<!-- Rank 6 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface-container border border-outline-variant/5 hover:bg-surface-container-high transition-all">
+<span class="w-6 font-headline font-black text-primary text-lg opacity-60">6</span>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="User avatar of a focused young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOXSsGCrj_gyAWwX5fljRvgZK2qhMFCcDs5NFD2cglDZNJygw9kpU3eKDDvmxYD4v_5CL6xnACzQ9KjyieXh5Tu-CKZ6tMEG1l7urvOZavNm5LYDAtbc2B88P7QgABkuMDeSSQXz7nzAtKHTgJFAEqfYdP4zJO_jNpwrAOe8EuTp1ttwvDnA2V8lLZTQJfu4nqC4GE9evjJN45tkQGw4lx3R1v83MkDGBN918vcSyfo4VwMmt4wRpwKI1U5jwm7UzQsq4jwxs8gA"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-bold text-on-surface">Devon</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider">Active Now</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-black text-on-surface">1,850</p>
+<p class="text-[10px] text-secondary font-bold uppercase tracking-tighter">pts</p>
+</div>
+</div>
+<!-- Rank 7 -->
+<div class="group flex items-center gap-4 p-4 rounded-lg bg-surface-container border border-outline-variant/5 hover:bg-surface-container-high transition-all opacity-80">
+<span class="w-6 font-headline font-black text-primary text-lg opacity-40">7</span>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="User avatar of a young woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSsOY2eArz6K8sjiTaiSRpzeK4rR-j8dlRt1t1o1qMImp0Mu4WtLAk89xXMIPTyIIbdtzb2f0foyZGHjspO-RlNVQCXYT2mNUziQGtwqnQC1LoUP8nXi_sTIzBG7Ax44OPoUfZ7KcfjTlbtD4PJyfOYfQrw5cf39VX-QmBb1f96wJB-2Q_jnopQLxn_Y2tzSDYs_ddWb1ApYwIDo-LXy4jy6UaQi7rTPfYucB5R6qC6jJsZLQ9834IvX857VrHnIe8rfb8gCFsuA"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-bold text-on-surface">Sofia</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider">Active yesterday</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-black text-on-surface">1,720</p>
+<p class="text-[10px] text-secondary font-bold uppercase tracking-tighter">pts</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Sticky My Rank Indicator -->
+<div class="fixed bottom-28 left-6 right-6 z-40">
+<div class="p-5 glass-panel rounded-xl border border-primary/20 shadow-[0_8px_32px_0_rgba(223,142,255,0.15)] flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full p-0.5 bg-primary overflow-hidden shadow-[0_0_15px_rgba(223,142,255,0.4)]">
+<img class="w-full h-full object-cover rounded-full border-2 border-surface" data-alt="Your profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_Iii25t4pXm6HGJsgnKqZoF79Iym2haugDiaJjoM1tVCFF9sOMvaGlwrs_NS6nLUe-Msj_Z-P-BmszCwc14cztWaoNMOEDUhEZ3BIN4q1sR1v7wq316JJdXiFXpywpW_HPSFa50ssdS6pjCZtojZ5arwzgbcQjrvNmXq3DqPuMzX9HPO9nedVsRHlpd1GNhwB45jNIqdPausiAFxYG2fZim9yIbEBlm2ddWV1mQ2gbaGVaBvcG3xBrJ8xw-WTcypSr05sdK-uDg"/>
+</div>
+<div>
+<h4 class="font-headline font-black text-primary italic text-lg leading-tight">You're 14th!</h4>
+<p class="font-body text-[11px] text-on-surface-variant font-bold uppercase tracking-wider">20 pts to next rank</p>
+</div>
+</div>
+<div class="bg-secondary/20 px-4 py-2 rounded-full border border-secondary/30">
+<span class="text-secondary font-black text-sm tracking-tighter">KEEP PUSHING!</span>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-8 pt-4 bg-[#1a0425]/40 backdrop-blur-xl z-50 rounded-t-[3rem] shadow-[0_-8px_48px_0_rgba(223,142,255,0.1)]">
+<div class="flex flex-col items-center justify-center text-[#593e63] opacity-70 hover:text-[#2ff801] transition-colors active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] uppercase tracking-widest mt-1">Discover</span>
+</div>
+<!-- Matches Active state -->
+<div class="flex flex-col items-center justify-center bg-[#df8eff] text-[#1a0425] rounded-full px-6 py-2 scale-105 shadow-[0_0_20px_rgba(223,142,255,0.4)] active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] uppercase tracking-widest">Matches</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#593e63] opacity-70 hover:text-[#2ff801] transition-colors active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] uppercase tracking-widest mt-1">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#593e63] opacity-70 hover:text-[#2ff801] transition-colors active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</div>
+</nav>
+</body></html>
