@@ -13,6 +13,19 @@ Discover friends nearby, join activities, chat, earn points, and climb the leade
 
 </div>
 
+<div align="center">
+
+| | | | |
+|---|---|---|---|
+| <img src="stitch_select_interests/onboarding_unified_nav/screen.png" width="160" /><br/>Onboarding | <img src="stitch_select_interests/select_interests_unified_nav/screen.png" width="160" /><br/>Select Interests | <img src="stitch_select_interests/discovery_feed_unified_nav/screen.png" width="160" /><br/>Discovery Feed | <img src="stitch_select_interests/matches_unified_nav/screen.png" width="160" /><br/>Matches |
+| <img src="stitch_select_interests/map_unified_nav/screen.png" width="160" /><br/>Map View | <img src="stitch_select_interests/activity_details_unified_nav/screen.png" width="160" /><br/>Activity Details | <img src="stitch_select_interests/leaderboard_unified_nav/screen.png" width="160" /><br/>Leaderboard | <img src="stitch_select_interests/create_activity_step_1_unified_nav/screen.png" width="160" /><br/>Create Activity 1 |
+| <img src="stitch_select_interests/create_activity_step_2_unified_nav/screen.png" width="160" /><br/>Create Activity 2 | <img src="stitch_select_interests/friends_unified_nav/screen.png" width="160" /><br/>Friends | <img src="stitch_select_interests/messages_unified_nav/screen.png" width="160" /><br/>Messages | <img src="stitch_select_interests/messages_chat/screen.png" width="160" /><br/>Chat |
+| <img src="stitch_select_interests/notifications_unified_nav/screen.png" width="160" /><br/>Notifications | <img src="stitch_select_interests/profile_unified_nav/screen.png" width="160" /><br/>Profile | <img src="stitch_select_interests/edit_profile_unified_nav/screen.png" width="160" /><br/>Edit Profile | <img src="stitch_select_interests/settings_unified_nav/screen.png" width="160" /><br/>Settings |
+
+<img src="stitch_select_interests/event_access_unified_nav/screen.png" width="160" /><br/>Event QR Access
+
+</div>
+
 ---
 
 ## Table of Contents
@@ -122,6 +135,8 @@ Hub/
 
 ### 1. Onboarding / Login
 
+<img src="stitch_select_interests/onboarding_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/OnboardingScreen.tsx`  
 **Design:** `designs/Onboarding___Login.html`
 
@@ -140,6 +155,8 @@ The app's entry point. A single screen handles three modes: **start** (hero/land
 
 ### 2. Select Interests
 
+<img src="stitch_select_interests/select_interests_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/SelectInterestsScreen.tsx`  
 **Design:** `designs/Select_Interests.html`
 
@@ -156,6 +173,8 @@ Step 2 of onboarding. New users pick at least 3 interests from a masonry grid of
 ---
 
 ### 3. Discovery Feed
+
+<img src="stitch_select_interests/discovery_feed_unified_nav/screen.png" width="280" align="right" />
 
 **File:** `src/screens/DiscoveryFeedScreen.tsx`  
 **Design:** `designs/Discovery_Feed.html`
@@ -176,6 +195,8 @@ The main home screen. Activities are displayed as a large hero card + 2-up side 
 
 ### 4. Matches & Connections
 
+<img src="stitch_select_interests/matches_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/MatchesListScreen.tsx`  
 **Design:** `designs/Matches_List.html`
 
@@ -192,6 +213,8 @@ Social hub showing friend suggestions ("New Vibes") and accepted friends ("Activ
 ---
 
 ### 5. Map View
+
+<img src="stitch_select_interests/map_unified_nav/screen.png" width="280" align="right" />
 
 **File:** `src/screens/MapViewScreen.tsx`  
 **Design:** `designs/Map_View.html`
@@ -212,6 +235,8 @@ Full-screen Mapbox dark map (`mapbox://styles/mapbox/dark-v11`) showing the user
 
 ### 6. Activity Details
 
+<img src="stitch_select_interests/activity_details_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/ActivityDetailsScreen.tsx`  
 **Design:** `designs/Activity_Details.html`
 
@@ -231,6 +256,8 @@ Full detail view for a single activity. Shows the hero image, all metadata, atte
 
 ### 7. Leaderboard
 
+<img src="stitch_select_interests/leaderboard_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/ActivityLeaderboardScreen.tsx`  
 **Design:** `designs/Activity_Leaderboard.html`
 
@@ -249,6 +276,8 @@ Points-based global ranking with a podium view for the top 3 and a scrollable ra
 
 ### 8. Create Activity — Step 1
 
+<img src="stitch_select_interests/create_activity_step_1_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/CreateActivityStep1Screen.tsx`  
 **Design:** `designs/Create_Activity_-_Step_1.html`
 
@@ -265,6 +294,8 @@ First step of the two-step activity creation flow. The user selects an activity 
 ---
 
 ### 9. Create Activity — Step 2
+
+<img src="stitch_select_interests/create_activity_step_2_unified_nav/screen.png" width="280" align="right" />
 
 **File:** `src/screens/CreateActivityStep2Screen.tsx`  
 **Design:** `designs/Create_Activity_-_Step_2.html`
@@ -285,6 +316,8 @@ Second step: fill in the activity details. 3-segment linear progress bar, title 
 
 ### 10. Friends Discovery
 
+<img src="stitch_select_interests/friends_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/FriendsDiscoveryScreen.tsx`  
 **Design:** `designs/Friends_Discovery.html`
 
@@ -303,6 +336,8 @@ Finding and adding new friends. A swipeable "Vibe Matches" section shows user ca
 
 ### 11. Messages List
 
+<img src="stitch_select_interests/messages_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/MessagesListScreen.tsx`  
 **Design:** `designs/Messages___Chat.html`
 
@@ -319,6 +354,8 @@ The messaging inbox showing all conversations sorted by most-recent message. A h
 ---
 
 ### 12. Messages Chat
+
+<img src="stitch_select_interests/messages_chat/screen.png" width="280" align="right" />
 
 **File:** `src/screens/MessagesChatScreen.tsx`  
 **Design:** `designs/Messages___Chat.html`
@@ -339,6 +376,8 @@ The messaging inbox showing all conversations sorted by most-recent message. A h
 
 ### 13. Notifications Center
 
+<img src="stitch_select_interests/notifications_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/NotificationsCenterScreen.tsx`  
 **Design:** `designs/Notifications_Center.html`
 
@@ -356,6 +395,8 @@ Categorised notification inbox split into NEW MATCHES, ACTIVITY, and MESSAGES se
 ---
 
 ### 14. User Profile
+
+<img src="stitch_select_interests/profile_unified_nav/screen.png" width="280" align="right" />
 
 **File:** `src/screens/UserProfileScreen.tsx`  
 **Design:** `designs/User_Profile.html`
@@ -376,6 +417,8 @@ The current user's profile page. Shows photo, name, bio, points, global rank, an
 
 ### 15. Edit Profile
 
+<img src="stitch_select_interests/edit_profile_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/EditProfileScreen.tsx`  
 **Design:** `designs/Edit_Profile.html`
 
@@ -394,6 +437,8 @@ Form screen for updating display name, bio, and interests. Loads current data on
 
 ### 16. Settings
 
+<img src="stitch_select_interests/settings_unified_nav/screen.png" width="280" align="right" />
+
 **File:** `src/screens/SettingsScreen.tsx`  
 **Design:** `designs/Settings_Screen.html`
 
@@ -410,6 +455,8 @@ Control-centre style settings page with grouped sections. Toggle switches for Ne
 ---
 
 ### 17. Event Access QR
+
+<img src="stitch_select_interests/event_access_unified_nav/screen.png" width="280" align="right" />
 
 **File:** `src/screens/EventAccessQRScreen.tsx`  
 **Design:** `stitch_select_interests/event_access_qr/code.html`
